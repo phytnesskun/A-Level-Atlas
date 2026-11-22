@@ -1,7 +1,9 @@
 # A-Level Atlas
 为中文学习者和国际课程教师制作的课程知识图谱与练习。可以免费在线试用，也可以下载到本地备课、授课或自学。
 
-[在线打开 A-Level Atlas](https://phytnesskun.github.io/A-Level-Atlas/) · [下载离线包](https://github.com/phytnesskun/A-Level-Atlas/raw/refs/heads/main/downloads/A-Level-Atlas-trial-0.3.0.zip) · [反馈问题或建议](https://github.com/phytnesskun/A-Level-Atlas/issues/new)
+[在线打开 A-Level Atlas](https://phytnesskun.github.io/A-Level-Atlas/) · [下载离线包](https://github.com/phytnesskun/A-Level-Atlas/raw/refs/heads/main/downloads/A-Level-Atlas-trial-0.4.0.zip) · [反馈问题或建议](https://github.com/phytnesskun/A-Level-Atlas/issues/new)
+
+**第一次带班试用**　[直接打开 Motion Graphs 第 3 题](https://phytnesskun.github.io/A-Level-Atlas/?v=0.4.0#motion-3)。预留约 10 分钟，先让学生自己做，再看「回顾我的作答」核对他的想法。该题支持看着原图分步求助，答对原题后可选一张新图无提示复测。可把题号、版本、设备和遇到的步骤交给老师统一反馈。
 
 **六科图谱。** 选择 CAIE 或 Pearson Edexcel、学段与学科，查看数学、进阶数学、物理、化学、生物与经济的知识关系。有多条选考路线的数学课程保留模块信息。图谱覆盖 26 个资格，包含 976 个知识节点。默认显示教师已确认的依据，待审关系可另行查看。各资格采用各自标注的考纲版本。
 

@@ -140,7 +140,23 @@ var {font:italic 1.07em/1 Georgia,serif}
 #translation {margin:0 0 18px;font-size:.86rem;color:var(--muted)}
 #translation summary {cursor:pointer;width:fit-content}
 #translation p {font-size:.96rem;margin:6px 0 0;max-width:64ch}
-#question-figure svg {font:13px system-ui,sans-serif;color:var(--ink)}
+figure svg {font:13px system-ui,sans-serif;color:var(--ink)}
+.marked-endpoint {fill:#fff;stroke:#803f1e;stroke-width:3}
+.endpoint-label {fill:#683719;font-weight:700}
+figure figcaption {font-size:.78rem;color:var(--muted)}
+#diagnosis figure,#follow-up figure,#transfer figure {margin:.65rem 0;background:#fbfcf8;border:1px solid #c8d4c9}
+#trial-guide,#trial-feedback {margin:.65rem 0 1rem;font-size:.91rem}
+#trial-guide p,#trial-feedback p {max-width:72ch;line-height:1.65;margin:.55rem 0}
+#trial-feedback input {display:block;max-width:100%;width:32rem;background:#fff;border:1px solid var(--line);padding:.4rem;color:var(--ink)}
+#transfer {border-top:1px solid var(--line);margin-top:.75rem;padding-top:.65rem}
+#transfer h5 {font-size:1rem;margin:.25rem 0}
+#transfer button {display:inline-block;max-width:100%;min-height:40px;margin:3px 5px 3px 0;padding:6px 10px;border:1px solid #819787;border-radius:6px;background:white;color:var(--ink);text-align:start}
+#transfer [data-action=open-transfer] {font-weight:600}
+#transfer details {font-size:.9rem;margin:.5rem 0}
+@media (max-width:520px) {
+  #diagnosis figure,#follow-up figure,#transfer figure {margin-inline:-6px;padding:6px}
+  figure svg {font-size:17px}
+}
 .plot-grid {stroke:#c9d8ce;stroke-dasharray:3 3;fill:none}
 .plot-axis {stroke:#374c42;stroke-width:1.6;fill:none}
 .plot-line {fill:none;stroke:#176050;stroke-width:3}
@@ -163,7 +179,7 @@ var {font:italic 1.07em/1 Georgia,serif}
       <nav aria-label="主要导航">
         <a href="graph/dist/index.html">知识图谱</a>
         <a href="#topics">试用专题</a>
-        <a id="download" href="downloads/A-Level-Atlas-trial-0.3.0.zip" download>下载离线包</a>
+        <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0.zip" download>下载离线包</a>
         <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈 ↗</a>
       </nav>
     </div>
@@ -181,6 +197,11 @@ var {font:italic 1.07em/1 Georgia,serif}
     <section id="topics" aria-labelledby="topics-title">
       <h2 id="topics-title">可试用专题</h2>
       <div id="topic-cards"></div>
+      <details id="trial-guide"><summary>老师带班试用 · 约 10 分钟</summary>
+        <p>先请一位学生打开 <a href="#motion-3">Motion Graphs 第 3 题</a>，按自己的想法作答。卡住时点「我不确定」，请学生指出正在看哪个点、怎样读出变化。做回原题后，可选「换一张图，自己试试」。</p>
+        <p>一起打开「回顾我的作答」，请学生指出哪一步得到了帮助。老师记下符合学生想法的一处、需要修改的一处，用题下的反馈入口交给项目。</p>
+        <p>作答保存在本浏览器。共用设备时，先让上一位学生看完记录，再用「重置本组练习」为下一位清空该专题。</p>
+      </details>
     </section>
     <section class="practice" id="practice" aria-labelledby="practice-name">
       <div class="section-head">
@@ -211,11 +232,17 @@ var {font:italic 1.07em/1 Georgia,serif}
             <p id="confidence-text" hidden></p>
             <div id="follow-up" hidden></div>
             <div id="diagnosis" tabindex="-1" hidden></div>
+            <section id="transfer" tabindex="-1" aria-label="换图独立练习" hidden></section>
             <button class="next" id="next" type="button">下一题 →</button>
           </section>
         </div>
       </div>
-      <p class="question-feedback"><a id="question-feedback" href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈这道题 ↗</a></p>
+      <p class="local-note">练习记录仅保存在本浏览器。共用设备请先确认本组记录属于自己。</p>
+      <details id="trial-feedback"><summary>反馈这道题</summary>
+        <p>把下面的题号和版本交给老师，再写一句「我在哪一步、看到了什么、原本希望看到什么」。</p>
+        <label>题号和版本 <input id="feedback-context" type="text" readonly></label>
+        <p>有 GitHub 账号也可以直接提交。内容会公开，请省略学生姓名和个人作答档案。 <a id="question-feedback" href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">提交到 GitHub ↗</a></p>
+      </details>
       <details id="history">
         <summary>回顾我的作答</summary>
         <div id="history-content"></div>
@@ -388,6 +415,32 @@ const motionQuestions = [
       choices: ["−3 m", "+3 m"],
       correct: 0,
       explanation: "位移读数从 5 m 降到 2 m，变化量为 −3 m。回到原题，把这个带符号的变化量除以相应的时间间隔。"
+    },
+    transfer: {
+      id: "motion-3-transfer-1",
+      skill: "从位移–时间图求 velocity",
+      prompt: "A trolley moves along a track. Use its displacement–time graph below. What are its velocities at 2 s and at 5 s, respectively?",
+      support: "看这张小车的新图。小车在 2 s 和 5 s 时的 velocity 分别是多少？",
+      chart: {
+        xLabel: "t / s", yLabel: "s / m", xMax: 7, yMax: 6,
+        xTicks: [0, 1, 2, 3, 4, 5, 6, 7], yTicks: [0, 1, 2, 3, 4, 5, 6],
+        points: [[0, 4], [4, 2], [6, 6], [7, 6]],
+        description: "Trolley displacement in metres against time in seconds. Straight segments join (0, 4), (4, 2), (6, 6) and (7, 6)."
+      },
+      choices: [
+        "+0.50 m s⁻¹, +2.0 m s⁻¹", "−2.0 m s⁻¹, +4.0 m s⁻¹",
+        "−0.50 m s⁻¹, +2.0 m s⁻¹", "−2.0 m s⁻¹, +0.50 m s⁻¹"
+      ],
+      correct: 2,
+      wrongSkills: {0: "sign", 1: "gradient", 3: "gradient"},
+      originalSkills: {1: "sign"},
+      explain: "2 s 在第一段，velocity 为 (2 − 4) m ÷ (4 − 0) s = −0.50 m s⁻¹。5 s 在第二段，velocity 为 (6 − 2) m ÷ (6 − 4) s = +2.0 m s⁻¹。",
+      explanations: [
+        "你选的两个速度大小都对。再看第一段，随着时间增加，位移从 4 m 降到 2 m，所以第一个 velocity 带负号。",
+        "−2 m 和 +4 m 是两段各自的位移变化量。第一段用了 4 s，第二段用了 2 s。用各段的位移变化量除以相应的时长。",
+        "2 s 时斜率为 −2 m ÷ 4 s = −0.50 m s⁻¹。5 s 时斜率为 +4 m ÷ 2 s = +2.0 m s⁻¹。这两个值与所选答案一致。",
+        "这组数分别等于每段的时间变化量除以位移变化量。速度表示每秒位移改变了多少，所以用位移变化量除以时间变化量。"
+      ]
     }
   },
   {
@@ -773,14 +826,14 @@ const physicsProbes = {
     },
     {
       skill: "把增加的储能对应到区间内的面积",
-      prompt: "一幅图的纵轴是电压，横轴是电荷量。求从 1 μC 充到 5 μC 时增加的储能，应取哪一段图线下的面积？",
+      prompt: "电容器上的电荷量从 1 μC 增至 5 μC。如果用电压–电荷图下的面积表示这次增加的储能，应该取哪个电荷区间？",
       choices: ["从 0 到 5 μC", "从 1 到 5 μC"],
       correct: 1,
       explain: "每一小段新增电荷对应的功约为当时电压乘以该段电荷量。把 1 到 5 μC 内的这些小块面积合起来，就得到这一段增加的储能。"
     },
     {
       skill: "计算非零起点下的梯形面积",
-      prompt: "在另一幅电压–电荷直线图上，一段的电荷增量为 3 μC，两端的电压为 2 V 和 8 V。这一段增加的储能是多少？",
+      prompt: "用这组数算一算。电容器增加了 3 μC 电荷，电压随电荷量线性地从 2 V 升至 8 V。这一段增加的储能是多少？",
       choices: ["15 μJ", "9 μJ"],
       correct: 0,
       explain: "直线段的平均高度为 (2 + 8)/2 = 5 V，乘宽 3 μC 得 15 μJ。用两端高度之差算三角形会漏掉底部矩形。"
@@ -923,6 +976,34 @@ const physicsProbes = {
     }
   ]
 };
+
+// v0.3.0 records still replay with the original motion-3 items above.
+const motion3SameGraphProbes = [
+  {
+    key: "readings", figure: "endpoints",
+    skill: "读出原图两个时刻的位移",
+    prompt: "看原图上标出的两个端点。先读 2 s 时的位移，再读 5 s 时的位移。这两个读数依次是多少？",
+    choices: ["2 m、5 m", "5 m、3 m", "5 m、2 m"],
+    correct: 2,
+    explain: "先从横轴的 2 s 向上找到端点，再向左对齐纵轴，读到 5 m。用同样的方法，5 s 时读到 2 m。"
+  },
+  {
+    key: "direction", figure: "original",
+    skill: "读出这段位移的变化方向",
+    prompt: "看原题这张图。找到横轴上的 4 s，向上找到图线。沿它所在的直线段向右看，位移读数怎样变化？",
+    choices: ["变大", "变小", "保持不变"],
+    correct: 1,
+    explain: "沿横轴向右，时间在增加。4 s 所在的直线段向右下方延伸，位移读数在变小。"
+  },
+  {
+    key: "sign", figure: "original",
+    skill: "由位移变化判断 velocity 的符号",
+    prompt: "还是原图。在 4 s 所在的这段直线上，随着时间增加，位移读数变小。机器人在 4 s 时的 velocity 是什么符号？",
+    choices: ["负", "零", "正"],
+    correct: 0,
+    explain: "位移读数变小，所以末位移减初位移是负数。用这个负的变化量除以正的时间间隔，得到负的 velocity。回原题时，再从图上求出它的大小。"
+  }
+];
 
 </script>
 <script>
@@ -1190,6 +1271,15 @@ const edexcelProbes = {
 // Keep only the student's actions. Replaying them also restores an unfinished check offline.
 const diagnosticProbes = { ...physicsProbes, ...edexcelProbes };
 
+function legacyGraphSteps(q, a) {
+  return q.id === "motion-3" && a.probeVersion !== 2 && Array.isArray(a.steps) && a.steps.length > 0;
+}
+
+function probesFor(q, a) {
+  if (q.id === "motion-3" && !legacyGraphSteps(q,a)) return motion3SameGraphProbes;
+  return diagnosticProbes[q.id || q.ref];
+}
+
 function diagnosisState(steps, actions = []) {
   let level = 1;
   let step = steps[level];
@@ -1248,6 +1338,7 @@ function diagnosisState(steps, actions = []) {
   const attempts = new Map();
   const visited = new Map();
   const retrying = new Set();
+  const foldedTransfers = new Set();
 
   function mathText(el, text) {
     el.replaceChildren();
@@ -1262,8 +1353,7 @@ function diagnosisState(steps, actions = []) {
       }
     }
   }
-  function renderFigure(question) {
-    const figure = find("question-figure");
+  function renderFigure(question, figure = find("question-figure"), markEndpoints = false) {
     figure.replaceChildren();
     figure.hidden = !question.chart && !question.circuitSvg;
     if (question.circuitSvg) {
@@ -1277,7 +1367,7 @@ function diagnosisState(steps, actions = []) {
     const svg = document.createElementNS(ns,"svg");
     svg.setAttribute("viewBox","0 0 400 224");
     svg.setAttribute("role","img");
-    svg.setAttribute("aria-label", c.description);
+    svg.setAttribute("aria-label", c.description + (markEndpoints ? " A and B mark the second and third points." : ""));
     figure.append(svg);
     function draw(tag, attrs, text) {
       const el = document.createElementNS(ns,tag);
@@ -1298,6 +1388,12 @@ function diagnosisState(steps, actions = []) {
     }
     draw("path", {d:"M60 27V168H365",class:"plot-axis"});
     draw("polyline", {points:c.points.map(([a,b])=> x(a)+","+y(b)).join(" "),class:"plot-line"});
+    if (markEndpoints) {
+      for (const [i, [t, s]] of c.points.slice(1,3).entries()) {
+        draw("circle", {cx:x(t),cy:y(s),r:6,class:"marked-endpoint"});
+        draw("text", {x:x(t)+10,y:y(s)-5,class:"endpoint-label"},i === 0 ? "A" : "B");
+      }
+    }
     for (const [label,attrs] of [[c.xLabel,{x:357,y:209,"text-anchor":"end"}],[c.yLabel,{x:41,y:19}]]) {
       const el = draw("text",attrs);
       const [symbol,unit] = label.split(" / ");
@@ -1314,6 +1410,7 @@ function diagnosisState(steps, actions = []) {
     panel.replaceChildren();
     panel.hidden = !probe || attempt.choice !== probe.choice;
     if (panel.hidden) return;
+    if (q.transfer) appendChart(panel,q,"原题图");
     const prompt = document.createElement("p");
     mathText(prompt, probe.prompt);
     panel.append(prompt);
@@ -1368,7 +1465,7 @@ function diagnosisState(steps, actions = []) {
     return a && (a.choice === unsure || Array.isArray(a.steps));
   }
   function getDiagnosis(q, a) {
-    return diagnosisState(diagnosticProbes[idOf(q)], Array.isArray(a.steps) ? a.steps : []);
+    return diagnosisState(probesFor(q, a), Array.isArray(a.steps) ? a.steps : []);
   }
   function retryOriginal(q) {
     retrying.add(idOf(q));
@@ -1380,14 +1477,22 @@ function diagnosisState(steps, actions = []) {
     const label = check.choice === unsure ? "我不确定" : step.choices[check.choice];
     const outcome = check.choice === unsure ? "还没有把握"
       : check.correct ? (check.repeated ? "✓ 看过此题讲解后答对" : "✓ 这一步答对") : "这一步答错";
-    return step.skill + " · " + label + "（" + outcome + "）" + (check.still ? " · 看过讲解后仍有疑问" : "");
+    return step.skill + (step.figure === "endpoints" ? "（已标出端点）" : "") + " · " + label + "（" + outcome + "）" + (check.still ? " · 看过讲解后仍有疑问" : "");
+  }
+  function appendChart(panel, question, caption, markEndpoints = false) {
+    const figure = document.createElement("figure");
+    renderFigure(question,figure,markEndpoints);
+    const title = document.createElement("figcaption");
+    title.textContent = caption;
+    figure.prepend(title);
+    panel.append(figure);
   }
   function renderDiagnosis(q, a) {
     const panel = find("diagnosis");
     panel.replaceChildren();
     panel.hidden = a.choice === q.correct && !a.doubt && !hasDiagnosis(a);
     if (panel.hidden) return;
-    const steps = diagnosticProbes[idOf(q)];
+    const steps = probesFor(q,a);
     const state = getDiagnosis(q, a);
     const step = state.step;
     const active = hasDiagnosis(a);
@@ -1414,6 +1519,15 @@ function diagnosisState(steps, actions = []) {
         renderQuestion();
         return;
       }
+      if (act === "restart-on-graph") {
+        list.push({choice:last.choice,doubt:last.doubt,afterHelp:true,probeVersion:2,steps:[]});
+        saveList(q,list);
+        refreshOverview();
+        showFeedback(q,list.at(-1));
+        panel.focus();
+        return;
+      }
+      if (q.transfer) last.probeVersion = 2;
       last.steps = [...(last.steps || [])];
       if (act !== "start") last.steps.push(act);
       saveList(q,list);
@@ -1428,6 +1542,11 @@ function diagnosisState(steps, actions = []) {
         action("回原题再试", "retry", () => retryOriginal(q));
       return;
     }
+    if (legacyGraphSteps(q,a)) {
+      line("p","上次的追问已保存在回顾里。现在可以直接看着机器人的原图继续。");
+      action("用原图继续","restart-on-graph",() => record("restart-on-graph"));
+      return;
+    }
     if (state.phase === "ask") {
       const previous = state.checks.at(-1);
       if (previous) line("small", previous.correct && !previous.still
@@ -1435,6 +1554,7 @@ function diagnosisState(steps, actions = []) {
         : "上一步需要帮助 · " + previous.step.skill);
       line("h5", step.skill);
       line("p", step.prompt);
+      if (step.figure) appendChart(panel,q,"原题图 · displacement–time",step.figure === "endpoints");
       step.choices.forEach((choice,i) => action(choice,i,() => record(i),true));
       action("这一步我也不确定", unsure, () => record(unsure),true);
     } else if (state.phase === "explain") {
@@ -1442,6 +1562,7 @@ function diagnosisState(steps, actions = []) {
       line("h5", check.choice === unsure ? "一起看这一步" : check.correct ? "✓ 这一步答对了" : "核对这一步");
       line("p", checkSummary(step,check));
       line("p", step.explain);
+      if (step.figure) appendChart(panel,q,"原题图 · displacement–time",step.figure === "endpoints");
       const next = diagnosisState(steps,[...(a.steps || []),"continue"]);
       const label = next.phase === "teacher" ? "记下要请老师看的这一步"
         : next.phase === "retry" ? "回到原题，自己再试"
@@ -1472,6 +1593,91 @@ function diagnosisState(steps, actions = []) {
       storageAvailable = false;
       return attempts.get(idOf(question)) || [];
     }
+  }
+  function transferSummary(q, result, records) {
+    const t = q.transfer;
+    if (result.choice === null) return "新图已打开，尚未作答。";
+    if (result.choice === unsure) return "新图首次选择了「我不确定」，可以请老师一起读图。";
+    if (result.choice === t.correct) return "换图后，首次无提示作答正确。";
+    const key = t.wrongSkills?.[result.choice];
+    const sameDifficulty = key && records.some(a => (a.probeVersion === 2 && t.originalSkills?.[a.choice] === key) ||
+      (hasDiagnosis(a) && !legacyGraphSteps(q,a) &&
+       getDiagnosis(q,a).checks.some(c => c.step.key === key && !c.correct && c.choice !== unsure)));
+    return sameDifficulty ? "原图和新图在同一步都出现了错误，建议优先复习：" + (motion3SameGraphProbes.find(s => s.key === key)?.skill || t.skill) + "。"
+      : "新图首次作答有误，建议和老师核对这次的读图与计算。";
+  }
+  function renderTransfer(q, attempt) {
+    const panel = find("transfer");
+    panel.replaceChildren();
+    panel.hidden = !q.transfer || attempt.choice !== q.correct || hasDiagnosis(attempt);
+    if (panel.hidden) return;
+    const t = q.transfer;
+    const records = attempts.get(idOf(q)) || [];
+    const resultIndex = records.findIndex(a => a.transfer?.id === t.id);
+    const result = records[resultIndex]?.transfer;
+    function button(label, field, value, fn) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.dataset[field] = value;
+      mathText(b,label);
+      b.onclick = fn;
+      panel.append(b);
+    }
+    function update(choice) {
+      const list = storageAvailable ? readAttempts(q) : (attempts.get(idOf(q)) || []);
+      const last = list.at(-1);
+      if (!last || JSON.stringify(last) !== JSON.stringify(attempt)) {
+        attempts.set(idOf(q),list);
+        visited.delete(idOf(q));
+        renderQuestion();
+        return;
+      }
+      let owner = list.find(a => a.transfer?.id === t.id);
+      if (!owner) {
+        owner = last;
+        owner.transfer = {id:t.id,choice:null};
+      }
+      if (owner.transfer.choice === null) owner.transfer.choice = choice;
+      saveList(q,list);
+      foldedTransfers.delete(t.id);
+      refreshOverview();
+      showFeedback(q,last);
+      panel.focus();
+    }
+    if (!result || foldedTransfers.has(t.id)) {
+      button(result && result.choice !== null ? "回看我的新图作答" : "换一张图，自己试试","action","open-transfer",() => update(null));
+      return;
+    }
+    const title = document.createElement("h5");
+    title.textContent = "换图独立练习";
+    const prompt = document.createElement("p");
+    prompt.lang = "en";
+    mathText(prompt,t.prompt);
+    panel.append(title,prompt);
+    const translation = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = "查看中文题意";
+    const translated = document.createElement("p");
+    mathText(translated,t.support);
+    translation.append(summary,translated);
+    panel.append(translation);
+    appendChart(panel,t,"新题图 · displacement–time");
+    if (result.choice === null) {
+      t.choices.forEach((c,i) => button(c,"choice",i,() => update(i)));
+      button("我不确定","choice",unsure,() => update(unsure));
+    } else {
+      const outcome = document.createElement("p");
+      const label = result.choice === unsure ? "我不确定" : t.choices[result.choice];
+      mathText(outcome,"我的选择：" + label + "。" + transferSummary(q,result,records.slice(0,resultIndex+1)));
+      const explanation = document.createElement("p");
+      mathText(explanation,t.explanations?.[result.choice] || t.explain);
+      panel.append(outcome,explanation);
+    }
+    button("收起新图，回到原题","action","close-transfer",() => {
+      foldedTransfers.add(t.id);
+      renderTransfer(q,attempt);
+      find("question").focus();
+    });
   }
   function refreshAttempts() {
     if (storageAvailable) {
@@ -1517,6 +1723,7 @@ function diagnosisState(steps, actions = []) {
     if (hasDiagnosis(attempt)) find("follow-up").hidden = true;
     else renderProbe(question, attempt);
     renderDiagnosis(question, attempt);
+    renderTransfer(question, attempt);
     const note = find("confidence-text");
     note.hidden = !attempt.doubt || attempt.choice === unsure;
     note.textContent = note.hidden ? "" : "你的不确定标记已记入本次作答。";
@@ -1545,7 +1752,7 @@ function diagnosisState(steps, actions = []) {
       h.textContent = q.ref + "　" + q.title;
       content.append(h);
       const ol = document.createElement("ol");
-      list.forEach((item) => {
+      list.forEach((item, attemptIndex) => {
         const entry = document.createElement("li");
         const choice = document.createElement("strong");
         mathText(choice, attemptLabel(q, item) + (item.choice === unsure ? "" : "　" + q.choices[item.choice][0]));
@@ -1563,6 +1770,18 @@ function diagnosisState(steps, actions = []) {
         }
         if (hasDiagnosis(item)) {
           const state = getDiagnosis(q,item);
+          if (legacyGraphSteps(q,item)) {
+            const legacy = document.createElement("p");
+            legacy.textContent = "旧版追问（0.3.0）· 按当时的题意保留作答。";
+            entry.append(legacy);
+          }
+          if (q.transfer && !legacyGraphSteps(q,item)) {
+            const observation = document.createElement("p");
+            const wrong = state.checks.findLast(c => !c.correct && c.choice !== unsure);
+            if (wrong) observation.textContent = "当时待复核 · " + wrong.step.skill;
+            else if (item.choice === unsure && !state.checks.length) observation.textContent = "本题主动求助，具体卡点待核对。";
+            if (observation.textContent) entry.append(observation);
+          }
           const trail = document.createElement("ul");
           for (const check of state.checks) {
             const step = check.step;
@@ -1570,6 +1789,11 @@ function diagnosisState(steps, actions = []) {
             mathText(result,checkSummary(step,check));
             const explanation = document.createElement("p");
             mathText(explanation,step.explain);
+            if (legacyGraphSteps(q,item)) {
+              const prompt = document.createElement("p");
+              mathText(prompt,"当时的问题：" + step.prompt);
+              result.append(prompt);
+            }
             result.append(explanation);
             trail.append(result);
           }
@@ -1580,6 +1804,13 @@ function diagnosisState(steps, actions = []) {
           else if (state.phase === "retry") note.textContent = "已回到原题重试。";
           else if (item === last) note.textContent = "当前核对 · " + state.step.skill;
           if (note.textContent) entry.append(note);
+        }
+        if (q.transfer && item.transfer?.id === q.transfer.id) {
+          const transfer = document.createElement("p");
+          const result = item.transfer;
+          const selected = Number.isInteger(result.choice) ? "首选 " + q.transfer.choices[result.choice] + "。" : "";
+          mathText(transfer,"换图核验 · " + selected + transferSummary(q,result,list.slice(0,attemptIndex+1)));
+          entry.append(transfer);
         }
         ol.append(entry);
       });
@@ -1640,8 +1871,10 @@ function diagnosisState(steps, actions = []) {
     mathText(find("support"), q.support);
     find("translation").open = false;
     const issue = new URL("https://github.com/phytnesskun/A-Level-Atlas/issues/new");
+    const context = "Atlas 0.4.0 · " + topic.label + " · " + q.ref + " · " + idOf(q);
+    find("feedback-context").value = context;
     issue.searchParams.set("title", topic.title + " · " + q.ref + " · " + q.title);
-    issue.searchParams.set("body", "课程：" + topic.label + " · " + topic.edition + "\n题目：" + idOf(q) + "\n我想反馈的题干、选项或追问：\n");
+    issue.searchParams.set("body", context + "\n考纲：" + topic.edition + "\n遇到的步骤：\n实际看到的内容：\n期待的内容：\n（公开反馈，请省略个人资料。）");
     find("question-feedback").href = issue.href;
     renderFigure(q);
     find("choices").querySelectorAll("label").forEach((label) => label.remove());
@@ -1728,11 +1961,13 @@ function diagnosisState(steps, actions = []) {
     if (selectedChoice() === unsure) find("answer-form").requestSubmit();
   });
   find("low-confidence").addEventListener("change", syncForm);
+  find("feedback-context").addEventListener("focus", event => event.target.select());
   find("answer-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const q = questions[index], choice = selectedChoice();
     if (choice === null) return;
     const answer = {choice, doubt: find("low-confidence").checked};
+    if (q.transfer) answer.probeVersion = 2;
     const list = storageAvailable ? readAttempts(q) : (attempts.get(idOf(q)) || []);
     const last = list.at(-1);
     if (retrying.delete(idOf(q)) || !last || last.choice !== answer.choice || last.doubt !== answer.doubt) {
@@ -1760,6 +1995,7 @@ function diagnosisState(steps, actions = []) {
       try { localStorage.removeItem(storageKey(q)); } catch { storageAvailable = false; }
     });
     for (const q of questions) { attempts.delete(idOf(q)); visited.delete(idOf(q)); retrying.delete(idOf(q)); }
+    for (const q of questions) if (q.transfer) foldedTransfers.delete(q.transfer.id);
     find("history").open = false;
     index = 0;
     renderQuestion();
