@@ -51,6 +51,7 @@ button:disabled {cursor:default}
 .questions-nav a[aria-current] {background:#dce8d9;font-weight:700}
 .questions-nav small {font-size:.74rem;color:var(--muted)}
 .questions-nav a[data-answered]::after {content:"";display:inline-block;margin-left:auto;width:7px;height:7px;border-radius:50%;background:#336541;align-self:center}
+.questions-nav a[data-pending]::after {content:"";margin-left:auto;width:7px;height:7px;border-radius:50%;border:1px solid #99672e;align-self:center;flex:none}
 .task {background:#fffffa;border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3.2vw,36px);min-width:0}
 .task-label {font-size:.8rem;color:var(--muted);margin-bottom:10px}
 #question {color:var(--ink);max-width:67ch;font-size:1.125rem;font-weight:400;line-height:1.6;letter-spacing:normal;margin:0 0 9px;scroll-margin-top:16px}
@@ -77,6 +78,15 @@ figure svg {display:block;width:min(100%,380px);height:auto;margin:auto}
 .feedback[data-outcome=correct] {background:#e8f2e5;border-color:#43825a}
 .feedback h4 {margin:0 0 4px}
 .feedback p {margin:4px 0}
+#diagnosis {margin-top:12px;border-top:1px solid #d2c5ab;padding-top:10px;scroll-margin:16px}
+#diagnosis h5 {margin:0 0 4px;font-size:1rem}
+#diagnosis p {line-height:1.6}
+#diagnosis small,#diagnosis a {display:block;margin:.25rem 0 .55rem;color:#40564c}
+#diagnosis button {display:inline-block;padding:7px 11px;margin:6px 6px 0 0;border:1px solid #819787;border-radius:6px;background:#fff;color:var(--ink);text-align:start}
+#diagnosis button:hover {background:#edf4e8}
+#diagnosis button[data-action=continue],#diagnosis button[data-action=start] {color:white;background:var(--green)}
+#retry-note {padding:8px 12px;border-inline-start:3px solid var(--green);color:var(--green);font-size:.93rem}
+#history-content ul {padding-inline-start:20px}
 #confidence-text {font-size:.85rem;color:#4d5f51}
 .next {margin-top:7px;padding:4px 0;background:none;color:#24483a;text-decoration:underline;text-underline-offset:3px}
 #history {margin:18px 0 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 6px}
@@ -153,7 +163,7 @@ var {font:italic 1.07em/1 Georgia,serif}
       <nav aria-label="主要导航">
         <a href="graph/dist/index.html">知识图谱</a>
         <a href="#topics">试用专题</a>
-        <a id="download" href="downloads/A-Level-Atlas-trial-0.2.0.zip" download>下载离线包</a>
+        <a id="download" href="downloads/A-Level-Atlas-trial-0.3.0.zip" download>下载离线包</a>
         <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈 ↗</a>
       </nav>
     </div>
@@ -178,7 +188,7 @@ var {font:italic 1.07em/1 Georgia,serif}
           <p class="kicker" id="edition"></p>
           <h2 id="practice-name">Capacitance and Stored Energy</h2>
         </div>
-        <span class="progress" id="progress">已作答 0 / 6</span>
+        <span class="progress" id="progress">原题答对 0 / 6</span>
       </div>
       <noscript><p>请启用 JavaScript 以选择答案、查看反馈和回顾作答。</p></noscript>
       <div class="practice-grid">
@@ -188,6 +198,7 @@ var {font:italic 1.07em/1 Georgia,serif}
           <h3 id="question" tabindex="-1" lang="en"></h3>
           <details id="translation"><summary>查看中文题意</summary><p id="support"></p></details>
           <figure id="question-figure" hidden></figure>
+          <p id="retry-note" hidden>回到原题了。用刚才核对的方法，再选一次。</p>
           <form id="answer-form">
             <fieldset id="choices"><legend class="sr">选择一个答案</legend></fieldset>
             <div class="form-actions"><label class="confidence"><input type="checkbox" id="low-confidence" disabled> 我对所选答案也不确定</label>
@@ -196,8 +207,10 @@ var {font:italic 1.07em/1 Georgia,serif}
           </form>
           <section class="feedback" id="feedback" aria-live="polite" hidden>
             <h4 id="feedback-title"></h4><p id="feedback-text"></p>
+            <p id="review-skill" hidden></p>
             <p id="confidence-text" hidden></p>
             <div id="follow-up" hidden></div>
+            <div id="diagnosis" tabindex="-1" hidden></div>
             <button class="next" id="next" type="button">下一题 →</button>
           </section>
         </div>
@@ -217,6 +230,7 @@ var {font:italic 1.07em/1 Georgia,serif}
 
     <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">提交意见 ↗</a>
   </footer>
+<script>const trialGraphTargets = {"19.1.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.3":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.4":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.2.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2"},"19.2.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2"},"motion-1":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-2":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-3":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-4":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"circuits-1":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-2":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-3":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-4":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-5":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-6":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"quadratics-1":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-2":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-3":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-4":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-5":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"}};</script>
 <script>
 // Original A-Level Atlas practice. References identify the corresponding syllabus outcomes.
 const atlasQuestions = [
@@ -633,6 +647,591 @@ const studyTopics = [
 
 </script>
 <script>
+// These original probes are ordered from prerequisite to application.
+// Each worked example uses a fresh situation or intermediate quantity.
+const physicsProbes = {
+  "19.1.1": [
+    {
+      skill: "识别一块极板的电荷量",
+      prompt: "两块极板分别带 +4 μC 和 −4 μC。只看负极板，它带的电荷量的大小是多少？",
+      choices: ["4 μC", "8 μC"],
+      correct: 0,
+      explain: "负号表示电性。单看负极板，它的电荷量大小就是 4 μC。"
+    },
+    {
+      skill: "把电荷量与同一装置的电势差配对",
+      prompt: "两极板分别带 ±4 μC。它们相对地面的电势分别为 7 V 和 5 V。求两板组成的电容器的电容，分母应取哪个电压？",
+      choices: ["7 V", "2 V"],
+      correct: 1,
+      explain: "沿电容器的两个接线端比较电势，电势差为 7 V − 5 V = 2 V。单块板上的电荷量要和这个电势差配对。",
+      wrongFoundation: {
+        skill: "区分对地电势与两点间的电势差",
+        prompt: "A、B 两点相对地面都为 +6 V。电压表的两根表笔分别接 A、B，读数是多少？",
+        choices: ["0 V", "6 V"],
+        correct: 0,
+        explain: "两根表笔处在同一电势，读数为 6 − 6 = 0 V。把一根表笔移到地面，才会测到另一点相对地面的 6 V。"
+      }
+    },
+    {
+      skill: "在孤立导体上应用电容定义",
+      prompt: "一个孤立导体球带 +6 nC，相对无穷远的电势为 3 V。哪一个计算给出它的电容？",
+      choices: ["6 nC ÷ 3 V = 2 nF", "3 V ÷ 6 nC = 0.5 V/nC"],
+      correct: 0,
+      explain: "电容表示每伏对应的电荷量，6 nC 分摊到 3 V 得到每伏 2 nC。回原题时分别找出球和两块板各自的电压参照。"
+    }
+  ],
+  "19.1.2": [
+    {
+      skill: "读懂每伏对应的电荷量",
+      prompt: "一只电容器每升高 1 V，正极板电荷量就增加 2 nC。从 0 V 升到 3 V，电荷量增加多少？",
+      choices: ["1.5 nC", "6 nC"],
+      correct: 1,
+      explain: "把每伏的 2 nC 累计三次，得到 6 nC。电容 2 nF 就表示每伏对应 2 nC。"
+    },
+    {
+      skill: "由电荷量和电容求电压",
+      prompt: "每增加 1 V 能多储存 4 nC。现在从零充入了 12 nC，怎样求出电压升高了多少？",
+      choices: ["12 nC ÷ (4 nC/V)", "(4 nC/V) ÷ 12 nC"],
+      correct: 0,
+      explain: "每份是 4 nC，12 nC 中共有三份，所以电压升高 3 V。用符号表达就是 $V$ = $Q$/$C$。"
+    },
+    {
+      skill: "核对同前缀相除后电压的单位",
+      prompt: "另一只 5 nF 的电容器带 20 nC 电荷。算出 20 ÷ 5 = 4 后，结果应写成什么？",
+      choices: ["4 nV", "4 V"],
+      correct: 1,
+      explain: "分子和分母各有一个 10⁻⁹，约去后 C/F 等于 V。回原题时也可以用求出的电压乘以电容来核对电荷。"
+    }
+  ],
+  "19.1.3": [
+    {
+      skill: "从接线端判断两支路的电压",
+      prompt: "两只电容器都接在节点 A、B 之间。A 比 B 高 3 V，第二只电容器的两端电压是多少？",
+      choices: ["3 V", "1.5 V"],
+      correct: 0,
+      explain: "两只电容器的两端分别都是 A 和 B，两端电势相减都得到 3 V。"
+    },
+    {
+      skill: "从支路电荷建立并联的总电荷关系",
+      prompt: "两只起初不带电的电容器并联充电，接正端的两块极板最后分别带 +2 μC 和 +5 μC。两条支路合计从正端获得多少正电荷？",
+      choices: ["5 μC", "7 μC"],
+      correct: 1,
+      explain: "电源为两条支路分别充电，总电荷量为 2 μC + 5 μC。把各支路的电荷写成 $CV$ 时，它们使用共同的电压。",
+      wrongFoundation: {
+        skill: "把流入两条支路的电荷都计入总量",
+        prompt: "在一个分岔处，1 μC 电荷流入左支路，另外 1 μC 流入右支路。分岔前的主线一共输送了多少电荷？",
+        choices: ["1 μC", "2 μC"],
+        correct: 1,
+        explain: "两份电荷都经过主线，然后各进入一条支路。由电荷守恒，主线输送了 1 + 1 = 2 μC。"
+      }
+    },
+    {
+      skill: "用串联中间导体上的电荷守恒检查推导",
+      prompt: "两只起初不带电的电容器串联，中间相连的两块极板与外界绝缘。如果其中一块带 +3 μC，另一块带多少电荷？",
+      choices: ["−3 μC", "+3 μC"],
+      correct: 0,
+      explain: "这个中间导体原来的总电荷是零，电荷只能在它内部重新分布，所以两块极板等量异号。回原题时把串联的等电荷量和并联的等电压分别代入电容定义。"
+    }
+  ],
+  "19.1.4": [
+    {
+      skill: "识别可以先合并的串联支路",
+      prompt: "从 A 经过电容 P、节点 B、电容 Q 到 C，节点 B 没有其他接线。P 和 Q 在这条路径上怎样连接？",
+      choices: ["并联", "串联"],
+      correct: 1,
+      explain: "沿这条支路从 A 到 C 必须依次经过 P 和 Q，且两者之间没有分支，因此可以先把它们当作一个串联组合。"
+    },
+    {
+      skill: "算出一条串联支路的等效电容",
+      prompt: "两只 8 μF 电容器串联，每只带等量电荷，每只两端的电压相同。组合的总电压是单只的两倍。组合电容是多少？",
+      choices: ["4 μF", "16 μF"],
+      correct: 0,
+      explain: "用相同的电荷量除以两倍的电压，电容变为单只的一半。也可算 1/(1/8 + 1/8) = 4，单位是 μF。",
+      wrongFoundation: {
+        skill: "在电荷相同时比较每伏对应的电荷",
+        prompt: "装置 A 在 1 V 时带 6 μC，装置 B 在 2 V 时也带 6 μC。用每伏对应的电荷量比较，哪个装置的电容更小？",
+        choices: ["装置 B", "装置 A"],
+        correct: 0,
+        explain: "A 每伏对应 6 μC。B 将同样的 6 μC 分摊到 2 V，每伏对应 3 μC，所以 B 的电容更小。"
+      }
+    },
+    {
+      skill: "将等效支路放回原电路再合并",
+      prompt: "已将某一整条支路等效为 4 μF。它接在 A、B 之间，另一只 5 μF 也接在 A、B 之间。这两部分合并后是多少？",
+      choices: ["约 2.2 μF", "9 μF"],
+      correct: 1,
+      explain: "用 4 μF 替代整条支路后，两个端点仍是 A 和 B。它与 5 μF 并联，总电容为 9 μF。回原题时可以在图上圈出先替换的那一组。"
+    }
+  ],
+  "19.2.1": [
+    {
+      skill: "从两个电荷读数确定区间宽度",
+      prompt: "电荷量从 1 μC 增到 5 μC。只考虑这一段充电过程，横轴上的宽度是多少？",
+      choices: ["4 μC", "5 μC"],
+      correct: 0,
+      explain: "区间从 1 μC 开始，宽度为右端 5 μC 减左端 1 μC，得到 4 μC。"
+    },
+    {
+      skill: "把增加的储能对应到区间内的面积",
+      prompt: "一幅图的纵轴是电压，横轴是电荷量。求从 1 μC 充到 5 μC 时增加的储能，应取哪一段图线下的面积？",
+      choices: ["从 0 到 5 μC", "从 1 到 5 μC"],
+      correct: 1,
+      explain: "每一小段新增电荷对应的功约为当时电压乘以该段电荷量。把 1 到 5 μC 内的这些小块面积合起来，就得到这一段增加的储能。"
+    },
+    {
+      skill: "计算非零起点下的梯形面积",
+      prompt: "在另一幅电压–电荷直线图上，一段的电荷增量为 3 μC，两端的电压为 2 V 和 8 V。这一段增加的储能是多少？",
+      choices: ["15 μJ", "9 μJ"],
+      correct: 0,
+      explain: "直线段的平均高度为 (2 + 8)/2 = 5 V，乘宽 3 μC 得 15 μJ。用两端高度之差算三角形会漏掉底部矩形。"
+    }
+  ],
+  "19.2.2": [
+    {
+      skill: "确定充电过程中所跨越的电压范围",
+      prompt: "一只起初未充电的理想电容器最终充到 10 V。最开始的一小份电荷和最后的一小份电荷，哪一份移入时两端电压更低？",
+      choices: ["最后一份", "最开始一份"],
+      correct: 1,
+      explain: "未充电时电压为零。随着电荷积累，电压逐步升高，最开始的一小份电荷是在接近零的电压下移入的。"
+    },
+    {
+      skill: "用充电的平均电压求储能",
+      prompt: "恒定电容从零充电，电压随电荷从 0 线性升到 6 V，最终电荷量为 4 μC。应把 4 μC 乘以哪个电压来求储能？",
+      choices: ["平均电压 3 V", "末电压 6 V"],
+      correct: 0,
+      explain: "以电荷为横轴时，充电图线是一条从零开始的直线，其平均高度为 3 V。4 μC × 3 V = 12 μJ，对应 $W$ = ½$QV$。"
+    },
+    {
+      skill: "把已知的电容量换成终态电荷量",
+      prompt: "另一只电容器的电容为 3 μF，两端电压为 2 V。若先用 $Q$ = $CV$，再用 ½$QV$，得到多少储能？",
+      choices: ["3 μJ", "6 μJ"],
+      correct: 1,
+      explain: "终态电荷量为 3 μF × 2 V = 6 μC，储能为 ½ × 6 μC × 2 V = 6 μJ。代入后也能写成 $W$ = ½$CV²$。"
+    }
+  ],
+  "motion-1": [
+    {
+      skill: "判断停车时累计路程的变化",
+      prompt: "车上的里程表显示自出发后已走 5 m。车原地静止 2 s，此时里程表显示多少？",
+      choices: ["0 m", "5 m"],
+      correct: 1,
+      explain: "停车期间新增路程是零，之前走过的 5 m 仍然保留，所以累计读数保持不变。"
+    },
+    {
+      skill: "把回程也计入总路程",
+      prompt: "一人沿直路向东走 4 m，再向西走 1 m。若纵轴记录 total distance travelled，此刻纵坐标是多少？",
+      choices: ["5 m", "3 m"],
+      correct: 0,
+      explain: "两段路实际都走过，累计路程为 4 + 1 = 5 m。3 m 对应相对出发点向东的位移。",
+      wrongFoundation: {
+        skill: "区分回到起点时的位移与走过的路程",
+        prompt: "从门口向前走 1 m，再退回门口。体育老师只问你的双脚一共走了多长的路，该报多少？",
+        choices: ["2 m", "0 m"],
+        correct: 0,
+        explain: "出去走了 1 m，回来又走了 1 m，路程合计 2 m。若问最后离门口多远，答案才是 0 m。"
+      }
+    },
+    {
+      skill: "按各时刻的累计量排列图像读数",
+      prompt: "小车先走 2 m，停一会儿，再沿原路走回 1 m。这三个阶段结束时，里程表的三个读数依次是什么？",
+      choices: ["2、0、1 m", "2、2、3 m"],
+      correct: 1,
+      explain: "每次读表都从出发时累计。停车时图像保持水平，车再次移动后总路程继续增加。"
+    }
+  ],
+  "motion-2": [
+    {
+      skill: "从起止时刻求持续时间",
+      prompt: "求从 4 s 到 7 s 之间的位移。画在时间轴上的这段区间有多宽？",
+      choices: ["3 s", "7 s"],
+      correct: 0,
+      explain: "先标出 4 s 和 7 s，再取两者的差。两条竖线相隔 3 s。"
+    },
+    {
+      skill: "把速度–时间图下一段面积解释为位移",
+      prompt: "速度–时间图在 4 s 至 7 s 之间是一段高为 +2 m s⁻¹ 的水平线。线下矩形的高乘宽表示什么？",
+      choices: ["速度变化量，单位 m s⁻¹", "位移，单位 m"],
+      correct: 1,
+      explain: "小车每秒向正方向前进 2 m，持续 3 s，位移为 +6 m。乘法的单位也是 m s⁻¹ × s = m。",
+      wrongFoundation: {
+        skill: "区分匀速运动的位移与速度变化",
+        prompt: "物体以 +1 m s⁻¹ 匀速走了 2 s。它的速度变化为零；它的位置沿正方向改变了多少？",
+        choices: ["0 m", "+2 m"],
+        correct: 1,
+        explain: "每秒向正方向走 1 m，两秒的位置变化是 +2 m。速度–时间图上的矩形面积就是 1 m s⁻¹ × 2 s。"
+      }
+    },
+    {
+      skill: "用直线段的平均速度求区间位移",
+      prompt: "另一辆车在 3 s 内的速度从 +2 m s⁻¹ 均匀增加到 +4 m s⁻¹。这段的位移是多少？",
+      choices: ["+9 m", "+12 m"],
+      correct: 0,
+      explain: "这段图线的平均高度为 (2 + 4)/2 = 3 m s⁻¹，乘 3 s 得 +9 m。回原图先选出题目指定的时间区间，再读两端的速度。"
+    }
+  ],
+  "motion-3": [
+    {
+      skill: "用末位置减初位置判断位移变化的符号",
+      prompt: "沿规定的正方向读位置。起初读数是 +8 m，后来读数是 +5 m。这段的位置变化量是多少？",
+      choices: ["+3 m", "−3 m"],
+      correct: 1,
+      explain: "按时间顺序取末读数减初读数，+5 m − (+8 m) = −3 m。两个位置都在正半轴，变化量仍可为负。"
+    },
+    {
+      skill: "从位移–时间图的下降方向判断速度符号",
+      prompt: "位移–时间图的一小段从左向右下降，横轴时间在增加。这段运动的 velocity 是正还是负？",
+      choices: ["负", "正"],
+      correct: 0,
+      explain: "在经过的正时间内，末位移读数小于初读数。负的位移变化量除以正的时间间隔，得到负速度。"
+    },
+    {
+      skill: "用同一条直线段的斜率求瞬时速度",
+      prompt: "另一幅位移–时间图的一段直线从 (1 s, +9 m) 到 (4 s, +3 m)。车在 2 s 时的速度是多少？",
+      choices: ["+2 m s⁻¹", "−2 m s⁻¹"],
+      correct: 1,
+      explain: "2 s 在该直线段内。这一段斜率固定，速度处处等于 (3 − 9) m ÷ (4 − 1) s = −2 m s⁻¹。"
+    }
+  ],
+  "motion-4": [
+    {
+      skill: "选中包含指定时刻的直线段并读出时长",
+      prompt: "小练习中，一辆小车前 4 s 匀速，随后在 4 s 至 9 s 内速度均匀增加。求 6 s 时的加速度，应取哪段时间做比较？",
+      choices: ["0–9 s，共 9 s", "4–9 s，共 5 s"],
+      correct: 1,
+      explain: "6 s 在速度均匀增加的这一段内。这个直线段的横向跨度为 9 s − 4 s = 5 s。若从零时刻开始，会混入较早的匀速段。"
+    },
+    {
+      skill: "由同一段两端的速度读数求速度变化量",
+      prompt: "小练习中，小车的速度–时间图有一段斜直线，从 (4 s, +3 m s⁻¹) 到 (9 s, +15 m s⁻¹)。计算这段的斜率，纵向的速度变化量是多少？",
+      choices: ["+12 m s⁻¹", "+15 m s⁻¹"],
+      correct: 0,
+      explain: "纵向变化量是末速度减初速度，15 − 3 = 12 m s⁻¹。15 m s⁻¹ 是终点的速度读数。",
+      wrongFoundation: {
+        skill: "区分末速度读数与这段时间的速度变化",
+        prompt: "小车始终沿同一方向运动。第一次测速为 +8 m s⁻¹，第二次也是 +8 m s⁻¹。两次之间速度增加了多少？",
+        choices: ["+8 m s⁻¹", "0 m s⁻¹"],
+        correct: 1,
+        explain: "比较两次读数：8 − 8 = 0 m s⁻¹。末速度读数仍为 +8 m s⁻¹，速度变化量为零。同样比较不同读数时，用末读数减初读数。"
+      }
+    },
+    {
+      skill: "将速度变化量除以所用时间求加速度",
+      prompt: "小练习中，小车在 4 s 到 9 s 内速度均匀增加了 12 m s⁻¹。6 s 时的加速度是多少？",
+      choices: ["+0.42 m s⁻²", "+2.4 m s⁻²"],
+      correct: 1,
+      explain: "6 s 落在这段直线上。持续时间为 9 − 4 = 5 s，每秒速度增加 12 ÷ 5 = 2.4 m s⁻¹，加速度为 +2.4 m s⁻²。回到骑车人的原图，先圈出包含 3 s 的直线段，再用那一段的两个端点求斜率。"
+    }
+  ]
+};
+
+</script>
+<script>
+const edexcelProbes = {
+  "circuits-1": [
+    {
+      skill: "沿导线寻找闭合回路",
+      prompt: "一节电池、一盏完好的灯和一个开关串联。开关断开后，还能从电池一极沿导线和灯走回另一极吗？",
+      choices: ["能，导线仍接在灯上", "不能，路径中有断口"], correct: 1,
+      explain: "用手指从电池一极沿导线追踪，走到断开的开关就停了。灯中要有持续电流，需要一条接通电池两极的完整路径。"
+    },
+    {
+      skill: "辨认开关控制的路径",
+      prompt: "电流先经过一个总开关，才分到两条灯的支路。断开总开关，会切断几条灯的供电路径？",
+      choices: ["两条", "只有离开关较近的一条"], correct: 0,
+      explain: "分别从每盏灯沿线回到电池，两条路径都经过这个开关。断口的位置决定哪些路径仍然接通。"
+    },
+    {
+      skill: "为独立控制选择开关位置",
+      prompt: "风扇和蜂鸣器并联在电池两端。要求关闭蜂鸣器时风扇继续转，应把开关串在哪一段？",
+      choices: ["分支前的公共导线", "蜂鸣器自己的支路"], correct: 1,
+      explain: "分别追踪两条路径。如果开关只在蜂鸣器支路内，经过风扇的路径就能绕过开关、回到电池。"
+    }
+  ],
+  "circuits-2": [
+    {
+      skill: "相加串联电阻",
+      prompt: "两只 10 Ω 电阻首尾相接，形成唯一的电流路径。它们的总电阻是多少？",
+      choices: ["20 Ω", "5 Ω"], correct: 0,
+      explain: "在串联路径中，电流依次通过两只电阻。将电阻值相加，10 Ω + 10 Ω = 20 Ω。"
+    },
+    {
+      skill: "用电压和总电阻比较电流",
+      prompt: "电源电压保持不变，总电阻变为原来的三倍。根据 $I$ = $V$/$R$，电流如何改变？",
+      choices: ["变为原来的三倍", "变为原来的三分之一"], correct: 1,
+      explain: "电流等于电压除以总电阻。分子不变，分母乘以 3，商就除以 3。",
+      wrongFoundation: {
+        skill: "判断分母增大时商的变化",
+        prompt: "比较 12 ÷ 2 和 12 ÷ 4。哪一个结果较小？",
+        choices: ["12 ÷ 2", "12 ÷ 4"], correct: 1,
+        explain: "两次计算分别得到 6 和 3。把同一数量平均分成更多份，每份就更小。"
+      }
+    },
+    {
+      skill: "同时追踪电压和总电阻的变化",
+      prompt: "原来电路只有一只电阻。改用三只相同电阻串联，同时电压增至原来的两倍。新电流是原来的几倍？",
+      choices: ["2/3 倍", "3/2 倍"], correct: 0,
+      explain: "串联后总电阻是原来的 3 倍。新电流 (2$V$)/(3$R$) 等于原来 $V$/$R$ 的 2/3。"
+    }
+  ],
+  "circuits-3": [
+    {
+      skill: "按箭头辨别流入和流出",
+      prompt: "电路图上电流箭头的尖端指向结点。这个电流应计在哪一边？",
+      choices: ["流出结点", "流入结点"], correct: 1,
+      explain: "沿箭头方向走，若向结点靠近，就算流入。若从结点走远，就算流出。"
+    },
+    {
+      skill: "用电荷守恒合计结点电流",
+      prompt: "结点每秒从两根导线分别收到 2 C 和 3 C 电荷。电荷没有在结点积累，每秒一共流出多少电荷？",
+      choices: ["5 C", "1 C"], correct: 0,
+      explain: "这两股电荷都流入，合计每秒流入 5 C。稳恒情况下，每秒也要流出 5 C。"
+    },
+    {
+      skill: "从流入总量求另一支路电流",
+      prompt: "12 mA 流入一个结点，7 mA 经第一条支路流出。仅剩的另一条支路中，电流大小和方向如何？",
+      choices: ["19 mA，流出", "5 mA，流出"], correct: 1,
+      explain: "同一秒内必须有相同的电荷流入和流出。已知流出 7 mA，还差 5 mA 流出才能与 12 mA 流入相抵。"
+    }
+  ],
+  "circuits-4": [
+    {
+      skill: "根据端点电势求电势差",
+      prompt: "用同一参考点测得两端电势分别为 8 V 和 2 V。两端电势差的大小是多少？",
+      choices: ["10 V", "6 V"], correct: 1,
+      explain: "求 potential difference 时，用较高电势减较低电势。8 V − 2 V = 6 V。"
+    },
+    {
+      skill: "识别并联支路的共同端点",
+      prompt: "两只电阻都接在 A 和 B 两点之间。若用电压表分别跨接它们，两次比较的是哪两个点？",
+      choices: ["两次都是 A、B", "第二次要换一对点"], correct: 0,
+      explain: "从每只电阻的两端沿理想导线追踪，都会分别到 A、B。两次电压表测量的是同一对端点。",
+      wrongFoundation: {
+        skill: "沿理想导线识别等电势点",
+        prompt: "一根电压表表笔固定在电池负极。另一根表笔从一段理想导线的左端移到右端，途中没有元件。读数会改变吗？",
+        choices: ["不会，两端电势相同", "会，换了表笔的位置"], correct: 0,
+        explain: "理想导线两端的电压降为零。沿着它移动表笔，测量点在图上的位置变了，电势相同。"
+      }
+    },
+    {
+      skill: "从共用端点推断另一支路电压",
+      prompt: "两只灯泡并联在同一对接线柱上。一只灯泡两端测得 6.0 V，另一只灯泡电阻更大。它两端的电压如何？",
+      choices: ["高于 6.0 V", "等于 6.0 V"], correct: 1,
+      explain: "先标出这对接线柱。每只灯泡都跨接在它们之间，端点的电势差只需测一次。"
+    }
+  ],
+  "circuits-5": [
+    {
+      skill: "将毫安换算成安培",
+      prompt: "计算时需要把 40 mA 写成安培。应输入哪个数？",
+      choices: ["0.040 A", "0.40 A"], correct: 0,
+      explain: "1 A = 1000 mA，毫安数除以 1000 得到安培数。40 ÷ 1000 = 0.040。"
+    },
+    {
+      skill: "从电压电流关系解出电阻",
+      prompt: "已知电阻两端的 $V$ 和通过它的 $I$，从 $V$ = $I$$R$ 解出 $R$ 应写哪一个式子？",
+      choices: ["$I$/$V$", "$V$/$I$"], correct: 1,
+      explain: "等式两端同除以 $I$，右边剩下 $R$。以伏特除以安培，结果单位是欧姆。",
+      wrongFoundation: {
+        skill: "把乘积除以已知因数求另一因数",
+        prompt: "已知 18 = 3 × $r$，哪个除法可以直接求出 $r$？",
+        choices: ["3 ÷ 18", "18 ÷ 3"], correct: 1,
+        explain: "把等式两边都除以 3，得到 $r$ = 6。代回检查，3 × 6 确实是 18。"
+      }
+    },
+    {
+      skill: "换算电流后代入求电阻",
+      prompt: "元件两端电压为 6.0 V，电流为 75 mA。它在这个工作点的电阻是多少？",
+      choices: ["80 Ω", "0.080 Ω"], correct: 0,
+      explain: "75 mA = 0.075 A。把安培数代入 $V$/$I$，6.0 ÷ 0.075 = 80，单位为 Ω。"
+    }
+  ],
+  "circuits-6": [
+    {
+      skill: "辨认串联元件中的共同电流",
+      prompt: "一个电源和两只不同电阻接成单一闭合回路。流过较大电阻的电流和较小电阻的电流相比怎样？",
+      choices: ["相同", "较小"], correct: 0,
+      explain: "整个回路没有分支。稳恒时，每秒穿过第一只电阻的电荷也必须穿过第二只。"
+    },
+    {
+      skill: "用共同电流比较串联电压降",
+      prompt: "两只串联电阻中，第二只的电阻值是第一只的两倍。由 $V$ = $I$$R$，第二只的电压降是第一只的几倍？",
+      choices: ["一半", "两倍"], correct: 1,
+      explain: "两只电阻的 $I$ 相同。电阻值乘以 2，它两端的电压降也乘以 2。"
+    },
+    {
+      skill: "按电阻比把电源电压分到指定元件",
+      prompt: "12 Ω 和 24 Ω 串联在 9.0 V 电源两端，导线电阻忽略。较小电阻两端的电压是多少？",
+      choices: ["3.0 V", "6.0 V"], correct: 0,
+      explain: "两只电阻的电压降之比为 12∶24，即 1∶2。9.0 V 共分成三份，较小电阻分得其中一份。"
+    }
+  ],
+  "quadratics-1": [
+    {
+      skill: "求使平方项为零的横坐标",
+      prompt: "($x$ − 4)² 在哪个 $x$ 值处等于零？",
+      choices: ["−4", "4"], correct: 1,
+      explain: "先令括号内的 $x$ − 4 = 0，再解出 $x$。实数的平方达到最小值 0 时，底数就是 0。"
+    },
+    {
+      skill: "从平方项的符号判断顶点类型",
+      prompt: "在 $y$ = 7 + 2($x$ − 1)² 中，离开 $x$ = 1 后，函数值相对 7 怎样变化？",
+      choices: ["变大，所以 7 是最小值", "变小，所以 7 是最大值"], correct: 0,
+      explain: "当 $x$ 不等于 1 时，平方项为正数。把它的两倍加到 7 上，所得函数值都大于 7。",
+      wrongFoundation: {
+        skill: "判断加上非零实数的平方后的大小",
+        prompt: "取 $t$ = −2。与 4 相比，4 + $t$² 更大还是更小？",
+        choices: ["更大", "更小"], correct: 0,
+        explain: "先算 (−2) × (−2) = 4，再算 4 + 4 = 8。即使 $t$ 为负，它的平方仍为正。"
+      }
+    },
+    {
+      skill: "由顶点式同时读出位置和极值",
+      prompt: "$y$ = −1 − 2($x$ − 3)² 的 turning point 在哪里？",
+      choices: ["(−3, −1)，为最大值点", "(3, −1)，为最大值点"], correct: 1,
+      explain: "$x$ = 3 时平方项为零，函数值为 −1。其他位置都从 −1 减去一个正数，所以顶点最高。"
+    }
+  ],
+  "quadratics-2": [
+    {
+      skill: "带符号代入判别式",
+      prompt: "对 2$x$² − 3$x$ + 1 = 0，哪一个式子正确代入了 discriminant $b$² − 4$ac$？",
+      choices: ["(−3)² − 4 × 2 × 1", "−3² − 4 × 2 × 1"], correct: 0,
+      explain: "$b$ 是整个系数 −3，所以平方时给 −3 加括号。其余两个系数分别为 2 和 1。"
+    },
+    {
+      skill: "区分重根与两个不同实根",
+      prompt: "若 discriminant 正好为零，二次方程有几个不同的实根？",
+      choices: ["两个不同的实根", "一个不同的实根（重根）"], correct: 1,
+      explain: "求根公式中的正负平方根都变成零，两个解合在一起。判别式严格大于零时，才得到两个不同的实根。",
+      wrongFoundation: {
+        skill: "识别加减零得到同一个值",
+        prompt: "算出 5 + √0 和 5 − √0 后，把结果写在数轴上，需要标几个点？",
+        choices: ["两个点", "一个点"], correct: 1,
+        explain: "√0 = 0。5 + 0 和 5 − 0 都落在 5 这一个点上。"
+      }
+    },
+    {
+      skill: "将判别式条件化为参数范围",
+      prompt: "$x$² − 8$x$ + $m$ = 0 要有两个不同的实根，$m$ 的范围是哪一个？",
+      choices: ["$m$ < 16", "$m$ ≤ 16"], correct: 0,
+      explain: "判别式为 (−8)² − 4$m$。令 64 − 4$m$ > 0 得 $m$ < 16，等号对应两个根重合。"
+    }
+  ],
+  "quadratics-3": [
+    {
+      skill: "识别平方展开式的一次项",
+      prompt: "展开 ($x$ − 4)² 后，含 $x$ 的一次项是什么？",
+      choices: ["−4$x$", "−8$x$"], correct: 1,
+      explain: "把两个 ($x$ − 4) 相乘，会出现两项 −4$x$。它们相加得到 −8$x$。"
+    },
+    {
+      skill: "配方时补偿多出的常数",
+      prompt: "要把 $x$² − 10$x$ 写成 ($x$ − 5)² 加一个常数，该加几？",
+      choices: ["−25", "+25"], correct: 0,
+      explain: "展开 ($x$ − 5)² 会额外产生 +25。要还原没有常数项的原式，就要加上 −25。"
+    },
+    {
+      skill: "配方时保留二次项系数",
+      prompt: "3$x$² − 12$x$ + 8 的 completed-square form 是哪一个？",
+      choices: ["3($x$ − 2)² + 4", "3($x$ − 2)² − 4"], correct: 1,
+      explain: "3($x$ − 2)² 展开为 3$x$² − 12$x$ + 12。为了使常数项为 8，需要从 12 减去 4。"
+    }
+  ],
+  "quadratics-4": [
+    {
+      skill: "把图像的上下关系读成函数值比较",
+      prompt: "同一个 $x$ 处，抛物线的纵坐标是 2，直线的纵坐标是 5。哪条图线在上方？",
+      choices: ["直线", "抛物线"], correct: 0,
+      explain: "固定横坐标后，比较两个纵坐标。5 大于 2，所以纵坐标为 5 的点在上方。"
+    },
+    {
+      skill: "用交点划分图像高低关系的区间",
+      prompt: "抛物线和直线只在 $x$ = 1 与 $x$ = 4 相交。已知 $x$ = 2 时抛物线在上方，到 $x$ = 3 时两条图线的位置如何？",
+      choices: ["无法判断，可能已到下方", "一定在上方，两点之间没有交点"], correct: 1,
+      explain: "两条连续的图线若要交换上下位置，必须先相遇。2 和 3 位于同一对相邻交点之间。"
+    },
+    {
+      skill: "结合交点、测试点和等号写出区间",
+      prompt: "抛物线与直线在 $x$ = 1 与 $x$ = 4 处穿过彼此。$x$ = 2 时抛物线在上方。它严格高于直线的范围是？",
+      choices: ["1 < $x$ < 4", "1 ≤ $x$ ≤ 4"], correct: 0,
+      explain: "测试点 2 落在两个交点之间，这一段抛物线都在上方。交点处同高，因此“严格高于”要去掉两个端点。"
+    }
+  ],
+  "quadratics-5": [
+    {
+      skill: "用零乘积找区间边界",
+      prompt: "($x$ − 1)($x$ + 4) 的值为零时，$x$ 可以取哪两个值？",
+      choices: ["−1 和 4", "1 和 −4"], correct: 1,
+      explain: "分别令每个因式为零。$x$ − 1 = 0 给出 1，$x$ + 4 = 0 给出 −4。"
+    },
+    {
+      skill: "用因式符号判断乘积正负",
+      prompt: "在 −4 < $x$ < 1 内，$x$ − 1 为负，$x$ + 4 为正。它们的乘积是什么符号？",
+      choices: ["负", "正"], correct: 0,
+      explain: "正数乘以负数得到负数。在这个开区间内两个因式都不等于零，所以乘积严格小于零。",
+      wrongFoundation: {
+        skill: "计算负数与正整数的乘积",
+        prompt: "把 (−2) × 3 看作三个 (−2) 相加，结果是多少？",
+        choices: ["−6", "+6"], correct: 0,
+        explain: "从 0 出发，连续三次向左走 2 格，最后在 −6。乘以正整数保留了负号。"
+      }
+    },
+    {
+      skill: "从因式和端点条件求解二次不等式",
+      prompt: "3$x$² − 5$x$ − 2 = (3$x$ + 1)($x$ − 2)。在哪个范围有 3$x$² − 5$x$ − 2 ≤ 0？",
+      choices: ["$x$ ≤ −1/3 或 $x$ ≥ 2", "−1/3 ≤ $x$ ≤ 2"], correct: 1,
+      explain: "边界是 −1/3 和 2。中间取 $x$ = 0，两个因式异号，乘积为负；外侧两因式同号。≤ 允许把乘积为零的端点也包括进来。"
+    }
+  ]
+};
+
+</script>
+<script>
+// Keep only the student's actions. Replaying them also restores an unfinished check offline.
+const diagnosticProbes = { ...physicsProbes, ...edexcelProbes };
+
+function diagnosisState(steps, actions = []) {
+  let level = 1;
+  let step = steps[level];
+  let phase = "ask";
+  const checks = [];
+  const difficulties = new Map();
+  for (const action of actions) {
+    if (phase === "ask") {
+      if (action !== "unsure" && !(Number.isInteger(action) && action >= 0 && action < step.choices.length)) break;
+      const correct = action === step.correct;
+      const repeated = checks.some(previous => previous.step === step);
+      checks.push({level, step, choice:action, correct, repeated, still:false});
+      if (!correct) difficulties.set(step,(difficulties.get(step) || 0) + 1);
+      phase = "explain";
+    } else if (phase === "explain") {
+      const check = checks.at(-1);
+      if (action !== "continue" && action !== "still") break;
+      if (action === "still") {
+        check.still = true;
+        if (check.correct) difficulties.set(step,(difficulties.get(step) || 0) + 1);
+      }
+      const needsHelp = check.still || !check.correct;
+      if (needsHelp && ((level === 0 && check.still) || difficulties.get(step) >= 2 || checks.length >= 8)) {
+        phase = "teacher";
+      } else if (level === steps.length - 1 && !needsHelp) {
+        phase = "retry";
+      } else {
+        // At the foundation the worked explanation is available. Test its use on the next step.
+        level = needsHelp && level > 0 ? level - 1 : level + 1;
+        const specific = level === 0 && !check.correct && check.choice !== "unsure" && step.wrongFoundation;
+        step = specific || steps[level];
+        phase = "ask";
+      }
+    } else if (phase === "teacher" && action === "retry") {
+      phase = "retry";
+    } else break;
+  }
+  return {level, step, phase, checks};
+}
+
+</script>
+<script>
 (() => {
   "use strict";
   const find = (id) => document.getElementById(id);
@@ -757,6 +1356,114 @@ const studyTopics = [
   function validChoice(value, question) {
     return value === unsure || (Number.isInteger(value) && value >= 0 && value < question.choices.length);
   }
+  function saveList(q, list) {
+    attempts.set(idOf(q),list);
+    if (storageAvailable) {
+      try { localStorage.setItem(storageKey(q), JSON.stringify(list)); }
+      catch { storageAvailable = false; }
+    }
+  }
+  function hasDiagnosis(a) {
+    // Old "unsure" records can enter the first check without rewriting their history.
+    return a && (a.choice === unsure || Array.isArray(a.steps));
+  }
+  function getDiagnosis(q, a) {
+    return diagnosisState(diagnosticProbes[idOf(q)], Array.isArray(a.steps) ? a.steps : []);
+  }
+  function retryOriginal(q) {
+    retrying.add(idOf(q));
+    visited.set(idOf(q), {choice:null,doubt:false});
+    renderQuestion();
+    find("question").focus();
+  }
+  function checkSummary(step, check) {
+    const label = check.choice === unsure ? "我不确定" : step.choices[check.choice];
+    const outcome = check.choice === unsure ? "还没有把握"
+      : check.correct ? (check.repeated ? "✓ 看过此题讲解后答对" : "✓ 这一步答对") : "这一步答错";
+    return step.skill + " · " + label + "（" + outcome + "）" + (check.still ? " · 看过讲解后仍有疑问" : "");
+  }
+  function renderDiagnosis(q, a) {
+    const panel = find("diagnosis");
+    panel.replaceChildren();
+    panel.hidden = a.choice === q.correct && !a.doubt && !hasDiagnosis(a);
+    if (panel.hidden) return;
+    const steps = diagnosticProbes[idOf(q)];
+    const state = getDiagnosis(q, a);
+    const step = state.step;
+    const active = hasDiagnosis(a);
+    function line(tag, text) {
+      const el = document.createElement(tag);
+      mathText(el, text);
+      panel.append(el);
+      return el;
+    }
+    function action(label, name, handler, isChoice = false) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.dataset[isChoice ? "choice" : "action"] = String(name);
+      mathText(btn, label);
+      btn.onclick = handler;
+      panel.append(btn);
+    }
+    function record(act) {
+      const list = storageAvailable ? readAttempts(q) : attempts.get(idOf(q));
+      const last = list.at(-1);
+      if (!last || JSON.stringify(last) !== JSON.stringify(a)) {
+        attempts.set(idOf(q),list);
+        visited.delete(idOf(q));
+        renderQuestion();
+        return;
+      }
+      last.steps = [...(last.steps || [])];
+      if (act !== "start") last.steps.push(act);
+      saveList(q,list);
+      if (getDiagnosis(q,last).phase === "retry") { retryOriginal(q); return; }
+      refreshOverview();
+      showFeedback(q,last);
+      find("diagnosis").focus({preventScroll:true});
+    }
+    if (!active) {
+      action("我还不懂，分步分析", "start", () => record("start"));
+      if (a.choice !== q.correct && q.followUp?.choice !== a.choice)
+        action("回原题再试", "retry", () => retryOriginal(q));
+      return;
+    }
+    if (state.phase === "ask") {
+      const previous = state.checks.at(-1);
+      if (previous) line("small", previous.correct && !previous.still
+        ? "✓ 上一步答对 · " + previous.step.skill
+        : "上一步需要帮助 · " + previous.step.skill);
+      line("h5", step.skill);
+      line("p", step.prompt);
+      step.choices.forEach((choice,i) => action(choice,i,() => record(i),true));
+      action("这一步我也不确定", unsure, () => record(unsure),true);
+    } else if (state.phase === "explain") {
+      const check = state.checks.at(-1);
+      line("h5", check.choice === unsure ? "一起看这一步" : check.correct ? "✓ 这一步答对了" : "核对这一步");
+      line("p", checkSummary(step,check));
+      line("p", step.explain);
+      const next = diagnosisState(steps,[...(a.steps || []),"continue"]);
+      const label = next.phase === "teacher" ? "记下要请老师看的这一步"
+        : next.phase === "retry" ? "回到原题，自己再试"
+        : next.level < state.level ? "先查前面的一步"
+        : state.level === 0 && !check.correct ? "看懂了，试着用一次" : "试下一小步";
+      action(label,"continue",() => record("continue"));
+      action("看了还是不懂","still",() => record("still"));
+    } else if (state.phase === "teacher") {
+      line("h5", "把这一步带给老师");
+      line("p", "我在「" + step.skill + "」这一步需要帮助。");
+      line("p", step.prompt);
+      line("small", "这次的选择和讲解已列入「回顾我的作答」，可以和老师一起看。");
+      if (typeof trialGraphTargets !== "undefined") {
+        const params = new URLSearchParams(trialGraphTargets[idOf(q)]);
+        const link = document.createElement("a");
+        link.href = "graph/dist/index.html#" + params;
+        link.textContent = "查看本题的图谱知识点 · " + q.ref;
+        panel.append(link);
+      }
+      action("回到原题，自己再试","retry",() => record("retry"));
+    }
+  }
   function readAttempts(question) {
     try {
       const raw = JSON.parse(localStorage.getItem(storageKey(question)) || "[]");
@@ -777,10 +1484,11 @@ const studyTopics = [
   }
   function feedback(question, attempt) {
     if (attempt.choice === unsure) {
-      return { title: "从这一步开始", text: question.hint };
+      return { title: "一起拆开这道题", text: question.hint };
     }
     if (attempt.choice === question.correct) {
-      return { title: attempt.doubt ? "✓ 选对了，再核对你的理由" : "✓ 选对了", text: question.choices[attempt.choice][1] };
+      const title = attempt.afterHelp ? "✓ 求助后，原题答对了" : attempt.doubt ? "✓ 选对了，再核对你的理由" : "✓ 选对了";
+      return { title, text: question.choices[attempt.choice][1] };
     }
     if (question.followUp?.choice === attempt.choice && !Number.isInteger(attempt.probeChoice)) {
       return {title: "再看一步", text: "先核对下面这一步。"};
@@ -793,23 +1501,44 @@ const studyTopics = [
     const f = feedback(question, attempt);
     find("feedback-title").textContent = f.title;
     mathText(find("feedback-text"), f.text);
-    renderProbe(question, attempt);
+    const review = find("review-skill");
+    review.hidden = true;
+    if (attempt.afterHelp && attempt.choice === question.correct) {
+      const list = attempts.get(idOf(question)) || [];
+      const previous = list.slice(0,-1).findLast(hasDiagnosis);
+      if (previous) {
+        const gap = getDiagnosis(question,previous).checks.findLast(check => !check.correct || check.still);
+        if (gap) {
+          mathText(review, "刚才需要帮助的一步 · " + gap.step.skill);
+          review.hidden = false;
+        }
+      }
+    }
+    if (hasDiagnosis(attempt)) find("follow-up").hidden = true;
+    else renderProbe(question, attempt);
+    renderDiagnosis(question, attempt);
     const note = find("confidence-text");
     note.hidden = !attempt.doubt || attempt.choice === unsure;
     note.textContent = note.hidden ? "" : "你的不确定标记已记入本次作答。";
     box.dataset.outcome = attempt.choice === question.correct ? "correct" : "hint";
     find("next").textContent = index < questions.length - 1 ? "下一题 →" : "回顾作答 ↓";
+    find("next").hidden = attempt.choice !== question.correct || hasDiagnosis(attempt);
     box.hidden = false;
   }
   function refreshOverview() {
     let count = 0;
+    let solved = 0;
     const content = find("history-content");
     content.replaceChildren();
     const navButtons = [...find("question-nav").children];
     questions.forEach((q, i) => {
       const list = attempts.get(idOf(q)) || [];
-      navButtons[i].toggleAttribute("data-answered", list.length > 0);
-      navButtons[i].setAttribute("aria-label", q.ref + " " + q.title + (list.length ? "，已作答" : "，未作答"));
+      const last = list.at(-1);
+      const answered = last?.choice === q.correct;
+      navButtons[i].toggleAttribute("data-answered", Boolean(answered));
+      navButtons[i].toggleAttribute("data-pending", Boolean(last && !answered));
+      navButtons[i].setAttribute("aria-label", q.ref + " " + q.title + (answered ? "，原题答对" : last ? "，待回看" : "，未作答"));
+      if (answered) solved++;
       if (!list.length) return;
       count++;
       const h = document.createElement("h4");
@@ -824,7 +1553,7 @@ const studyTopics = [
         const f = feedback(q, item);
         mathText(p, f.title + "。 " + f.text);
         entry.append(choice, p);
-        if (q.followUp?.choice === item.choice) {
+        if (q.followUp?.choice === item.choice && (!hasDiagnosis(item) || Number.isInteger(item.probeChoice))) {
           const record = document.createElement("p");
           const details = Number.isInteger(item.probeChoice)
             ? "我的回答：" + q.followUp.choices[item.probeChoice] + (item.probeChoice === q.followUp.correct ? "（正确）。" : "（需再核对）。") + q.followUp.explanation
@@ -832,11 +1561,31 @@ const studyTopics = [
           mathText(record, "追问：" + q.followUp.prompt + "　" + details);
           entry.append(record);
         }
+        if (hasDiagnosis(item)) {
+          const state = getDiagnosis(q,item);
+          const trail = document.createElement("ul");
+          for (const check of state.checks) {
+            const step = check.step;
+            const result = document.createElement("li");
+            mathText(result,checkSummary(step,check));
+            const explanation = document.createElement("p");
+            mathText(explanation,step.explain);
+            result.append(explanation);
+            trail.append(result);
+          }
+          if (trail.childElementCount) entry.append(trail);
+          const note = document.createElement("p");
+          const referred = item.steps?.includes("retry") || state.phase === "teacher";
+          if (referred) note.textContent = "带给老师的问题 · " + state.step.skill;
+          else if (state.phase === "retry") note.textContent = "已回到原题重试。";
+          else if (item === last) note.textContent = "当前核对 · " + state.step.skill;
+          if (note.textContent) entry.append(note);
+        }
         ol.append(entry);
       });
       content.append(ol);
     });
-    find("progress").textContent = "已作答 " + count + " / " + questions.length;
+    find("progress").textContent = "原题答对 " + solved + " / " + questions.length + (count > solved ? " · 待回看 " + (count - solved) : "");
     if (!count) content.textContent = "完成第一次作答后，可以在这里回看所选答案、当时的把握和反馈。";
     find("reset").hidden = !count;
     find("storage-note").textContent = storageAvailable
@@ -853,6 +1602,7 @@ const studyTopics = [
     checkbox.disabled = selected === null || selected === unsure;
     if (checkbox.disabled) checkbox.checked = false;
     find("submit").disabled = selected === null;
+    find("submit").hidden = selected === unsure;
     const q = questions[index];
     const staged = { choice: selected, doubt: checkbox.checked };
     visited.set(idOf(q), staged);
@@ -881,7 +1631,10 @@ const studyTopics = [
   function renderQuestion() {
     const q = questions[index];
     const last = (attempts.get(idOf(q)) || []).at(-1);
-    const current = visited.get(idOf(q)) || last;
+    if (!visited.has(idOf(q)) && hasDiagnosis(last) && getDiagnosis(q,last).phase === "retry") retrying.add(idOf(q));
+    const current = visited.get(idOf(q)) || (retrying.has(idOf(q)) ? null : last);
+    const retryNote = find("retry-note");
+    retryNote.hidden = !retrying.has(idOf(q));
     find("task-label").textContent = q.ref + "　/　" + q.title;
     mathText(find("question"), q.prompt);
     mathText(find("support"), q.support);
@@ -962,11 +1715,18 @@ const studyTopics = [
   window.addEventListener("storage", (event) => {
     if (event.key === null || event.key.startsWith(keyPrefix)) {
       refreshAttempts();
-      refreshOverview();
-      syncForm();
+      const q = questions[index];
+      if (event.key === null || event.key === storageKey(q)) {
+        retrying.delete(idOf(q));
+        visited.delete(idOf(q));
+        renderQuestion();
+      } else refreshOverview();
     }
   });
-  find("choices").addEventListener("change", syncForm);
+  find("choices").addEventListener("change", () => {
+    syncForm();
+    if (selectedChoice() === unsure) find("answer-form").requestSubmit();
+  });
   find("low-confidence").addEventListener("change", syncForm);
   find("answer-form").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -976,13 +1736,13 @@ const studyTopics = [
     const list = storageAvailable ? readAttempts(q) : (attempts.get(idOf(q)) || []);
     const last = list.at(-1);
     if (retrying.delete(idOf(q)) || !last || last.choice !== answer.choice || last.doubt !== answer.doubt) {
+      if (list.some(a => hasDiagnosis(a) || a.choice !== q.correct)) answer.afterHelp = true;
+      if (choice === unsure) answer.steps = [];
       list.push(answer);
-      if (storageAvailable) {
-        try { localStorage.setItem(storageKey(q), JSON.stringify(list)); }
-        catch { storageAvailable = false; }
-      }
+      saveList(q,list);
     }
     attempts.set(idOf(q), list);
+    find("retry-note").hidden = true;
     refreshOverview();
     showFeedback(q, list.at(-1));
     find("feedback").scrollIntoView({block:"nearest"});
