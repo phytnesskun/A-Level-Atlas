@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153c36">
+  <title>A-Level Atlas · 课程图谱与练习</title>
+  <style>:root {
+  color-scheme: light;
+  --ink:#19342c; --body:#273c34; --muted:#57685d; --paper:#f6f6ee;
+  --line:#cbd4c7; --green:#17483b; --lime:#eeff93;
+  font:16px/1.55 "Inter",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--paper); color:var(--body);
+}
+* {box-sizing:border-box}
+body {margin:0}
+a {color:inherit;text-underline-offset:4px}
+a,button,label {touch-action:manipulation}
+button {font:inherit;cursor:pointer}
+button:disabled {cursor:default}
+:focus-visible {outline:3px solid #b04b10;outline-offset:3px}
+[hidden] {display:none!important}
+.sr {position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.mast {border-bottom:1px solid var(--line);background:#fbfcf4}
+.mast-inner, main, footer {width:min(1110px,calc(100% - 2.6rem));margin:auto}
+.mast-inner {display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:14px 0}
+.wordmark {display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-size:1.35rem;line-height:1.2;font-weight:760;letter-spacing:-.05em}
+.atlas-mark {display:inline-grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--lime);border:1px solid #b4bd81;font:italic bold 27px/1 Georgia,serif;padding-right:3px}
+.mast nav,footer {display:flex;align-items:center;gap:24px}
+.mast nav a {font-size:.89rem;text-decoration:none;font-weight:600}
+.mast nav a:hover,footer a:hover {text-decoration:underline}
+.entry-grid {display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin:26px 0 40px}
+.map-entry,.exercise-entry {position:relative;overflow:hidden;border-radius:18px}
+.map-entry {background:#153c36;color:#fff}
+.exercise-entry {background:#dfe8ce;color:#21392b;border:1px solid #cbd6ba}
+.entry-content {position:relative;z-index:1;padding:26px 30px 25px}
+.kicker,.progress,.task-label,.questions-nav small {font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"PingFang SC",monospace;font-variant-numeric:tabular-nums}
+.kicker {font-size:.78rem;letter-spacing:.04em;margin:0 0 .55rem;font-weight:600}
+.map-entry .kicker {color:#d8e4cb}
+.entry-content h2 {font-size:clamp(1.65rem,3.3vw,2.65rem);letter-spacing:-.06em;line-height:1.25;margin:.5rem 0}
+.entry-content p:not(.kicker) {margin:0 0 18px;font-size:.96rem}
+.entry-link {display:inline-flex;align-items:center;gap:16px;border-radius:7px;padding:7px 13px;background:var(--lime);color:#1d3828;text-decoration:none;font-weight:650;font-size:.88rem}
+.entry-link:hover {background:white}
+.exercise-entry .entry-link {background:#fffdf5}
+.contours {position:absolute;inset:0 0 0 auto;width:42%;opacity:.45;background:repeating-radial-gradient(ellipse at 119% 115%,transparent 0 16px,#7ba677 17px,transparent 18.5px 27px);mask-image:linear-gradient(to right,transparent,#000 32%)}
+.practice {scroll-margin-top:12px}
+.section-head {display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:0 0 16px}
+.section-head .kicker {color:var(--muted);margin-bottom:5px}
+.section-head h2 {font-size:clamp(1.45rem,2.8vw,2.1rem);letter-spacing:-.055em;color:var(--ink);line-height:1.3;margin:0}
+.progress {font-size:.83rem;color:var(--muted);white-space:nowrap}
+.practice-grid {display:grid;grid-template-columns:minmax(160px,220px) minmax(0,1fr);gap:18px;align-items:start}
+.questions-nav {display:grid;gap:3px}
+.questions-nav a {display:flex;align-items:baseline;gap:9px;border-radius:8px;padding:10px 12px;text-decoration:none;font-size:.93rem}
+.questions-nav a:hover {background:#edf1e5}
+.questions-nav a[aria-current] {background:#dce8d9;font-weight:700}
+.questions-nav small {font-size:.74rem;color:var(--muted)}
+.questions-nav a[data-answered]::after {content:"";display:inline-block;margin-left:auto;width:7px;height:7px;border-radius:50%;background:#336541;align-self:center}
+.task {background:#fffffa;border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3.2vw,36px);min-width:0}
+.task-label {font-size:.8rem;color:var(--muted);margin-bottom:10px}
+#question {color:var(--ink);font-size:clamp(1.18rem,1.9vw,1.6rem);line-height:1.44;letter-spacing:-.024em;margin:0 0 8px;scroll-margin-top:16px}
+#question:focus:not(:focus-visible) {outline:none}
+.support {margin:0 0 17px;font-size:.93rem;color:var(--muted)}
+figure {margin:0 0 16px;background:#f4f7ef;border-radius:8px;padding:14px}
+figure svg {display:block;width:min(100%,380px);height:auto;margin:auto}
+#choices {border:0;padding:0;margin:0;min-width:0;display:grid;gap:7px}
+.option {display:flex;align-items:center;gap:11px;position:relative;min-height:45px;padding:8px 12px;border:1px solid #cbd3c5;border-radius:7px;cursor:pointer;line-height:1.5}
+.option:hover {border-color:#7c9582}
+.option:has(input:checked) {border-color:#3e765a;background:#edf4e8;box-shadow:inset 0 0 0 1px #5c8163}
+.option:has(input:focus-visible) {outline:3px solid #a2531d;outline-offset:2px}
+.option input {position:absolute;opacity:0;width:1px;height:1px}
+.option-letter {display:grid;place-items:center;width:27px;height:27px;flex:none;border-radius:5px;font:600 13px/1 ui-monospace,monospace;background:#edf0e7;color:#435648}
+.option:has(input:checked) .option-letter {background:#25523e;color:white}
+.option-text {white-space:pre-line;overflow-wrap:anywhere}
+.unsure {border-style:dashed;color:var(--muted)}
+.form-actions {display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:16px 0 0}
+.confidence {display:flex;align-items:center;gap:7px;font-size:.9rem;cursor:pointer}
+.confidence input {width:17px;height:17px;accent-color:var(--green);margin:0}
+.confidence:has(input:disabled) {color:#677164;cursor:default}
+#submit,.next {border:0;border-radius:7px;padding:9px 15px;font-weight:650;font-size:.92rem;background:var(--green);color:white}
+#submit:disabled {background:#e1e5dc;color:#5e685c}
+.feedback {margin-top:19px;padding:14px 17px;border-radius:8px;background:#f7eddc;border-left:4px solid #ab773a}
+.feedback[data-outcome=correct] {background:#e8f2e5;border-color:#43825a}
+.feedback h4 {margin:0 0 4px}
+.feedback p {margin:4px 0}
+#confidence-text {font-size:.85rem;color:#4d5f51}
+.next {margin-top:7px;padding:4px 0;background:none;color:#24483a;text-decoration:underline;text-underline-offset:3px}
+#history {margin:18px 0 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 6px}
+summary {cursor:pointer;color:var(--ink);font-weight:650}
+#history-content {padding:6px 0;overflow-wrap:anywhere}
+#history-content h4 {margin:12px 0 5px}
+#history-content ol {margin:0;padding-left:24px}
+#history-content li {margin:.4rem 0}
+#history-content p {margin:.18rem 0;color:var(--muted)}
+.local-note {font-size:.85rem;color:var(--muted)}
+.text-button {border:0;padding:0;background:none;color:var(--green);text-decoration:underline;text-underline-offset:3px}
+footer {border-top:1px solid var(--line);padding:17px 0 28px;font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+footer span {margin-right:auto;font-weight:650}
+@media (max-width:720px) {
+  .mast-inner,main,footer {width:calc(100% - 1.45rem)}
+  .mast nav {gap:12px}
+  .entry-grid {margin:16px 0 26px;gap:9px;grid-template-columns:1.2fr 1fr}
+  .entry-content {padding:18px 14px}
+  .entry-content h2 {font-size:1.45rem}
+  .entry-content p:not(.kicker) {font-size:.87rem}
+  .entry-content .kicker {font-size:.68rem;min-height:2.1em}
+  .practice-grid {grid-template-columns:1fr;gap:12px}
+  .questions-nav {grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+  .questions-nav a {border:1px solid var(--line);font-size:.77rem;display:grid;gap:0;padding:4px 7px;line-height:1.4}
+  .questions-nav a[data-answered]::after {display:none}
+  .section-head {align-items:center;margin-bottom:11px}
+  .wordmark {font-size:1.06rem}
+}
+@media (max-width:400px) {
+  .mast nav {gap:8px}
+  .mast nav a {font-size:.77rem}
+  .atlas-mark {display:none}
+  .entry-grid {grid-template-columns:1fr}
+  .entry-content {padding:14px}
+  .entry-content .kicker {min-height:0}
+  .entry-content p:not(.kicker) {margin-bottom:10px}
+  .form-actions {align-items:stretch;flex-direction:column}
+  figure {padding:8px}
+}
+</style>
+</head>
+<body>
+  <header class="mast">
+    <div class="mast-inner">
+      <a class="wordmark" href="./index.html" aria-label="A-Level Atlas 首页"><span class="atlas-mark" aria-hidden="true">A</span> A-Level Atlas</a>
+      <nav aria-label="主要导航">
+        <a href="graph/dist/index.html">知识图谱</a>
+        <a href="#practice">专题练习</a>
+        <a id="download" href="downloads/A-Level-Atlas-trial-0.1.0.zip" download>下载离线包</a>
+        <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈 ↗</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <h1 class="sr">A-Level Atlas 课程图谱与专题练习</h1>
+    <div class="entry-grid">
+      <section class="map-entry">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="entry-content">
+          <p class="kicker">CAIE　/　Pearson Edexcel</p>
+          <h2>六科知识图谱</h2>
+          <p>按考试局、科目和学段查看知识点与先修关系。</p>
+          <a class="entry-link" href="graph/dist/index.html">进入图谱 <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+      <section class="exercise-entry">
+        <div class="entry-content">
+          <p class="kicker">Physics　/　A2</p>
+          <h2>电容与储能</h2>
+          <p>六道原创选择题，每道对应一个考纲目标。</p>
+          <a class="entry-link" href="#practice">开始练习 <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+    </div>
+    <section class="practice" id="practice" aria-labelledby="practice-name">
+      <div class="section-head">
+        <div>
+          <p class="kicker">CAIE 9702　/　2025–2027 · v2</p>
+          <h2 id="practice-name">电容与储能 · 六道题</h2>
+        </div>
+        <span class="progress" id="progress">已作答 0 / 6</span>
+      </div>
+      <noscript><p>请启用 JavaScript 以选择答案、查看反馈和回顾作答。</p></noscript>
+      <div class="practice-grid">
+        <nav class="questions-nav" aria-label="本组知识点" id="question-nav"></nav>
+        <div class="task" id="task">
+          <div class="task-label" id="task-label"></div>
+          <h3 id="question" tabindex="-1" lang="en"></h3>
+          <p class="support" id="support"></p>
+          <figure id="charge-graph" hidden>
+            <svg viewBox="0 0 380 204" role="img" aria-labelledby="chart-title chart-desc">
+              <title id="chart-title">Voltage against charge</title>
+              <desc id="chart-desc">横轴 Q（μC），纵轴 V（V）。从原点出发的直线通过 (2, 3)、(4, 6)、(6, 9)。</desc>
+              <g stroke="#cfd9d1" stroke-dasharray="3 4" fill="none">
+                <path d="M59 118.33h85V163 M59 73.67h170V163 M59 29h255V163"/>
+              </g>
+              <path d="M59 16v147h285" fill="none" stroke="#354940" stroke-width="1.6"/>
+              <path d="M59 163L314 29" fill="none" stroke="#216b53" stroke-width="3"/>
+              <g fill="#216b53"><circle cx="144" cy="118.33" r="3"/><circle cx="314" cy="29" r="3"/></g>
+              <g fill="#354940" font-size="12" font-family="system-ui, sans-serif">
+                <text x="46" y="168">0</text><text x="45" y="122">3</text><text x="45" y="77">6</text><text x="45" y="33">9</text>
+                <text x="142" y="181">2</text><text x="226" y="181">4</text><text x="311" y="181">6</text>
+                <text x="232" y="199">Charge Q / μC</text><text x="32" y="12">Voltage V / V</text>
+              </g>
+            </svg>
+          </figure>
+          <form id="answer-form">
+            <fieldset id="choices"><legend class="sr">选择一个答案</legend></fieldset>
+            <div class="form-actions"><label class="confidence"><input type="checkbox" id="low-confidence" disabled> 我对所选答案也不确定</label>
+              <button type="submit" id="submit" disabled>查看反馈</button>
+            </div>
+          </form>
+          <section class="feedback" id="feedback" aria-live="polite" hidden>
+            <h4 id="feedback-title"></h4><p id="feedback-text"></p>
+            <p id="confidence-text" hidden></p>
+            <button class="next" id="next" type="button">下一题 →</button>
+          </section>
+        </div>
+      </div>
+      <details id="history">
+        <summary>回顾我的作答</summary>
+        <div id="history-content"></div>
+        <p class="local-note" id="storage-note"></p>
+        <button type="button" class="text-button" id="reset" hidden>重置本组练习</button>
+      </details>
+    </section>
+  </main>
+  <footer>
+    <span>A-Level Atlas</span>
+    <a href="USAGE.md">使用说明</a>
+    <a href="https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-physics-9702/" target="_blank" rel="noopener">Cambridge 9702 考纲 ↗</a>
+    <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">提交意见 ↗</a>
+  </footer>
+<script>
+// Original A-Level Atlas practice. References identify the corresponding syllabus outcomes.
+const atlasQuestions = [
+  {
+    ref: "19.1.1",
+    title: "电容定义",
+    prompt: "An isolated metal sphere carries charge +q at potential V relative to infinity. In a separate experiment, two plates carry +q and −q with a potential difference U. Which pair gives the capacitances of the sphere and the two-plate capacitor, in that order?",
+    support: "先分清两个系统各自用什么电荷、相对哪里取电势。答案中前一项对应球，后一项对应两块极板组成的电容器。",
+    choices: [
+      ["q/V　;　0", "两板的净电荷确实是零。定义平行板电容时，分子取其中一块极板所带电荷量的大小。"],
+      ["q/V　;　q/U", "球用自身电荷与相对无穷远的电势之比。平行板电容器用一块板的电荷量与两板间电势差之比。"],
+      ["q/V　;　2q/U", "把两块板的电荷量大小相加会得到 2q。充电时从一块板转移到另一块板的电荷量只有 q。"],
+      ["V/q　;　U/q", "从单位检查两个比值。1 F 等于 1 C/V，把电势除以电荷得到的是电容的倒数。"]
+    ],
+    correct: 1,
+    hint: "先单独看两块板。如果从一块板移走 q 并放到另一块板，实际转移了多少电荷？再写出 1 F 的单位。"
+  },
+  {
+    ref: "19.1.2",
+    title: "电荷与电压",
+    prompt: "A 2.4 nF capacitor carries 18 nC on its positive plate. What is the potential difference across it?",
+    support: "已知电容和正极板上的电荷量，求两板间电势差。留意两个单位中的前缀。",
+    choices: [
+      ["0.13 V", "你可以把 0.13 V 代回 Q = CV。它给出的电荷约为 0.31 nC，与题给的 18 nC 对不上。"],
+      ["7.5 mV", "把 nC 与 nF 分别写成 C 与 F。分子和分母都有 10⁻⁹，约去后所得电压的单位是 V。"],
+      ["7.5 V", "由 V = Q/C 得 18 nC ÷ 2.4 nF = 7.5 V。代回原式得到 2.4 nF × 7.5 V = 18 nC。"],
+      ["43.2 V", "43.2 来自两个数相乘。写下 Q = CV 后，先把需要求的 V 单独放在等号一侧。"]
+    ],
+    correct: 2,
+    hint: "想象每增加 1 V，这只电容器就多储存 2.4 nC。要达到 18 nC，需要几个这样的 1 V？"
+  },
+  {
+    ref: "19.1.3",
+    title: "组合公式的推导",
+    prompt: "Two initially uncharged capacitors are connected to a battery. Which pair of steps, together with Q = CV, can justify the combination rules for both a series circuit and a parallel circuit?",
+    support: "请各看一个连接方式。Q 表示电荷量的大小，V 表示电压，下标 t 表示整个组合。",
+    choices: [
+      ["Series: equal Q, Vₜ = V₁ + V₂.\nParallel: equal V, Qₜ = Q₁ + Q₂.", "串联时将各电压写成 Q/C，可推出 1/Cₜ = 1/C₁ + 1/C₂。并联时将各电荷写成 CV，可推出 Cₜ = C₁ + C₂。可以合上选项，再独立写出两行推导。"],
+      ["Series: equal V, Qₜ = Q₁ + Q₂.\nParallel: equal Q, Vₜ = V₁ + V₂.", "画出连接到电池两端的两条并联支路。每条支路都跨接电池的两个端点，所以这两支路的电压一定相同。"],
+      ["Series: equal Q, Vₜ = V₁ + V₂.\nParallel: equal Q, Vₜ = V₁ + V₂.", "串联这半句可以保留。对并联支路试取两个不同电容值，同一电压下，由 Q = CV 可知它们所带电荷量不同。"],
+      ["Series: equal V, Qₜ = Q₁ + Q₂.\nParallel: equal V, Qₜ = Q₁ + Q₂.", "并联这半句可以保留。对串联电路沿两个电容走一遍，两段电势差相加等于电池电压。"]
+    ],
+    correct: 0,
+    hint: "先画并联图，找出两个共同端点。再画串联图，看看从电池一端走到另一端会经过几段电压。"
+  },
+  {
+    ref: "19.1.4",
+    title: "组合电容的计算",
+    prompt: "A 6.0 μF capacitor and a 3.0 μF capacitor form one series branch. A 4.0 μF capacitor is connected in parallel with that whole branch. What is the total capacitance?",
+    support: "先把串联支路看成一个电容，再把这条支路与另一条并联支路合并。",
+    choices: [
+      ["13 μF", "这个数等于三只电容直接相加。先只看 6.0 μF 和 3.0 μF 这两只，它们串联后的电容应小于 3.0 μF。"],
+      ["1.33 μF", "若串联支路已经算出 2.0 μF，再看它和 4.0 μF 的两个端点。两条支路并联，第二次合并应使用加法。"],
+      ["2.77 μF", "先相加 6.0 和 3.0，再与 4.0 串联，可以得到这个数。请重新标记题干中的串联支路，确定第一次该合并哪两只、怎样合并。"],
+      ["6.0 μF", "串联支路为 (6.0 × 3.0)/(6.0 + 3.0) = 2.0 μF，再并联 4.0 μF，总电容为 6.0 μF。"]
+    ],
+    correct: 3,
+    hint: "只看串联支路。它的等效电容应该比 3.0 μF 大还是小？得出这一步后，再连回 4.0 μF 支路。"
+  },
+  {
+    ref: "19.2.1",
+    title: "从图线求储能",
+    prompt: "The graph shows the voltage across a capacitor as its charge increases. How much additional energy is stored while the charge rises from 2.0 μC to 6.0 μC?",
+    support: "横轴是电荷量，纵轴是电压。题目问的是两个状态之间新增的储能。",
+    figure: "charge-graph",
+    choices: [
+      ["27 μJ", "27 μJ 是从零充到 6.0 μC 的总储能。在图上标出起点 2.0 μC，去掉它左边的面积。"],
+      ["24 μJ", "两条竖线之间是梯形。平均电压为 (3.0 + 9.0)/2 = 6.0 V，乘以 4.0 μC 得 24 μJ。也可以求两次总储能之差。"],
+      ["12 μJ", "12 μJ 只包含这段梯形顶部的三角形。充电起点已有 3.0 V，图线下方还有一块高为 3.0 V 的矩形。"],
+      ["36 μJ", "36 μJ 对应全程按 9.0 V 计算。看看两端电压是多少，再判断这一段图线下方应当是什么形状。"]
+    ],
+    correct: 1,
+    hint: "在 Q = 2.0 μC 和 Q = 6.0 μC 各画一条竖线。两条竖线之间，图线与横轴围出的是什么形状？"
+  },
+  {
+    ref: "19.2.2",
+    title: "选择储能公式",
+    prompt: "Capacitor X carries 15 μC at 4.0 V. Capacitor Y has capacitance 2.5 μF and is also at 4.0 V. Which pair gives the stored energies of X and Y, respectively?",
+    support: "先看 X、Y 各给出了哪两个量。答案的顺序是 X 的能量、Y 的能量。",
+    choices: [
+      ["60 μJ　;　40 μJ", "两个数都等于按终态电压完成全部充电所做的功。从零开始充电时电压逐渐上升，储能式中有 ½。"],
+      ["30 μJ　;　5.0 μJ", "X 的结果可以保留。Y 给的是电容和电压，写 W = ½CV²，代入时要把 4.0 平方。"],
+      ["30 μJ　;　20 μJ", "X 用 W = ½QV，得到 ½ × 15 × 4.0 = 30 μJ。Y 用 W = ½CV²，得到 ½ × 2.5 × 4.0² = 20 μJ。"],
+      ["60 μJ　;　20 μJ", "Y 的结果可以保留。X 的终态乘积 QV 是 60 μJ，从零充到这一状态所储能量为这个乘积的一半。"]
+    ],
+    correct: 2,
+    hint: "先给两只电容各写一行。X 有 Q 和 V，Y 有 C 和 V；两种写法可由 Q = CV 互相转化。"
+  }
+];
+
+</script>
+<script>
+(() => {
+  "use strict";
+  const find = (id) => document.getElementById(id);
+  find("download").hidden = location.protocol === "file:";
+  const keyPrefix = "alevel-atlas.9702.capacitance.v1.";
+  const unsure = "unsure";
+  const labels = "ABCD";
+  let index = 0;
+  let storageAvailable = true;
+  const attempts = new Map();
+  const visited = new Map();
+
+  function validChoice(value, question) {
+    return value === unsure || (Number.isInteger(value) && value >= 0 && value < question.choices.length);
+  }
+  function readAttempts(question) {
+    try {
+      const raw = JSON.parse(localStorage.getItem(keyPrefix + question.ref) || "[]");
+      return Array.isArray(raw) ? raw.filter((a) => a && validChoice(a.choice, question) && typeof a.doubt === "boolean") : [];
+    } catch {
+      storageAvailable = false;
+      return attempts.get(question.ref) || [];
+    }
+  }
+  function refreshAttempts() {
+    if (storageAvailable) {
+      atlasQuestions.forEach((q) => attempts.set(q.ref, readAttempts(q)));
+    }
+  }
+  function attemptLabel(question, attempt) {
+    if (attempt.choice === unsure) return "我不确定";
+    return labels[attempt.choice] + (attempt.doubt ? " · 不确定" : "");
+  }
+  function feedback(question, attempt) {
+    if (attempt.choice === unsure) {
+      return { title: "从这一步开始", text: question.hint };
+    }
+    if (attempt.choice === question.correct) {
+      return { title: attempt.doubt ? "✓ 选对了，再核对你的理由" : "✓ 选对了", text: question.choices[attempt.choice][1] };
+    }
+    return { title: "回到这一步，再试一次", text: question.choices[attempt.choice][1] };
+  }
+  function showFeedback(question, attempt) {
+    const box = find("feedback");
+    if (!attempt) { box.hidden = true; return; }
+    const f = feedback(question, attempt);
+    find("feedback-title").textContent = f.title;
+    find("feedback-text").textContent = f.text;
+    const note = find("confidence-text");
+    note.hidden = !attempt.doubt || attempt.choice === unsure;
+    note.textContent = note.hidden ? "" : "你的不确定标记已记入本次作答。";
+    box.dataset.outcome = attempt.choice === question.correct ? "correct" : "hint";
+    find("next").textContent = index < atlasQuestions.length - 1 ? "下一题 →" : "回顾作答 ↓";
+    box.hidden = false;
+  }
+  function refreshOverview() {
+    let count = 0;
+    const content = find("history-content");
+    content.replaceChildren();
+    const navButtons = [...find("question-nav").children];
+    atlasQuestions.forEach((q, i) => {
+      const list = attempts.get(q.ref) || [];
+      navButtons[i].toggleAttribute("data-answered", list.length > 0);
+      navButtons[i].setAttribute("aria-label", q.ref + " " + q.title + (list.length ? "，已作答" : "，未作答"));
+      if (!list.length) return;
+      count++;
+      const h = document.createElement("h4");
+      h.textContent = q.ref + "　" + q.title;
+      content.append(h);
+      const ol = document.createElement("ol");
+      list.forEach((item) => {
+        const entry = document.createElement("li");
+        const choice = document.createElement("strong");
+        choice.textContent = attemptLabel(q, item) + (item.choice === unsure ? "" : "　" + q.choices[item.choice][0]);
+        const p = document.createElement("p");
+        const f = feedback(q, item);
+        p.textContent = f.title + "。 " + f.text;
+        entry.append(choice, p);
+        ol.append(entry);
+      });
+      content.append(ol);
+    });
+    find("progress").textContent = "已作答 " + count + " / " + atlasQuestions.length;
+    if (!count) content.textContent = "完成第一次作答后，可以在这里回看所选答案、当时的把握和反馈。";
+    find("reset").hidden = !count;
+    find("storage-note").textContent = storageAvailable
+      ? "作答保存在当前浏览器。"
+      : "此浏览器暂时无法保存记录，当前页面仍可回顾作答。";
+  }
+  function selectedChoice() {
+    const item = find("choices").querySelector("input:checked");
+    return item ? (item.value === unsure ? unsure : Number(item.value)) : null;
+  }
+  function syncForm() {
+    const selected = selectedChoice();
+    const checkbox = find("low-confidence");
+    checkbox.disabled = selected === null || selected === unsure;
+    if (checkbox.disabled) checkbox.checked = false;
+    find("submit").disabled = selected === null;
+    const q = atlasQuestions[index];
+    const staged = { choice: selected, doubt: checkbox.checked };
+    visited.set(q.ref, staged);
+    const last = (attempts.get(q.ref) || []).at(-1);
+    showFeedback(q, last && last.choice === staged.choice && last.doubt === staged.doubt ? last : null);
+  }
+  function addChoice(text, value, selected) {
+    const row = document.createElement("label");
+    row.className = value === unsure ? "option unsure" : "option";
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "answer";
+    input.value = String(value);
+    input.checked = selected === value;
+    const marker = document.createElement("span");
+    marker.className = "option-letter";
+    marker.textContent = value === unsure ? "?" : labels[value];
+    marker.setAttribute("aria-hidden", "true");
+    const title = document.createElement("span");
+    title.textContent = text;
+    title.className = "option-text";
+    if (value !== unsure) title.lang = "en";
+    row.append(input, marker, title);
+    find("choices").append(row);
+  }
+  function renderQuestion() {
+    const q = atlasQuestions[index];
+    const last = (attempts.get(q.ref) || []).at(-1);
+    const current = visited.get(q.ref) || last;
+    find("task-label").textContent = q.ref + "　/　" + q.title;
+    find("question").textContent = q.prompt;
+    find("support").textContent = q.support;
+    find("charge-graph").hidden = q.figure !== "charge-graph";
+    find("choices").querySelectorAll("label").forEach((label) => label.remove());
+    q.choices.forEach(([text], i) => addChoice(text, i, current?.choice));
+    addChoice("我不确定，从哪里开始？", unsure, current?.choice);
+    find("low-confidence").checked = current?.doubt || false;
+    [...find("question-nav").children].forEach((link, i) => {
+      if (i === index) link.setAttribute("aria-current", "step");
+      else link.removeAttribute("aria-current");
+    });
+    syncForm();
+    refreshOverview();
+  }
+  function readHash(scroll, focus = false) {
+    const hash = location.hash.slice(1);
+    const target = atlasQuestions.findIndex((q) => q.ref === hash);
+    if (target < 0) return;
+    index = target;
+    renderQuestion();
+    if (scroll) {
+      if (focus) find("question").focus({preventScroll:true});
+      find("practice").scrollIntoView({block:"start"});
+    }
+  }
+  atlasQuestions.forEach((q) => {
+    const a = document.createElement("a");
+    a.href = "#" + q.ref;
+    const ref = document.createElement("small"); ref.textContent = q.ref;
+    const title = document.createElement("span"); title.textContent = q.title;
+    a.append(ref, title);
+    find("question-nav").append(a);
+  });
+  refreshAttempts();
+  renderQuestion();
+  window.addEventListener("hashchange", () => readHash(true, true));
+  readHash(true);
+  window.addEventListener("storage", (event) => {
+    if (event.key === null || event.key.startsWith(keyPrefix)) {
+      refreshAttempts();
+      refreshOverview();
+      syncForm();
+    }
+  });
+  find("choices").addEventListener("change", syncForm);
+  find("low-confidence").addEventListener("change", syncForm);
+  find("answer-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const q = atlasQuestions[index], choice = selectedChoice();
+    if (choice === null) return;
+    const answer = {choice, doubt: find("low-confidence").checked};
+    const list = storageAvailable ? readAttempts(q) : (attempts.get(q.ref) || []);
+    const last = list.at(-1);
+    if (!last || last.choice !== answer.choice || last.doubt !== answer.doubt) {
+      list.push(answer);
+      if (storageAvailable) {
+        try { localStorage.setItem(keyPrefix + q.ref, JSON.stringify(list)); }
+        catch { storageAvailable = false; }
+      }
+    }
+    attempts.set(q.ref, list);
+    refreshOverview();
+    showFeedback(q, answer);
+    find("feedback").scrollIntoView({block:"nearest"});
+  });
+  find("next").addEventListener("click", () => {
+    if (index < atlasQuestions.length - 1) location.hash = atlasQuestions[index + 1].ref;
+    else {
+      find("history").open = true;
+      find("history").querySelector("summary").focus();
+    }
+  });
+  find("reset").addEventListener("click", () => {
+    if (!confirm("清空本组的作答记录并从第一题重新开始？")) return;
+    atlasQuestions.forEach((q) => {
+      try { localStorage.removeItem(keyPrefix + q.ref); } catch { storageAvailable = false; }
+    });
+    attempts.clear();
+    visited.clear();
+    find("history").open = false;
+    index = 0;
+    renderQuestion();
+    location.hash = atlasQuestions[0].ref;
+    find("practice").scrollIntoView({block:"start"});
+  });
+})();
+
+</script>
+</body>
+</html>
