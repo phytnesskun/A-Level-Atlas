@@ -25,23 +25,19 @@ button:disabled {cursor:default}
 .mast-inner, main, footer {width:min(1110px,calc(100% - 2.6rem));margin:auto}
 .mast-inner {display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:14px 0}
 .wordmark {display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-size:1.35rem;line-height:1.2;font-weight:760;letter-spacing:-.05em}
-.atlas-mark {display:inline-grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--lime);border:1px solid #b4bd81;font:italic bold 27px/1 Georgia,serif;padding-right:3px}
+.atlas-mark {display:inline-grid;place-items:center;flex:none;width:36px;height:36px;border-radius:6px;background:#176050;color:#fff;font:600 1.16rem/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:normal}
 .mast nav,footer {display:flex;align-items:center;gap:24px}
 .mast nav a {font-size:.89rem;text-decoration:none;font-weight:600}
 .mast nav a:hover,footer a:hover {text-decoration:underline}
-.entry-grid {display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin:26px 0 40px}
-.map-entry,.exercise-entry {position:relative;overflow:hidden;border-radius:18px}
+.map-entry {position:relative;overflow:hidden;border-radius:18px}
 .map-entry {background:#153c36;color:#fff}
-.exercise-entry {background:#dfe8ce;color:#21392b;border:1px solid #cbd6ba}
 .entry-content {position:relative;z-index:1;padding:26px 30px 25px}
 .kicker,.progress,.task-label,.questions-nav small {font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"PingFang SC",monospace;font-variant-numeric:tabular-nums}
 .kicker {font-size:.78rem;letter-spacing:.04em;margin:0 0 .55rem;font-weight:600}
 .map-entry .kicker {color:#d8e4cb}
 .entry-content h2 {font-size:clamp(1.65rem,3.3vw,2.65rem);letter-spacing:-.06em;line-height:1.25;margin:.5rem 0}
-.entry-content p:not(.kicker) {margin:0 0 18px;font-size:.96rem}
 .entry-link {display:inline-flex;align-items:center;gap:16px;border-radius:7px;padding:7px 13px;background:var(--lime);color:#1d3828;text-decoration:none;font-weight:650;font-size:.88rem}
 .entry-link:hover {background:white}
-.exercise-entry .entry-link {background:#fffdf5}
 .contours {position:absolute;inset:0 0 0 auto;width:42%;opacity:.45;background:repeating-radial-gradient(ellipse at 119% 115%,transparent 0 16px,#7ba677 17px,transparent 18.5px 27px);mask-image:linear-gradient(to right,transparent,#000 32%)}
 .practice {scroll-margin-top:12px}
 .section-head {display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:0 0 16px}
@@ -57,9 +53,8 @@ button:disabled {cursor:default}
 .questions-nav a[data-answered]::after {content:"";display:inline-block;margin-left:auto;width:7px;height:7px;border-radius:50%;background:#336541;align-self:center}
 .task {background:#fffffa;border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3.2vw,36px);min-width:0}
 .task-label {font-size:.8rem;color:var(--muted);margin-bottom:10px}
-#question {color:var(--ink);font-size:clamp(1.18rem,1.9vw,1.6rem);line-height:1.44;letter-spacing:-.024em;margin:0 0 8px;scroll-margin-top:16px}
+#question {color:var(--ink);max-width:67ch;font-size:1.125rem;font-weight:400;line-height:1.6;letter-spacing:normal;margin:0 0 9px;scroll-margin-top:16px}
 #question:focus:not(:focus-visible) {outline:none}
-.support {margin:0 0 17px;font-size:.93rem;color:var(--muted)}
 figure {margin:0 0 16px;background:#f4f7ef;border-radius:8px;padding:14px}
 figure svg {display:block;width:min(100%,380px);height:auto;margin:auto}
 #choices {border:0;padding:0;margin:0;min-width:0;display:grid;gap:7px}
@@ -98,10 +93,8 @@ footer span {margin-right:auto;font-weight:650}
 @media (max-width:720px) {
   .mast-inner,main,footer {width:calc(100% - 1.45rem)}
   .mast nav {gap:12px}
-  .entry-grid {margin:16px 0 26px;gap:9px;grid-template-columns:1.2fr 1fr}
   .entry-content {padding:18px 14px}
   .entry-content h2 {font-size:1.45rem}
-  .entry-content p:not(.kicker) {font-size:.87rem}
   .entry-content .kicker {font-size:.68rem;min-height:2.1em}
   .practice-grid {grid-template-columns:1fr;gap:12px}
   .questions-nav {grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
@@ -113,54 +106,77 @@ footer span {margin-right:auto;font-weight:650}
 @media (max-width:400px) {
   .mast nav {gap:8px}
   .mast nav a {font-size:.77rem}
-  .atlas-mark {display:none}
-  .entry-grid {grid-template-columns:1fr}
+  .atlas-mark {width:30px;height:30px;font-size:1rem}
   .entry-content {padding:14px}
   .entry-content .kicker {min-height:0}
-  .entry-content p:not(.kicker) {margin-bottom:10px}
   .form-actions {align-items:stretch;flex-direction:column}
   figure {padding:8px}
 }
+
+.map-entry {margin:24px 0}
+.map-entry .entry-content {display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 16px}
+.map-entry .kicker {grid-column:1/-1}
+.map-entry h2 {margin:0}
+#topics {scroll-margin-top:10px;margin:24px 0 32px}
+#topics h2 {font-size:1.25rem;margin:0 0 10px}
+#topic-cards {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#topic-cards a {display:flex;flex-direction:column;align-items:start;gap:6px;background:#fffef8;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none}
+#topic-cards a[aria-current] {background:#e8f0e3;border-color:#5b816c}
+#topic-cards a:hover {border-color:#376d53}
+#topic-cards small,#topic-cards span {font-size:.78rem;color:var(--muted)}
+#topic-cards strong {font-size:1.02rem;color:var(--ink);line-height:1.3}
+#topic-cards span {margin-top:auto}
+var {font:italic 1.07em/1 Georgia,serif}
+#translation {margin:0 0 18px;font-size:.86rem;color:var(--muted)}
+#translation summary {cursor:pointer;width:fit-content}
+#translation p {font-size:.96rem;margin:6px 0 0;max-width:64ch}
+#question-figure svg {font:13px system-ui,sans-serif;color:var(--ink)}
+.plot-grid {stroke:#c9d8ce;stroke-dasharray:3 3;fill:none}
+.plot-axis {stroke:#374c42;stroke-width:1.6;fill:none}
+.plot-line {fill:none;stroke:#176050;stroke-width:3}
+#follow-up {margin:12px 0;padding:4px 12px 10px;border-inline-start:2px solid #548970}
+#follow-up button {padding:5px 10px;margin:3px 8px 4px 0;border:1px solid #849b8a;border-radius:5px;background:#fff;color:var(--ink)}
+@media(max-width:760px) {
+  #topic-cards {grid-template-columns:repeat(2,minmax(0,1fr))}
+  #question {font-size:1.0625rem}
+  .mast-inner {flex-wrap:wrap}
+  .questions-nav {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+.question-feedback {text-align:end;font-size:.84rem;color:var(--muted);margin:10px 0}
 </style>
 </head>
 <body>
   <header class="mast">
     <div class="mast-inner">
-      <a class="wordmark" href="./index.html" aria-label="A-Level Atlas 首页"><span class="atlas-mark" aria-hidden="true">A</span> A-Level Atlas</a>
+      <a class="wordmark" href="./index.html" aria-label="A-Level Atlas 首页"><span class="atlas-mark" aria-hidden="true">亓</span> A-Level Atlas</a>
       <nav aria-label="主要导航">
         <a href="graph/dist/index.html">知识图谱</a>
-        <a href="#practice">专题练习</a>
-        <a id="download" href="downloads/A-Level-Atlas-trial-0.1.0.zip" download>下载离线包</a>
+        <a href="#topics">试用专题</a>
+        <a id="download" href="downloads/A-Level-Atlas-trial-0.2.0.zip" download>下载离线包</a>
         <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈 ↗</a>
       </nav>
     </div>
   </header>
   <main id="main">
     <h1 class="sr">A-Level Atlas 课程图谱与专题练习</h1>
-    <div class="entry-grid">
-      <section class="map-entry">
-        <div class="contours" aria-hidden="true"></div>
-        <div class="entry-content">
-          <p class="kicker">CAIE　/　Pearson Edexcel</p>
-          <h2>六科知识图谱</h2>
-          <p>按考试局、科目和学段查看知识点与先修关系。</p>
-          <a class="entry-link" href="graph/dist/index.html">进入图谱 <span aria-hidden="true">↗</span></a>
-        </div>
-      </section>
-      <section class="exercise-entry">
-        <div class="entry-content">
-          <p class="kicker">Physics　/　A2</p>
-          <h2>电容与储能</h2>
-          <p>六道原创选择题，每道对应一个考纲目标。</p>
-          <a class="entry-link" href="#practice">开始练习 <span aria-hidden="true">↓</span></a>
-        </div>
-      </section>
+    <div class="map-entry">
+      <div class="contours" aria-hidden="true"></div>
+      <div class="entry-content">
+        <p class="kicker">CAIE　/　Pearson Edexcel</p>
+        <h2>六科知识图谱</h2>
+        <a class="entry-link" href="graph/dist/index.html">进入图谱 <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
+    <section id="topics" aria-labelledby="topics-title">
+      <h2 id="topics-title">可试用专题</h2>
+      <div id="topic-cards"></div>
+    </section>
     <section class="practice" id="practice" aria-labelledby="practice-name">
       <div class="section-head">
         <div>
-          <p class="kicker">CAIE 9702　/　2025–2027 · v2</p>
-          <h2 id="practice-name">电容与储能 · 六道题</h2>
+          <p class="kicker" id="edition"></p>
+          <h2 id="practice-name">Capacitance and Stored Energy</h2>
         </div>
         <span class="progress" id="progress">已作答 0 / 6</span>
       </div>
@@ -170,24 +186,8 @@ footer span {margin-right:auto;font-weight:650}
         <div class="task" id="task">
           <div class="task-label" id="task-label"></div>
           <h3 id="question" tabindex="-1" lang="en"></h3>
-          <p class="support" id="support"></p>
-          <figure id="charge-graph" hidden>
-            <svg viewBox="0 0 380 204" role="img" aria-labelledby="chart-title chart-desc">
-              <title id="chart-title">Voltage against charge</title>
-              <desc id="chart-desc">横轴 Q（μC），纵轴 V（V）。从原点出发的直线通过 (2, 3)、(4, 6)、(6, 9)。</desc>
-              <g stroke="#cfd9d1" stroke-dasharray="3 4" fill="none">
-                <path d="M59 118.33h85V163 M59 73.67h170V163 M59 29h255V163"/>
-              </g>
-              <path d="M59 16v147h285" fill="none" stroke="#354940" stroke-width="1.6"/>
-              <path d="M59 163L314 29" fill="none" stroke="#216b53" stroke-width="3"/>
-              <g fill="#216b53"><circle cx="144" cy="118.33" r="3"/><circle cx="314" cy="29" r="3"/></g>
-              <g fill="#354940" font-size="12" font-family="system-ui, sans-serif">
-                <text x="46" y="168">0</text><text x="45" y="122">3</text><text x="45" y="77">6</text><text x="45" y="33">9</text>
-                <text x="142" y="181">2</text><text x="226" y="181">4</text><text x="311" y="181">6</text>
-                <text x="232" y="199">Charge Q / μC</text><text x="32" y="12">Voltage V / V</text>
-              </g>
-            </svg>
-          </figure>
+          <details id="translation"><summary>查看中文题意</summary><p id="support"></p></details>
+          <figure id="question-figure" hidden></figure>
           <form id="answer-form">
             <fieldset id="choices"><legend class="sr">选择一个答案</legend></fieldset>
             <div class="form-actions"><label class="confidence"><input type="checkbox" id="low-confidence" disabled> 我对所选答案也不确定</label>
@@ -197,10 +197,12 @@ footer span {margin-right:auto;font-weight:650}
           <section class="feedback" id="feedback" aria-live="polite" hidden>
             <h4 id="feedback-title"></h4><p id="feedback-text"></p>
             <p id="confidence-text" hidden></p>
+            <div id="follow-up" hidden></div>
             <button class="next" id="next" type="button">下一题 →</button>
           </section>
         </div>
       </div>
+      <p class="question-feedback"><a id="question-feedback" href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈这道题 ↗</a></p>
       <details id="history">
         <summary>回顾我的作答</summary>
         <div id="history-content"></div>
@@ -212,7 +214,7 @@ footer span {margin-right:auto;font-weight:650}
   <footer>
     <span>A-Level Atlas</span>
     <a href="USAGE.md">使用说明</a>
-    <a href="https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-physics-9702/" target="_blank" rel="noopener">Cambridge 9702 考纲 ↗</a>
+
     <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">提交意见 ↗</a>
   </footer>
 <script>
@@ -220,51 +222,51 @@ footer span {margin-right:auto;font-weight:650}
 const atlasQuestions = [
   {
     ref: "19.1.1",
-    title: "电容定义",
-    prompt: "An isolated metal sphere carries charge +q at potential V relative to infinity. In a separate experiment, two plates carry +q and −q with a potential difference U. Which pair gives the capacitances of the sphere and the two-plate capacitor, in that order?",
-    support: "先分清两个系统各自用什么电荷、相对哪里取电势。答案中前一项对应球，后一项对应两块极板组成的电容器。",
+    title: "Defining capacitance",
+    prompt: "An isolated metal sphere carries charge +$q$ at potential $V$ relative to infinity. In a separate experiment, two plates carry +$q$ and −$q$ with a potential difference $U$. Which pair gives the capacitances of the sphere and the two-plate capacitor, in that order?",
+    support: "一个孤立金属球带电 +$q$，相对于无穷远的电势为 $V$。另一个装置的两块板带电 +$q$ 和 −$q$，板间电势差为 $U$。以下哪一对表达式依次表示金属球和两块极板组成的电容器的电容？",
     choices: [
-      ["q/V　;　0", "两板的净电荷确实是零。定义平行板电容时，分子取其中一块极板所带电荷量的大小。"],
-      ["q/V　;　q/U", "球用自身电荷与相对无穷远的电势之比。平行板电容器用一块板的电荷量与两板间电势差之比。"],
-      ["q/V　;　2q/U", "把两块板的电荷量大小相加会得到 2q。充电时从一块板转移到另一块板的电荷量只有 q。"],
-      ["V/q　;　U/q", "从单位检查两个比值。1 F 等于 1 C/V，把电势除以电荷得到的是电容的倒数。"]
+      ["$q$/$V$　;　0", "两板的净电荷确实是零。定义平行板电容时，分子取其中一块极板所带电荷量的大小。"],
+      ["$q$/$V$　;　$q$/$U$", "球用自身电荷与相对无穷远的电势之比。平行板电容器用一块板的电荷量与两板间电势差之比。"],
+      ["$q$/$V$　;　2$q$/$U$", "把两块板的电荷量大小相加会得到 2$q$。充电时从一块板转移到另一块板的电荷量只有 $q$。"],
+      ["$V$/$q$　;　$U$/$q$", "从单位检查两个比值。1 F 等于 1 C/V，把电势除以电荷得到的是电容的倒数。"]
     ],
     correct: 1,
-    hint: "先单独看两块板。如果从一块板移走 q 并放到另一块板，实际转移了多少电荷？再写出 1 F 的单位。"
+    hint: "先单独看两块板。如果从一块板移走 $q$ 并放到另一块板，实际转移了多少电荷？再写出 1 F 的单位。"
   },
   {
     ref: "19.1.2",
-    title: "电荷与电压",
+    title: "Charge and potential difference",
     prompt: "A 2.4 nF capacitor carries 18 nC on its positive plate. What is the potential difference across it?",
-    support: "已知电容和正极板上的电荷量，求两板间电势差。留意两个单位中的前缀。",
+    support: "一个 2.4 nF 的电容器，其正极板带有 18 nC 的电荷。两极板之间的电势差是多少？",
     choices: [
-      ["0.13 V", "你可以把 0.13 V 代回 Q = CV。它给出的电荷约为 0.31 nC，与题给的 18 nC 对不上。"],
+      ["0.13 V", "你可以把 0.13 V 代回 $Q$ = $CV$。它给出的电荷约为 0.31 nC，与题给的 18 nC 对不上。"],
       ["7.5 mV", "把 nC 与 nF 分别写成 C 与 F。分子和分母都有 10⁻⁹，约去后所得电压的单位是 V。"],
-      ["7.5 V", "由 V = Q/C 得 18 nC ÷ 2.4 nF = 7.5 V。代回原式得到 2.4 nF × 7.5 V = 18 nC。"],
-      ["43.2 V", "43.2 来自两个数相乘。写下 Q = CV 后，先把需要求的 V 单独放在等号一侧。"]
+      ["7.5 V", "由 $V$ = $Q$/$C$ 得 18 nC ÷ 2.4 nF = 7.5 V。代回原式得到 2.4 nF × 7.5 V = 18 nC。"],
+      ["43.2 V", "43.2 来自两个数相乘。写下 $Q$ = $CV$ 后，先把需要求的 $V$ 单独放在等号一侧。"]
     ],
     correct: 2,
     hint: "想象每增加 1 V，这只电容器就多储存 2.4 nC。要达到 18 nC，需要几个这样的 1 V？"
   },
   {
     ref: "19.1.3",
-    title: "组合公式的推导",
-    prompt: "Two initially uncharged capacitors are connected to a battery. Which pair of steps, together with Q = CV, can justify the combination rules for both a series circuit and a parallel circuit?",
-    support: "请各看一个连接方式。Q 表示电荷量的大小，V 表示电压，下标 t 表示整个组合。",
+    title: "Deriving combination rules",
+    prompt: "Two initially uncharged capacitors are connected to a battery. Which pair of steps, together with $Q$ = $CV$, can justify the combination rules for both a series circuit and a parallel circuit?",
+    support: "将两个起初不带电的电容器接到电池上。下列哪组关系可以和 $Q$ = $CV$ 一起，用来推导串联和并联两种连接的电容公式？",
     choices: [
-      ["Series: equal Q, Vₜ = V₁ + V₂.\nParallel: equal V, Qₜ = Q₁ + Q₂.", "串联时将各电压写成 Q/C，可推出 1/Cₜ = 1/C₁ + 1/C₂。并联时将各电荷写成 CV，可推出 Cₜ = C₁ + C₂。可以合上选项，再独立写出两行推导。"],
-      ["Series: equal V, Qₜ = Q₁ + Q₂.\nParallel: equal Q, Vₜ = V₁ + V₂.", "画出连接到电池两端的两条并联支路。每条支路都跨接电池的两个端点，所以这两支路的电压一定相同。"],
-      ["Series: equal Q, Vₜ = V₁ + V₂.\nParallel: equal Q, Vₜ = V₁ + V₂.", "串联这半句可以保留。对并联支路试取两个不同电容值，同一电压下，由 Q = CV 可知它们所带电荷量不同。"],
-      ["Series: equal V, Qₜ = Q₁ + Q₂.\nParallel: equal V, Qₜ = Q₁ + Q₂.", "并联这半句可以保留。对串联电路沿两个电容走一遍，两段电势差相加等于电池电压。"]
+      ["Series: equal $Q$, $Vₜ$ = $V₁$ + $V₂$.\nParallel: equal $V$, $Qₜ$ = $Q₁$ + $Q₂$.", "串联时将各电压写成 $Q$/$C$，可推出 1/$Cₜ$ = 1/$C₁$ + 1/$C₂$。并联时将各电荷写成 $CV$，可推出 $Cₜ$ = $C₁$ + $C₂$。可以合上选项，再独立写出两行推导。"],
+      ["Series: equal $V$, $Qₜ$ = $Q₁$ + $Q₂$.\nParallel: equal $Q$, $Vₜ$ = $V₁$ + $V₂$.", "画出连接到电池两端的两条并联支路。每条支路都跨接电池的两个端点，所以这两支路的电压一定相同。"],
+      ["Series: equal $Q$, $Vₜ$ = $V₁$ + $V₂$.\nParallel: equal $Q$, $Vₜ$ = $V₁$ + $V₂$.", "串联这半句可以保留。对并联支路试取两个不同电容值，同一电压下，由 $Q$ = $CV$ 可知它们所带电荷量不同。"],
+      ["Series: equal $V$, $Qₜ$ = $Q₁$ + $Q₂$.\nParallel: equal $V$, $Qₜ$ = $Q₁$ + $Q₂$.", "并联这半句可以保留。对串联电路沿两个电容走一遍，两段电势差相加等于电池电压。"]
     ],
     correct: 0,
     hint: "先画并联图，找出两个共同端点。再画串联图，看看从电池一端走到另一端会经过几段电压。"
   },
   {
     ref: "19.1.4",
-    title: "组合电容的计算",
+    title: "Equivalent capacitance",
     prompt: "A 6.0 μF capacitor and a 3.0 μF capacitor form one series branch. A 4.0 μF capacitor is connected in parallel with that whole branch. What is the total capacitance?",
-    support: "先把串联支路看成一个电容，再把这条支路与另一条并联支路合并。",
+    support: "一个 6.0 μF 和一个 3.0 μF 的电容器串联成一条支路。另一只 4.0 μF 的电容器与整条支路并联。总电容是多少？",
     choices: [
       ["13 μF", "这个数等于三只电容直接相加。先只看 6.0 μF 和 3.0 μF 这两只，它们串联后的电容应小于 3.0 μF。"],
       ["1.33 μF", "若串联支路已经算出 2.0 μF，再看它和 4.0 μF 的两个端点。两条支路并联，第二次合并应使用加法。"],
@@ -272,14 +274,15 @@ const atlasQuestions = [
       ["6.0 μF", "串联支路为 (6.0 × 3.0)/(6.0 + 3.0) = 2.0 μF，再并联 4.0 μF，总电容为 6.0 μF。"]
     ],
     correct: 3,
+    followUp: {choice: 0, prompt: "先只看 6.0 μF 与 3.0 μF。这两只电容器怎样连接？", choices: ["串联", "并联"], correct: 0, explanation: "原题把这两只接在同一条串联支路上。先求这条支路的电容，再与另一支路合并。"},
     hint: "只看串联支路。它的等效电容应该比 3.0 μF 大还是小？得出这一步后，再连回 4.0 μF 支路。"
   },
   {
     ref: "19.2.1",
-    title: "从图线求储能",
+    title: "Energy during charging",
     prompt: "The graph shows the voltage across a capacitor as its charge increases. How much additional energy is stored while the charge rises from 2.0 μC to 6.0 μC?",
-    support: "横轴是电荷量，纵轴是电压。题目问的是两个状态之间新增的储能。",
-    figure: "charge-graph",
+    support: "图中给出了一个电容器的电压随电荷量的变化。电荷量从 2.0 μC 增加到 6.0 μC 的过程中，储能增加了多少？",
+    chart: {xLabel: "Q / μC", yLabel: "V / V", xMax: 6, yMax: 9, points: [[0, 0], [2, 3], [4, 6], [6, 9]], xTicks: [0, 2, 4, 6], yTicks: [0, 3, 6, 9], description: "Voltage against charge: a straight line through (0 μC, 0 V), (2 μC, 3 V), (4 μC, 6 V) and (6 μC, 9 V)."},
     choices: [
       ["27 μJ", "27 μJ 是从零充到 6.0 μC 的总储能。在图上标出起点 2.0 μC，去掉它左边的面积。"],
       ["24 μJ", "两条竖线之间是梯形。平均电压为 (3.0 + 9.0)/2 = 6.0 V，乘以 4.0 μC 得 24 μJ。也可以求两次总储能之差。"],
@@ -287,21 +290,344 @@ const atlasQuestions = [
       ["36 μJ", "36 μJ 对应全程按 9.0 V 计算。看看两端电压是多少，再判断这一段图线下方应当是什么形状。"]
     ],
     correct: 1,
-    hint: "在 Q = 2.0 μC 和 Q = 6.0 μC 各画一条竖线。两条竖线之间，图线与横轴围出的是什么形状？"
+    hint: "在 $Q$ = 2.0 μC 和 $Q$ = 6.0 μC 各画一条竖线。两条竖线之间，图线与横轴围出的是什么形状？"
   },
   {
     ref: "19.2.2",
-    title: "选择储能公式",
+    title: "Energy equations",
     prompt: "Capacitor X carries 15 μC at 4.0 V. Capacitor Y has capacitance 2.5 μF and is also at 4.0 V. Which pair gives the stored energies of X and Y, respectively?",
-    support: "先看 X、Y 各给出了哪两个量。答案的顺序是 X 的能量、Y 的能量。",
+    support: "电容器 X 在 4.0 V 时带有 15 μC 电荷。电容器 Y 的电容为 2.5 μF，两端电压也是 4.0 V。X 和 Y 各储存多少能量？",
     choices: [
       ["60 μJ　;　40 μJ", "两个数都等于按终态电压完成全部充电所做的功。从零开始充电时电压逐渐上升，储能式中有 ½。"],
-      ["30 μJ　;　5.0 μJ", "X 的结果可以保留。Y 给的是电容和电压，写 W = ½CV²，代入时要把 4.0 平方。"],
-      ["30 μJ　;　20 μJ", "X 用 W = ½QV，得到 ½ × 15 × 4.0 = 30 μJ。Y 用 W = ½CV²，得到 ½ × 2.5 × 4.0² = 20 μJ。"],
-      ["60 μJ　;　20 μJ", "Y 的结果可以保留。X 的终态乘积 QV 是 60 μJ，从零充到这一状态所储能量为这个乘积的一半。"]
+      ["30 μJ　;　5.0 μJ", "X 的结果可以保留。Y 给的是电容和电压，写 $W$ = ½$CV²$，代入时要把 4.0 平方。"],
+      ["30 μJ　;　20 μJ", "X 用 $W$ = ½$QV$，得到 ½ × 15 × 4.0 = 30 μJ。Y 用 $W$ = ½$CV²$，得到 ½ × 2.5 × 4.0² = 20 μJ。"],
+      ["60 μJ　;　20 μJ", "Y 的结果可以保留。X 的终态乘积 $QV$ 是 60 μJ，从零充到这一状态所储能量为这个乘积的一半。"]
     ],
     correct: 2,
-    hint: "先给两只电容各写一行。X 有 Q 和 V，Y 有 C 和 V；两种写法可由 Q = CV 互相转化。"
+    hint: "先给两只电容各写一行。X 有 $Q$ 和 $V$，Y 有 $C$ 和 $V$；两种写法可由 $Q$ = $CV$ 互相转化。"
+  }
+];
+
+</script>
+<script>
+// Original A-Level Atlas questions. CAIE 9702 (2025–2027, Version 2), §2.1, p. 17.
+const motionQuestions = [
+  {
+    id: "motion-1",
+    ref: "2.1.2",
+    title: "Representing a journey",
+    prompt: "A trolley travels 3 m away from a gate in 2 s, waits for 1 s, then returns to the gate in 2 s. A student plots the total distance travelled against time. Which three readings belong on the vertical axis at 2 s, 3 s and 5 s, respectively?",
+    support: "一辆小车用 2 s 从门边驶出 3 m，停留 1 s，然后用 2 s 返回门边。学生绘制总路程随时间变化的图像。2 s、3 s 和 5 s 时的纵坐标依次是多少？",
+    choices: [
+      ["3 m, 3 m, 0 m", "最后的 0 m 对应小车回到起点时的 displacement。看清纵轴表示的 total distance travelled，把回程走过的路也计入。"],
+      ["3 m, 3 m, 6 m", "去程走了 3 m，停车时总路程仍是 3 m，回程又走了 3 m。总路程图在停车时保持水平，返回时继续上升。"],
+      ["3 m, 0 m, 3 m", "这三个数是每一段单独走过的路程。图上各点记录的是从开始到该时刻累计走了多远。"],
+      ["3 m, 4.5 m, 7.5 m", "从 2 s 到 3 s，小车一直停在同一位置。检查这段时间内，图上的总路程应否增加。"]
+    ],
+    correct: 1,
+    hint: "想象小车装着一个里程表。从门边出发、停车、再返回时，分别读一次表。"
+  },
+  {
+    id: "motion-2",
+    ref: "2.1.3",
+    title: "Displacement from a graph",
+    prompt: "The graph shows the velocity of a cart. What is its displacement between 2 s and 6 s?",
+    support: "图像给出小车的速度随时间的变化。小车在 2 s 到 6 s 这段时间内的位移是多少？",
+    chart: {
+      xLabel: "t / s", yLabel: "v / m s⁻¹", xMax: 6, yMax: 8,
+      xTicks: [0, 2, 4, 6], yTicks: [0, 2, 4, 6, 8],
+      points: [[0, 6], [2, 6], [6, 2]],
+      description: "Velocity in metres per second against time in seconds. Straight segments join (0, 6), (2, 6) and (6, 2)."
+    },
+    choices: [
+      ["8 m", "只按末速度 2 m s⁻¹ 算 4 s 会得到 8 m。这段图线一直位于零速度上方，请把整块梯形的面积算一遍。"],
+      ["24 m", "24 m 相当于这 4 s 全程以 6 m s⁻¹ 运动。图线在下降，后面的速度比这个数小。"],
+      ["28 m", "28 m 包括开始 2 s 走过的 12 m。对照题目给出的时间范围，把图上相应的区域圈出来。"],
+      ["16 m", "在 2 s 到 6 s 之间，图线下是梯形。位移为 (6 + 2)/2 × 4 = 16 m。"]
+    ],
+    correct: 3,
+    hint: "用两条竖线标出题目给的开始、结束时刻，看看中间那部分图线下方是什么形状。"
+  },
+  {
+    id: "motion-3",
+    ref: "2.1.4",
+    title: "Velocity at an instant",
+    prompt: "The displacement–time graph shows the motion of a robot along a track. What is its velocity at 4 s?",
+    support: "位移–时间图表示一台机器人沿轨道的运动。它在 4 s 时的速度是多少？",
+    chart: {
+      xLabel: "t / s", yLabel: "s / m", xMax: 6, yMax: 6,
+      xTicks: [0, 1, 2, 3, 4, 5, 6], yTicks: [0, 1, 2, 3, 4, 5, 6],
+      points: [[0, 1], [2, 5], [5, 2], [6, 2]],
+      description: "Displacement in metres against time in seconds. Straight segments join (0, 1), (2, 5), (5, 2) and (6, 2)."
+    },
+    choices: [
+      ["−1.0 m s⁻¹", "4 s 落在下降的直线段内，整段斜率相同。用两端点得到 (2 − 5) m ÷ (5 − 2) s = −1.0 m s⁻¹。"],
+      ["+1.0 m s⁻¹", "速度大小是 1.0 m s⁻¹。还需要用位移变化的方向确定 velocity 的符号。"],
+      ["−3.0 m s⁻¹", "这一段的位移变化量是 −3 m。从图上读出这个变化持续了几秒，再求每秒的变化量。"],
+      ["+0.40 m s⁻¹", "用末端坐标 2 m 除以 5 s 会得到这个数。求这段直线的斜率时，需要两个点之间的坐标差。"]
+    ],
+    correct: 0,
+    hint: "找到 4 s 所在的直线段。沿时间增加的方向取两个点，分别读出它们的位移。",
+    followUp: {
+      choice: 1,
+      prompt: "From 2 s to 5 s, what is the change in the robot’s displacement reading?",
+      choices: ["−3 m", "+3 m"],
+      correct: 0,
+      explanation: "位移读数从 5 m 降到 2 m，变化量为 −3 m。回到原题，把这个带符号的变化量除以相应的时间间隔。"
+    }
+  },
+  {
+    id: "motion-4",
+    ref: "2.1.5",
+    title: "Acceleration at an instant",
+    prompt: "The velocity–time graph shows a cyclist riding along a straight road. What is the acceleration at 3 s?",
+    support: "速度–时间图表示一名骑车人在直路上的运动。骑车人在 3 s 时的加速度是多少？",
+    chart: {
+      xLabel: "t / s", yLabel: "v / m s⁻¹", xMax: 6, yMax: 8,
+      xTicks: [0, 1, 2, 3, 4, 5, 6], yTicks: [0, 2, 4, 6, 8],
+      points: [[0, 2], [2, 2], [6, 8]],
+      description: "Velocity in metres per second against time in seconds. Straight segments join (0, 2), (2, 2) and (6, 8)."
+    },
+    choices: [
+      ["1.0 m s⁻²", "从 0 s 到 6 s 的平均加速度是 1.0 m s⁻²。其中前 2 s 速度恒定。只取包含 3 s 的上升直线段再算。"],
+      ["2.0 m s⁻²", "8 m s⁻¹ 是末速度。上升段起点的速度已经是 2 m s⁻¹，分子要用这两个读数的差。"],
+      ["1.5 m s⁻²", "3 s 在上升直线段内。该段的斜率为 (8 − 2) m s⁻¹ ÷ (6 − 2) s = 1.5 m s⁻²。"],
+      ["0.67 m s⁻²", "4 ÷ 6 给出的是时间变化与速度变化之比。要算每秒速度增加多少，先写速度变化，再除以时间。"]
+    ],
+    correct: 2,
+    hint: "在包含 3 s 的直线上选两个方便读数的点。两点之间，速度每秒改变了多少？"
+  }
+];
+
+</script>
+<script>
+// Original practice for Pearson Edexcel International GCSE Physics (4PH1), Issue 4.
+// The refs below belong to section 2(c), specification PDF pages 20–21.
+const circuitQuestions = [
+  {
+    id: "circuits-1",
+    ref: "2.7",
+    title: "Independent lighting",
+    prompt: "Two reading lamps, P and Q, are connected in parallel across a cell. Only the branch containing P has a switch. Why can a reader turn off P while Q stays lit?",
+    support: "两盏阅读灯 P 和 Q 并联在一个电池两端。只有 P 所在的支路有开关。为什么可以单独关掉 P，而 Q 仍然亮着？",
+    circuitSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 364 190" role="img" aria-labelledby="reading-lights-title">
+      <title id="reading-lights-title">A cell connected to two branches. The branch with lamp P has an open switch. The other branch contains lamp Q.</title>
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M44 85V24H302V86 M302 114V164H44V96"/>
+        <path d="M25 85H63 M35 96H53" stroke-width="3"/>
+        <path d="M174 24V45 M174 74L156 50 M174 74V103 M174 131V164"/>
+        <circle cx="174" cy="46" r="3" fill="white"/><circle cx="174" cy="74" r="3" fill="white"/>
+        <circle cx="174" cy="117" r="14"/><path d="M164 107L184 127 M184 107L164 127"/>
+        <circle cx="302" cy="100" r="14"/><path d="M292 90L312 110 M312 90L292 110"/>
+      </g>
+      <g fill="currentColor"><circle cx="174" cy="24" r="3.6"/><circle cx="174" cy="164" r="3.6"/></g>
+      <g fill="currentColor" font-family="system-ui, sans-serif" font-size="16">
+        <text x="15" y="78">+</text><text x="192" y="123">P</text><text x="322" y="106">Q</text>
+      </g>
+    </svg>`,
+    choices: [
+      ["The switch breaks every path from the cell.", "沿 Q 所在的支路从电池一端走回另一端。检查这条路径是否经过那个开关。"],
+      ["The switch gives Q a second cell of its own.", "图中只有一个电池。看 Q 的两端分别连到了哪里。"],
+      ["Opening P's branch leaves a complete path through Q.", "开关只断开 P 支路。经过 Q 的回路仍闭合，所以 Q 可以继续发光。"],
+      ["Q keeps glowing because it stores a supply of charge.", "灯要持续发光，需要电池持续供能。试着在图上找出经过 Q 的完整回路。"]
+    ],
+    correct: 2,
+    hint: "把开关处看成一个缺口。从电池正端出发，试着只经过 Q 回到负端。"
+  },
+  {
+    id: "circuits-2",
+    ref: "2.8",
+    title: "Current in a series loop",
+    prompt: "A 3.0 V supply drives a current of 0.12 A through one fixed resistor. A second identical resistor is added in series and the supply is changed to 6.0 V. Both resistances stay constant. What is the new current?",
+    support: "一个定值电阻接在 3.0 V 电源上，电流为 0.12 A。现在串联接入第二个相同电阻，同时把电源调到 6.0 V。两个电阻的阻值均保持不变。问新的电流是多少。",
+    choices: [
+      ["0.06 A", "这个数符合电源仍为 3.0 V 的情形。还要考虑供电电压也变了。"],
+      ["0.12 A", "电压变为两倍，总电阻也变为两倍，$V$/$R$ 保持原值。"],
+      ["0.24 A", "如果只把电压加倍，可以得到 0.24 A。再看增加的串联电阻会怎样改变总电阻。"],
+      ["0.48 A", "增加串联电阻会使总电阻变大。想一想，若暂时保持电压不变，电流会朝哪个方向变化。"]
+    ],
+    correct: 1,
+    hint: "分两次想：先保持 3.0 V 接入第二个电阻，再保持两个电阻把电压调到 6.0 V。"
+  },
+  {
+    id: "circuits-3",
+    ref: "2.17",
+    title: "Current at a junction",
+    prompt: "A steady current of 0.68 A enters a junction. One branch carries 0.25 A away. What current leaves in the only other branch, and why?",
+    support: "0.68 A 的稳定电流流入一个分支点，一条支路有 0.25 A 流出。另一条支路流出多少电流？理由是什么？",
+    choices: [
+      ["0.34 A; the two branches must share the current equally.", "只有支路电阻等条件合适时，两支路电流才可能相等。本题已测得一条支路是 0.25 A。"],
+      ["0.93 A; add the entering current and the known branch current.", "给两股已知电流画箭头。0.25 A 已是流出的一部分，检查它是否已包含在流入的 0.68 A 中。"],
+      ["0.68 A; each branch receives the full current from the supply.", "若第二条支路也流出 0.68 A，每秒流出的总电荷就会超过流入量。再检查分支点是否能保持稳定。"],
+      ["0.43 A; no net charge builds up at the junction.", "每秒流入 0.68 C，其中 0.25 C 由第一条支路流出，余下 0.43 C 由另一条支路流出。"]
+    ],
+    correct: 3,
+    hint: "只看 1 s，把题目中的安培读成每秒经过分支点的库仑数。",
+    followUp: {
+      choice: 1,
+      prompt: "在这 1 s 中，第一条支路流出的 0.25 C 与流入的 0.68 C 有什么关系？",
+      choices: ["0.25 C 已经包含在流入的 0.68 C 中。", "分支点另外产生了 0.25 C。"],
+      correct: 0,
+      explanation: "稳定电流下，分支点没有净电荷积累。将 0.68 C 分配给两条流出路径，再回原题核对第二条支路的电流。"
+    }
+  },
+  {
+    id: "circuits-4",
+    ref: "2.18",
+    title: "Voltage across parallel branches",
+    prompt: "A 15 Ω resistor and a 30 Ω resistor are connected in parallel across a 4.5 V supply. The wires have negligible resistance. What is the potential difference across the 30 Ω resistor?",
+    support: "一个 15 Ω 电阻和一个 30 Ω 电阻并联在 4.5 V 电源两端。导线电阻可忽略。求 30 Ω 电阻两端的电势差。",
+    choices: [
+      ["4.5 V", "这条支路的两个端点直接接到电源的两个端点，端点间的电势差为 4.5 V。"],
+      ["2.25 V", "把电压平均分给两只相同串联电阻时会出现这种结果。先画出本题中两只电阻的连接方式。"],
+      ["3.0 V", "若把这两只电阻串联，30 Ω 会分到总电压的三分之二。本题要求看并联接线。"],
+      ["9.0 V", "想象电压表的两根表笔分别接在 30 Ω 的两个端点。沿导线向电源方向移动表笔，它们会落在哪两个端点？"]
+    ],
+    correct: 0,
+    hint: "在草图上给电源两端标上 X 和 Y，再看看 30 Ω 电阻的两端各连到哪个字母。"
+  },
+  {
+    id: "circuits-5",
+    ref: "2.13",
+    title: "Voltage, current and resistance",
+    prompt: "A voltage of 2.7 V across a resistor produces a current of 90 mA. What is its resistance?",
+    support: "一个电阻两端的电压为 2.7 V，通过它的电流为 90 mA。求它的电阻。",
+    choices: [
+      ["0.030 Ω", "用 2.7 除以 90 会得到这个数。代入以 V 和 Ω 表示的关系式时，先把 90 mA 换成 A。"],
+      ["0.243 Ω", "2.7 与 0.090 相乘得到 0.243，但 V × A 的单位是瓦特。检查计算电阻需要作哪一种运算。"],
+      ["30 Ω", "90 mA = 0.090 A，因此 $R$ = $V$/$I$ = 2.7/0.090 = 30 Ω。"],
+      ["300 Ω", "用这个阻值回算：2.7 V / 300 Ω = 0.009 A。把这股电流与题给的 90 mA 对照。"]
+    ],
+    correct: 2,
+    hint: "先将电流写成安培，再用 $V$ = $IR$ 把要找的量单独写在等号一侧。"
+  },
+  {
+    id: "circuits-6",
+    ref: "2.19",
+    title: "Voltage across a series resistor",
+    prompt: "A 50 Ω resistor and a 150 Ω resistor are connected in series across a 6.0 V supply. The wires have negligible resistance. What is the potential difference across the 150 Ω resistor?",
+    support: "一个 50 Ω 电阻和一个 150 Ω 电阻串联在 6.0 V 电源两端。导线电阻可忽略。求 150 Ω 电阻两端的电势差。",
+    choices: [
+      ["1.5 V", "这个数对应 50 Ω 两端的电压。沿同一路径，哪一只电阻分到的电压较大？"],
+      ["4.5 V", "两只电阻通过同一股电流。总电阻为 200 Ω，电流为 6.0/200 = 0.030 A；150 Ω 两端电压为 4.5 V。"],
+      ["3.0 V", "要平分电源电压，两只串联电阻的阻值需要相等。本题的两只电阻分别是多少？"],
+      ["6.0 V", "6.0 V 是两只电阻合起来的电压。沿回路走一遍，检查 50 Ω 两端是否也有电压降。"]
+    ],
+    correct: 1,
+    hint: "在草图上标出同一股电流经过的两只电阻，先写出整条支路的总电阻。"
+  }
+];
+
+</script>
+<script>
+// Original P1 questions. Pearson Edexcel IAL Mathematics, Issue 3 (April 2019), PDF p. 20.
+const quadraticQuestions = [
+  {
+    id: "quadratics-1",
+    ref: "1.3",
+    title: "Turning points",
+    prompt: "The curve has equation $y$ = 5 − 3($x$ + 2)². Which statement describes its turning point?",
+    support: "曲线的方程为 $y$ = 5 − 3($x$ + 2)²。哪一项正确描述了它的转折点？",
+    choices: [
+      ["A minimum at (−2, 5)", "横、纵坐标都对。把 $x$ 从 −2 改为 −1，看看 $y$ 从 5 上升还是下降，再判断是 maximum 还是 minimum。"],
+      ["A maximum at (2, 5)", "判断为 maximum 是对的。把 $x$ = 2 代入括号，平方项会等于零吗？"],
+      ["A maximum at (−2, 5)", "在 $x$ = −2 时平方项为零，$y$ = 5。其余位置都从 5 减去一个正数，所以这是 maximum。"],
+      ["A maximum at (−2, −5)", "在 $x$ = −2 时，整个平方项为零。请再读一次这时等式右边剩下的常数。"]
+    ],
+    correct: 2,
+    hint: "先只看 ($x$ + 2)²，找出让它等于零的 $x$。然后对照这个位置和旁边一个点的高度。"
+  },
+  {
+    id: "quadratics-2",
+    ref: "1.4",
+    title: "The discriminant",
+    prompt: "For $x$² + 6$x$ + $k$ = 0, which option gives both the discriminant and the condition for two distinct real roots?",
+    support: "对于方程 $x$² + 6$x$ + $k$ = 0，哪一项同时给出了判别式和方程有两个不相等实根的条件？",
+    choices: [
+      ["36 − 4$k$ and $k$ ≤ 9", "判别式表达式正确。请单独检查边界 $k$ = 9，再决定不等号能否包含等号。"],
+      ["36 − 4$k$ and $k$ < 9", "$Δ$ = 6² − 4 × 1 × $k$ = 36 − 4$k$。两个不同的实根要求 $Δ$ > 0，解得 $k$ < 9。"],
+      ["36 − 4$k$ and $k$ > 9", "尝试一个满足你所选条件的数，例如 $k$ = 10。算出的判别式是什么符号？它对应几个实根？"],
+      ["36 − $k$ and $k$ < 36", "在 $Δ$ = $b$² − 4$ac$ 中，$a$ = 1，$c$ = $k$。请保留乘数 4，再重新计算。"]
+    ],
+    correct: 1,
+    hint: "先分别写下 $a$、$b$、$c$，代入判别式。再回想方程有两个不相等实根时，判别式应取什么符号。",
+    followUp: {
+      choice: 0,
+      prompt: "At $k$ = 9 the equation becomes ($x$ + 3)² = 0. How many distinct real roots does it have?",
+      choices: ["One", "Two"],
+      correct: 0,
+      explanation: "只有 $x$ = −3 一个不同的实根，虽然它是二重根。回到原题，检查哪个条件排除了这个边界值。"
+    }
+  },
+  {
+    id: "quadratics-3",
+    ref: "1.5",
+    title: "Completing the square",
+    prompt: "Which completed-square form equals 2$x$² + 12$x$ + 11 for every real value of $x$?",
+    support: "以下哪个配方后的式子，对所有实数 $x$ 都与 2$x$² + 12$x$ + 11 相等？",
+    choices: [
+      ["2($x$ + 3)² + 2", "括号内的 3 正确。展开后常数项是 2 × 9 + 2，请与题目的 11 比较。"],
+      ["2($x$ + 6)² − 61", "代入 $x$ = 0 时两式相等，但这里只检查了常数项。展开你选的式子，再看一次项是否为 12$x$。"],
+      ["2($x$ − 3)² − 7", "常数项正确。展开 ($x$ − 3)² 的中间项，再与原式的一次项比较正负号。"],
+      ["2($x$ + 3)² − 7", "展开得到 2$x$² + 12$x$ + 18 − 7，三个系数都与原式吻合。"]
+    ],
+    correct: 3,
+    hint: "先在二次项和一次项里提出公因数 2。配成完全平方后，再检查括号外应保留的常数。"
+  },
+  {
+    id: "quadratics-4",
+    ref: "1.7",
+    title: "Interpreting an inequality",
+    prompt: "A parabola crosses a straight line at $x$ = −2 and $x$ = 5. At $x$ = 0, the parabola is below the line. For which values of $x$ is the parabola on or above the line?",
+    support: "一条抛物线在 $x$ = −2 和 $x$ = 5 处与一条直线交叉。$x$ = 0 时抛物线在直线下方。在哪些位置，抛物线上的点与直线同高或高于直线？",
+    choices: [
+      ["$x$ ≤ −2 or $x$ ≥ 5", "0 位于两个交点之间，所以这一整段内抛物线低于直线。越过两侧的交点后抛物线高于直线，两个交点处两者同高。"],
+      ["−2 ≤ $x$ ≤ 5", "这个区间包含 $x$ = 0。题目给出在这个位置抛物线低于直线，请用它检查所选区间。"],
+      ["$x$ < −2 or $x$ > 5", "你已选出抛物线较高的两个区间。再看 on or above 是否也包括两条曲线同高的位置。"],
+      ["$x$ = −2 or $x$ = 5 only", "这两个点满足同高。题目还包括抛物线更高的位置，试着从一个交点向外走，看两条曲线的上下关系怎样变化。"]
+    ],
+    correct: 0,
+    hint: "在数轴标出两个交点的横坐标，再标出 0。用题目给出的高低关系检查包含 0 的那段区间。"
+  },
+  {
+    id: "quadratics-5",
+    ref: "1.9",
+    title: "Solving a quadratic inequality",
+    prompt: "Which set of values solves 2$x$² + $x$ − 6 < 0?",
+    support: "哪些 $x$ 的值满足 2$x$² + $x$ − 6 < 0？",
+    choices: [
+      ["$x$ < −2 or $x$ > 1.5", "试取 $x$ = 2。它落在所选区间内，但代入后左边是 4。再试两个零点之间的数。"],
+      ["−1.5 < $x$ < 2", "请把端点 2 代入原式检查是否得到零。写出两个因式后，逐个解出它们各自的零点。"],
+      ["−2 < $x$ < 1.5", "左边等于 (2$x$ − 3)($x$ + 2)。两个因式只在 −2 和 1.5 之间异号，端点处乘积等于零。"],
+      ["−2 ≤ $x$ ≤ 1.5", "两端点代入都得到零。检查原题的严格小于号，再决定端点是否保留。"]
+    ],
+    correct: 2,
+    hint: "从 2$x$² + $x$ − 6 = 0 的两个根开始。根把数轴划成三段，每段取一个数检查符号。"
+  }
+];
+
+</script>
+<script>
+const studyTopics = [
+  {
+    title: "Capacitance and Stored Energy", label: "CAIE · A2 Physics",
+    qualification: "CAIE/9702", stage: "A2", version: 2,
+    edition: "9702 · 2025–2027 · Version 2", minutes: "8–12", questions: atlasQuestions
+  },
+  {
+    title: "Motion Graphs", label: "CAIE · AS Physics",
+    qualification: "CAIE/9702", stage: "AS", version: 2,
+    edition: "9702 · 2025–2027 · Version 2", minutes: "8–10", questions: motionQuestions
+  },
+  {
+    title: "Simple Circuits", label: "Pearson Edexcel · International GCSE Physics",
+    qualification: "EDX/4PH1", stage: "IG", version: "Issue 4 – September 2024",
+    edition: "4PH1 · Issue 4 · September 2024", minutes: "8–12", questions: circuitQuestions
+  },
+  {
+    title: "Quadratic Functions", label: "Pearson Edexcel · IAL Mathematics · P1",
+    qualification: "EDX/YMA01", stage: "AS", module: "P1", version: "Issue 3 – April 2019",
+    edition: "Pure Mathematics 1 · Issue 3 · April 2019", minutes: "8–12", questions: quadraticQuestions
   }
 ];
 
@@ -311,29 +637,138 @@ const atlasQuestions = [
   "use strict";
   const find = (id) => document.getElementById(id);
   find("download").hidden = location.protocol === "file:";
-  const keyPrefix = "alevel-atlas.9702.capacitance.v1.";
+  const keyPrefix = "alevel-atlas.";
+  const idOf = (q) => q.id || q.ref;
+  const storageKey = (q) => q.id ? keyPrefix + "topics.v1." + q.id : keyPrefix + "9702.capacitance.v1." + q.ref;
+  let topic = studyTopics[0];
+  let questions = topic.questions;
   const unsure = "unsure";
   const labels = "ABCD";
   let index = 0;
   let storageAvailable = true;
   const attempts = new Map();
   const visited = new Map();
+  const retrying = new Set();
 
+  function mathText(el, text) {
+    el.replaceChildren();
+    for (const [i, part] of text.split("$").entries()) {
+      if (i % 2 === 0) { el.append(part); continue; }
+      for (const token of part.split(/([A-Za-zΔ]+)/)) {
+        if (/^[A-Za-zΔ]+$/.test(token)) {
+          const variable = document.createElement("var");
+          variable.textContent = token;
+          el.append(variable);
+        } else el.append(token);
+      }
+    }
+  }
+  function renderFigure(question) {
+    const figure = find("question-figure");
+    figure.replaceChildren();
+    figure.hidden = !question.chart && !question.circuitSvg;
+    if (question.circuitSvg) {
+      // Diagrams are static drawings included by the question author.
+      figure.innerHTML = question.circuitSvg;
+      return;
+    }
+    if (!question.chart) return;
+    const c = question.chart;
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns,"svg");
+    svg.setAttribute("viewBox","0 0 400 224");
+    svg.setAttribute("role","img");
+    svg.setAttribute("aria-label", c.description);
+    figure.append(svg);
+    function draw(tag, attrs, text) {
+      const el = document.createElementNS(ns,tag);
+      for (const [name,value] of Object.entries(attrs)) el.setAttribute(name,value);
+      if (text !== undefined) el.textContent = text;
+      svg.append(el);
+      return el;
+    }
+    const x = (value) => 60 + 294 * value / c.xMax;
+    const y = (value) => 168 - 132 * value / c.yMax;
+    for (const tick of c.xTicks) {
+      draw("path", {d:"M" + x(tick) + " 36V168", class:"plot-grid"});
+      draw("text", {x:x(tick),y:185,"text-anchor":"middle"}, tick);
+    }
+    for (const tick of c.yTicks) {
+      draw("path", {d:"M60 " + y(tick) + "H354",class:"plot-grid"});
+      draw("text", {x:51,y:y(tick)+4,"text-anchor":"end"},tick);
+    }
+    draw("path", {d:"M60 27V168H365",class:"plot-axis"});
+    draw("polyline", {points:c.points.map(([a,b])=> x(a)+","+y(b)).join(" "),class:"plot-line"});
+    for (const [label,attrs] of [[c.xLabel,{x:357,y:209,"text-anchor":"end"}],[c.yLabel,{x:41,y:19}]]) {
+      const el = draw("text",attrs);
+      const [symbol,unit] = label.split(" / ");
+      const variable = document.createElementNS(ns,"tspan");
+      variable.setAttribute("font-style","italic");
+      variable.textContent = symbol;
+      el.append(variable," / " + unit);
+    }
+  }
+
+  function renderProbe(q, attempt) {
+    const panel = find("follow-up");
+    const probe = q.followUp;
+    panel.replaceChildren();
+    panel.hidden = !probe || attempt.choice !== probe.choice;
+    if (panel.hidden) return;
+    const prompt = document.createElement("p");
+    mathText(prompt, probe.prompt);
+    panel.append(prompt);
+    if (Number.isInteger(attempt.probeChoice)) {
+      const result = document.createElement("p");
+      mathText(result, "你选了「" + probe.choices[attempt.probeChoice] + "」。" + (attempt.probeChoice === probe.correct ? "这一步正确。" : "") + probe.explanation);
+      const retry = document.createElement("button");
+      retry.type = "button"; retry.textContent = "回原题再试";
+      retry.onclick = () => {
+        retrying.add(idOf(q));
+        visited.set(idOf(q), {choice:null,doubt:false});
+        renderQuestion();
+        find("question").focus();
+      };
+      panel.append(result,retry);
+      return;
+    }
+    probe.choices.forEach((answer,i) => {
+      const btn = document.createElement("button");
+      btn.type = "button"; mathText(btn, answer);
+      btn.onclick = () => {
+        const list = storageAvailable ? readAttempts(q) : attempts.get(idOf(q));
+        const last = list.at(-1);
+        if (!last || last.choice !== attempt.choice || last.doubt !== attempt.doubt) {
+          renderQuestion();
+          return;
+        }
+        last.probeChoice = i;
+        attempts.set(idOf(q),list);
+        if (storageAvailable) {
+          try { localStorage.setItem(storageKey(q),JSON.stringify(list)); }
+          catch { storageAvailable = false; }
+        }
+        refreshOverview();
+        showFeedback(q,last);
+      };
+      panel.append(btn);
+    });
+  }
   function validChoice(value, question) {
     return value === unsure || (Number.isInteger(value) && value >= 0 && value < question.choices.length);
   }
   function readAttempts(question) {
     try {
-      const raw = JSON.parse(localStorage.getItem(keyPrefix + question.ref) || "[]");
+      const raw = JSON.parse(localStorage.getItem(storageKey(question)) || "[]");
       return Array.isArray(raw) ? raw.filter((a) => a && validChoice(a.choice, question) && typeof a.doubt === "boolean") : [];
     } catch {
       storageAvailable = false;
-      return attempts.get(question.ref) || [];
+      return attempts.get(idOf(question)) || [];
     }
   }
   function refreshAttempts() {
     if (storageAvailable) {
-      atlasQuestions.forEach((q) => attempts.set(q.ref, readAttempts(q)));
+      questions.forEach((q) => attempts.set(idOf(q), readAttempts(q)));
     }
   }
   function attemptLabel(question, attempt) {
@@ -347,6 +782,9 @@ const atlasQuestions = [
     if (attempt.choice === question.correct) {
       return { title: attempt.doubt ? "✓ 选对了，再核对你的理由" : "✓ 选对了", text: question.choices[attempt.choice][1] };
     }
+    if (question.followUp?.choice === attempt.choice && !Number.isInteger(attempt.probeChoice)) {
+      return {title: "再看一步", text: "先核对下面这一步。"};
+    }
     return { title: "回到这一步，再试一次", text: question.choices[attempt.choice][1] };
   }
   function showFeedback(question, attempt) {
@@ -354,12 +792,13 @@ const atlasQuestions = [
     if (!attempt) { box.hidden = true; return; }
     const f = feedback(question, attempt);
     find("feedback-title").textContent = f.title;
-    find("feedback-text").textContent = f.text;
+    mathText(find("feedback-text"), f.text);
+    renderProbe(question, attempt);
     const note = find("confidence-text");
     note.hidden = !attempt.doubt || attempt.choice === unsure;
     note.textContent = note.hidden ? "" : "你的不确定标记已记入本次作答。";
     box.dataset.outcome = attempt.choice === question.correct ? "correct" : "hint";
-    find("next").textContent = index < atlasQuestions.length - 1 ? "下一题 →" : "回顾作答 ↓";
+    find("next").textContent = index < questions.length - 1 ? "下一题 →" : "回顾作答 ↓";
     box.hidden = false;
   }
   function refreshOverview() {
@@ -367,8 +806,8 @@ const atlasQuestions = [
     const content = find("history-content");
     content.replaceChildren();
     const navButtons = [...find("question-nav").children];
-    atlasQuestions.forEach((q, i) => {
-      const list = attempts.get(q.ref) || [];
+    questions.forEach((q, i) => {
+      const list = attempts.get(idOf(q)) || [];
       navButtons[i].toggleAttribute("data-answered", list.length > 0);
       navButtons[i].setAttribute("aria-label", q.ref + " " + q.title + (list.length ? "，已作答" : "，未作答"));
       if (!list.length) return;
@@ -380,16 +819,24 @@ const atlasQuestions = [
       list.forEach((item) => {
         const entry = document.createElement("li");
         const choice = document.createElement("strong");
-        choice.textContent = attemptLabel(q, item) + (item.choice === unsure ? "" : "　" + q.choices[item.choice][0]);
+        mathText(choice, attemptLabel(q, item) + (item.choice === unsure ? "" : "　" + q.choices[item.choice][0]));
         const p = document.createElement("p");
         const f = feedback(q, item);
-        p.textContent = f.title + "。 " + f.text;
+        mathText(p, f.title + "。 " + f.text);
         entry.append(choice, p);
+        if (q.followUp?.choice === item.choice) {
+          const record = document.createElement("p");
+          const details = Number.isInteger(item.probeChoice)
+            ? "我的回答：" + q.followUp.choices[item.probeChoice] + (item.probeChoice === q.followUp.correct ? "（正确）。" : "（需再核对）。") + q.followUp.explanation
+            : "尚未回答。";
+          mathText(record, "追问：" + q.followUp.prompt + "　" + details);
+          entry.append(record);
+        }
         ol.append(entry);
       });
       content.append(ol);
     });
-    find("progress").textContent = "已作答 " + count + " / " + atlasQuestions.length;
+    find("progress").textContent = "已作答 " + count + " / " + questions.length;
     if (!count) content.textContent = "完成第一次作答后，可以在这里回看所选答案、当时的把握和反馈。";
     find("reset").hidden = !count;
     find("storage-note").textContent = storageAvailable
@@ -406,11 +853,11 @@ const atlasQuestions = [
     checkbox.disabled = selected === null || selected === unsure;
     if (checkbox.disabled) checkbox.checked = false;
     find("submit").disabled = selected === null;
-    const q = atlasQuestions[index];
+    const q = questions[index];
     const staged = { choice: selected, doubt: checkbox.checked };
-    visited.set(q.ref, staged);
-    const last = (attempts.get(q.ref) || []).at(-1);
-    showFeedback(q, last && last.choice === staged.choice && last.doubt === staged.doubt ? last : null);
+    visited.set(idOf(q), staged);
+    const last = (attempts.get(idOf(q)) || []).at(-1);
+    showFeedback(q, !retrying.has(idOf(q)) && last && last.choice === staged.choice && last.doubt === staged.doubt ? last : null);
   }
   function addChoice(text, value, selected) {
     const row = document.createElement("label");
@@ -425,23 +872,28 @@ const atlasQuestions = [
     marker.textContent = value === unsure ? "?" : labels[value];
     marker.setAttribute("aria-hidden", "true");
     const title = document.createElement("span");
-    title.textContent = text;
+    mathText(title, text);
     title.className = "option-text";
     if (value !== unsure) title.lang = "en";
     row.append(input, marker, title);
     find("choices").append(row);
   }
   function renderQuestion() {
-    const q = atlasQuestions[index];
-    const last = (attempts.get(q.ref) || []).at(-1);
-    const current = visited.get(q.ref) || last;
+    const q = questions[index];
+    const last = (attempts.get(idOf(q)) || []).at(-1);
+    const current = visited.get(idOf(q)) || last;
     find("task-label").textContent = q.ref + "　/　" + q.title;
-    find("question").textContent = q.prompt;
-    find("support").textContent = q.support;
-    find("charge-graph").hidden = q.figure !== "charge-graph";
+    mathText(find("question"), q.prompt);
+    mathText(find("support"), q.support);
+    find("translation").open = false;
+    const issue = new URL("https://github.com/phytnesskun/A-Level-Atlas/issues/new");
+    issue.searchParams.set("title", topic.title + " · " + q.ref + " · " + q.title);
+    issue.searchParams.set("body", "课程：" + topic.label + " · " + topic.edition + "\n题目：" + idOf(q) + "\n我想反馈的题干、选项或追问：\n");
+    find("question-feedback").href = issue.href;
+    renderFigure(q);
     find("choices").querySelectorAll("label").forEach((label) => label.remove());
     q.choices.forEach(([text], i) => addChoice(text, i, current?.choice));
-    addChoice("我不确定，从哪里开始？", unsure, current?.choice);
+    addChoice("我不确定", unsure, current?.choice);
     find("low-confidence").checked = current?.doubt || false;
     [...find("question-nav").children].forEach((link, i) => {
       if (i === index) link.setAttribute("aria-current", "step");
@@ -452,24 +904,58 @@ const atlasQuestions = [
   }
   function readHash(scroll, focus = false) {
     const hash = location.hash.slice(1);
-    const target = atlasQuestions.findIndex((q) => q.ref === hash);
-    if (target < 0) return;
-    index = target;
+    const group = studyTopics.find((t) => t.questions.some((q) => idOf(q) === hash));
+    if (!group) return;
+    if (group !== topic) selectTopic(group);
+    index = questions.findIndex((q) => idOf(q) === hash);
     renderQuestion();
     if (scroll) {
       if (focus) find("question").focus({preventScroll:true});
       find("practice").scrollIntoView({block:"start"});
     }
   }
-  atlasQuestions.forEach((q) => {
-    const a = document.createElement("a");
-    a.href = "#" + q.ref;
-    const ref = document.createElement("small"); ref.textContent = q.ref;
-    const title = document.createElement("span"); title.textContent = q.title;
-    a.append(ref, title);
-    find("question-nav").append(a);
-  });
-  refreshAttempts();
+  function selectTopic(nextTopic) {
+    topic = nextTopic;
+    questions = topic.questions;
+    index = 0;
+    find("edition").textContent = topic.label + "　/　" + topic.edition;
+    find("practice-name").textContent = topic.title;
+    find("history").open = false;
+    const list = find("question-nav");
+    list.replaceChildren();
+    questions.forEach((q) => {
+      const a = document.createElement("a");
+      a.href = "#" + idOf(q);
+      const ref = document.createElement("small"); ref.textContent = q.ref;
+      const title = document.createElement("span"); title.textContent = q.title;
+      a.append(ref, title);
+      list.append(a);
+    });
+    [...find("topic-cards").children].forEach((a,i) => {
+      if (studyTopics[i] === topic) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+    refreshAttempts();
+  }
+  for (const t of studyTopics) {
+    const card = document.createElement("a");
+    card.href = "#" + idOf(t.questions[0]);
+    const label = document.createElement("small"); label.textContent = t.label;
+    const title = document.createElement("strong"); title.textContent = t.title;
+    const meta = document.createElement("span"); meta.textContent = t.questions.length + " 道题 · 约 " + t.minutes + " 分钟";
+    card.append(label, title, meta);
+    find("topic-cards").append(card);
+  }
+  for (const id of ["topic-cards", "question-nav"]) {
+    find(id).addEventListener("click", event => {
+      const link = event.target.closest("a[href]");
+      if (link && link.hash === location.hash) {
+        event.preventDefault();
+        readHash(true, true);
+      }
+    });
+  }
+  selectTopic(studyTopics[0]);
   renderQuestion();
   window.addEventListener("hashchange", () => readHash(true, true));
   readHash(true);
@@ -484,25 +970,25 @@ const atlasQuestions = [
   find("low-confidence").addEventListener("change", syncForm);
   find("answer-form").addEventListener("submit", (event) => {
     event.preventDefault();
-    const q = atlasQuestions[index], choice = selectedChoice();
+    const q = questions[index], choice = selectedChoice();
     if (choice === null) return;
     const answer = {choice, doubt: find("low-confidence").checked};
-    const list = storageAvailable ? readAttempts(q) : (attempts.get(q.ref) || []);
+    const list = storageAvailable ? readAttempts(q) : (attempts.get(idOf(q)) || []);
     const last = list.at(-1);
-    if (!last || last.choice !== answer.choice || last.doubt !== answer.doubt) {
+    if (retrying.delete(idOf(q)) || !last || last.choice !== answer.choice || last.doubt !== answer.doubt) {
       list.push(answer);
       if (storageAvailable) {
-        try { localStorage.setItem(keyPrefix + q.ref, JSON.stringify(list)); }
+        try { localStorage.setItem(storageKey(q), JSON.stringify(list)); }
         catch { storageAvailable = false; }
       }
     }
-    attempts.set(q.ref, list);
+    attempts.set(idOf(q), list);
     refreshOverview();
-    showFeedback(q, answer);
+    showFeedback(q, list.at(-1));
     find("feedback").scrollIntoView({block:"nearest"});
   });
   find("next").addEventListener("click", () => {
-    if (index < atlasQuestions.length - 1) location.hash = atlasQuestions[index + 1].ref;
+    if (index < questions.length - 1) location.hash = idOf(questions[index + 1]);
     else {
       find("history").open = true;
       find("history").querySelector("summary").focus();
@@ -510,15 +996,14 @@ const atlasQuestions = [
   });
   find("reset").addEventListener("click", () => {
     if (!confirm("清空本组的作答记录并从第一题重新开始？")) return;
-    atlasQuestions.forEach((q) => {
-      try { localStorage.removeItem(keyPrefix + q.ref); } catch { storageAvailable = false; }
+    questions.forEach((q) => {
+      try { localStorage.removeItem(storageKey(q)); } catch { storageAvailable = false; }
     });
-    attempts.clear();
-    visited.clear();
+    for (const q of questions) { attempts.delete(idOf(q)); visited.delete(idOf(q)); retrying.delete(idOf(q)); }
     find("history").open = false;
     index = 0;
     renderQuestion();
-    location.hash = atlasQuestions[0].ref;
+    location.hash = idOf(questions[0]);
     find("practice").scrollIntoView({block:"start"});
   });
 })();
