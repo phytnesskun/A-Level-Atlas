@@ -201,58 +201,83 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
   .mast-inner {flex-wrap:wrap}
   .mast nav {flex-wrap:wrap}
 }
+.home-section {margin:clamp(1.85rem,4vw,3rem) 0;scroll-margin-top:12px}
+.home-section h2,#topics.home-section h2 {font-size:clamp(1.3rem,2.5vw,1.85rem);line-height:1.3;color:var(--ink);margin:0 0 .8rem;letter-spacing:-.03em}
+#topics.home-section {margin:clamp(1.85rem,4vw,3rem) 0}
+#teachers #trial-guide {margin:.8rem 0 0}
+.practice-return {display:flex;align-items:center;gap:1rem;margin:1rem 0;color:var(--green);font-size:.88rem}
+.practice-return a {text-decoration:none}
+.practice-return a:hover {text-decoration:underline}
+#practice {padding-top:1px}
+#practice-name {font-size:clamp(1.45rem,2.8vw,2.1rem);letter-spacing:-.045em;color:var(--ink);line-height:1.3;margin:0}
+</style>
+<style>#share-feedback:not(:target) {display:none}
+#share-feedback {max-width:48rem;margin:2rem 0;scroll-margin-top:1rem}
+.share-editor {max-width:42rem}
+.share-editor label {display:block;font-weight:600}
+.share-editor textarea {box-sizing:border-box;display:block;width:100%;min-height:5rem;margin:.45rem 0;padding:.65rem;border:1px solid #7b9187;border-radius:6px;background:white;color:var(--ink);font:inherit;line-height:1.5}
+.share-editor p,.share-secondary {margin:.6rem 0;color:var(--muted);font-size:.9rem}
+.share-editor .copy-note {padding:.6rem 1rem;border:0;border-radius:6px;background:#175b4b;color:white;font:inherit;font-weight:650;cursor:pointer}
+.share-editor .copy-status {display:inline-block;font-size:.9rem;margin:.4rem 0 .4rem .3rem}
+.share-editor .manual-copy[hidden] {display:none}
 </style>
 </head>
 <body>
-  <header class="mast">
+  <header id="home" class="mast">
     <div class="mast-inner">
-      <a class="wordmark" href="./index.html" aria-label="A-Level Atlas 首页"><span class="atlas-mark" aria-hidden="true">亓</span> A-Level Atlas</a>
+      <a class="wordmark" href="#home" aria-label="A-Level Atlas 首页"><span class="atlas-mark" aria-hidden="true">亓</span> A-Level Atlas</a>
       <nav aria-label="主要导航">
-        <a href="graph/dist/index.html">知识图谱</a>
-        <a href="#topics">试用专题</a>
-        <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r1.zip" download>下载离线包</a>
-        <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">反馈 ↗</a>
+        <a href="#teachers">教师备课</a>
+        <a href="#topics">学生练习</a>
+        <a href="#share-feedback">反馈</a>
       </nav>
     </div>
   </header>
   <main id="main">
-    <section class="atlas-overview" aria-labelledby="atlas-title">
-      <div class="atlas-heading">
-        <div>
-          <p class="atlas-stages" lang="en">IGCSE <span aria-hidden="true">/</span> AS <span aria-hidden="true">/</span> A2</p>
-          <h1 id="atlas-title">A-Level知识先修图谱</h1>
+    <div id="home-content">
+      <section class="atlas-overview" aria-labelledby="atlas-title">
+        <div class="atlas-heading">
+          <div>
+            <p class="atlas-stages" lang="en">IGCSE <span aria-hidden="true">/</span> AS <span aria-hidden="true">/</span> A2</p>
+            <h1 id="atlas-title">A-Level知识先修图谱</h1>
+          </div>
+          <a class="atlas-explore" href="graph/dist/index.html">按学科进入图谱 <span aria-hidden="true">→</span></a>
         </div>
-        <a class="atlas-explore" href="graph/dist/index.html">按学科进入图谱 <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="board-posters">
-        <a class="board-poster" href="graph/dist/cie-atlas.svg">
-          <img src="graph/dist/cie-atlas.svg" width="1540" height="1125" alt="剑桥国际六科先修总图，按学科划分扇区，由内向外对应 IG、AS 和 A2">
-          <span class="poster-caption"><strong>CIE <span>· 剑桥国际</span></strong><span class="poster-open">查看高清原图 <span aria-hidden="true">↗</span></span></span>
+        <div class="board-posters">
+          <a class="board-poster" href="graph/dist/cie-atlas.svg">
+            <img src="graph/dist/cie-atlas.svg" width="1540" height="1125" alt="剑桥国际六科先修总图，按学科划分扇区，由内向外对应 IG、AS 和 A2">
+            <span class="poster-caption"><strong>CIE <span>· 剑桥国际</span></strong><span class="poster-open">查看高清原图 <span aria-hidden="true">↗</span></span></span>
+          </a>
+          <a class="board-poster" href="graph/dist/edexcel-atlas.svg">
+            <img src="graph/dist/edexcel-atlas.svg" width="1540" height="1125" alt="爱德思六科先修总图，按学科划分扇区，由内向外对应 IG、AS 和 A2">
+            <span class="poster-caption"><strong>Pearson Edexcel <span>· 爱德思</span></strong><span class="poster-open">查看高清原图 <span aria-hidden="true">↗</span></span></span>
+          </a>
+        </div>
+      </section>
+      <section class="home-section" id="teachers" aria-labelledby="teachers-title">
+        <h2 id="teachers-title">教师备课</h2>
+        <a class="teaching-demo" href="demos/teaching-plans/">
+          <span><span class="demo-label">授课设计案例</span><strong>数学与物理推荐授课大纲</strong></span>
+          <span class="demo-action">查看案例 <span aria-hidden="true">→</span></span>
         </a>
-        <a class="board-poster" href="graph/dist/edexcel-atlas.svg">
-          <img src="graph/dist/edexcel-atlas.svg" width="1540" height="1125" alt="爱德思六科先修总图，按学科划分扇区，由内向外对应 IG、AS 和 A2">
-          <span class="poster-caption"><strong>Pearson Edexcel <span>· 爱德思</span></strong><span class="poster-open">查看高清原图 <span aria-hidden="true">↗</span></span></span>
-        </a>
-      </div>
-    </section>
-    <a class="teaching-demo" href="demos/teaching-plans/">
-      <span><span class="demo-label">授课设计演示</span><strong>数学与物理推荐授课大纲</strong></span>
-      <span class="demo-action">查看案例 <span aria-hidden="true">→</span></span>
-    </a>
-    <section id="topics" aria-labelledby="topics-title">
-      <h2 id="topics-title">可试用专题</h2>
-      <div id="topic-cards"></div>
-      <details id="trial-guide"><summary>老师带班试用 · 约 10 分钟</summary>
+        <details id="trial-guide"><summary>老师带班试用 · 约 10 分钟</summary>
         <p>先请一位学生打开 <a href="#motion-3">Motion Graphs 第 3 题</a>，按自己的想法作答。卡住时点「我不确定」，请学生指出正在看哪个点、怎样读出变化。做回原题后，可选「换一张图，自己试试」。</p>
         <p>一起打开「回顾我的作答」，请学生指出哪一步得到了帮助。老师记下符合学生想法的一处、需要修改的一处，用题下的反馈入口交给项目。</p>
         <p>作答保存在本浏览器。共用设备时，先让上一位学生看完记录，再用「重置本组练习」为下一位清空该专题。</p>
       </details>
-    </section>
-    <section class="practice" id="practice" aria-labelledby="practice-name">
+      </section>
+      <section class="home-section" id="topics" aria-labelledby="topics-title">
+        <h2 id="topics-title">学生练习</h2>
+        <div id="topic-cards"></div>
+        <noscript>请启用 JavaScript 以选择练习专题。</noscript>
+      </section>
+    </div>
+    <section class="practice" id="practice" aria-labelledby="practice-name" hidden>
+      <nav class="practice-return" aria-label="离开练习"><a href="#topics">← 返回学生练习</a><a href="#home">首页</a></nav>
       <div class="section-head">
         <div>
           <p class="kicker" id="edition"></p>
-          <h2 id="practice-name">Capacitance and Stored Energy</h2>
+          <h1 id="practice-name">Capacitance and Stored Energy</h1>
         </div>
         <span class="progress" id="progress">原题答对 0 / 6</span>
       </div>
@@ -284,9 +309,20 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
       </div>
       <p class="local-note">练习记录仅保存在本浏览器。共用设备请先确认本组记录属于自己。</p>
       <details id="trial-feedback"><summary>反馈这道题</summary>
-        <p>把下面的题号和版本交给老师，再写一句「我在哪一步、看到了什么、原本希望看到什么」。</p>
-        <label>题号和版本 <input id="feedback-context" type="text" readonly></label>
-        <p>有 GitHub 账号也可以直接提交。内容会公开，请省略学生姓名和个人作答档案。 <a id="question-feedback" href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">提交到 GitHub ↗</a></p>
+        <label>将随反馈一起复制的题号和版本 <input id="feedback-context" type="text" readonly></label>
+        <div class="share-editor">
+  <label>你在哪一步遇到了什么？
+    <textarea class="share-note" rows="3" required placeholder="例如：我读得出图上的两个点，但不明白为什么速度是负的。"></textarea>
+  </label>
+  <p>复制后可以发给老师。从公众号来的读者也可以贴到公众号对话框。请省略姓名。</p>
+  <button type="button" class="copy-note">复制反馈</button>
+  <span class="copy-status" role="status" aria-live="polite"></span>
+  <label class="manual-copy" hidden>完整反馈，可手动复制
+    <textarea rows="4" readonly></textarea>
+  </label>
+</div>
+
+        <p class="share-secondary"><a id="question-feedback" href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">在 GitHub 公开反馈 ↗</a></p>
       </details>
       <details id="history">
         <summary>回顾我的作答</summary>
@@ -295,14 +331,52 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
         <button type="button" class="text-button" id="reset" hidden>重置本组练习</button>
       </details>
     </section>
+      <section id="share-feedback" aria-labelledby="share-title">
+      <h2 id="share-title">使用反馈</h2>
+      <div class="share-editor">
+  <label>你在哪一步遇到了什么？
+    <textarea class="share-note" rows="3" required placeholder="例如：我读得出图上的两个点，但不明白为什么速度是负的。"></textarea>
+  </label>
+  <p>复制后可以发给老师。从公众号来的读者也可以贴到公众号对话框。请省略姓名。</p>
+  <button type="button" class="copy-note">复制反馈</button>
+  <span class="copy-status" role="status" aria-live="polite"></span>
+  <label class="manual-copy" hidden>完整反馈，可手动复制
+    <textarea rows="4" readonly></textarea>
+  </label>
+</div>
+
+      <p class="share-secondary"><a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">在 GitHub 公开反馈 ↗</a></p>
+    </section>
   </main>
   <footer>
     <span>A-Level Atlas</span>
+    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r2.zip" download>下载离线包</a>
     <a href="USAGE.md">使用说明</a>
-
-    <a href="https://github.com/phytnesskun/A-Level-Atlas/issues/new" target="_blank" rel="noopener">提交意见 ↗</a>
+    <a href="#share-feedback">反馈</a>
   </footer>
 <script>const trialGraphTargets = {"19.1.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.3":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.4":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.2.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2"},"19.2.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2"},"motion-1":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-2":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-3":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-4":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"circuits-1":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-2":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-3":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-4":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-5":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-6":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"quadratics-1":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-2":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-3":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-4":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-5":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"}};</script>
+<script>
+(() => {
+  const home = document.getElementById("home-content");
+  const practice = document.getElementById("practice");
+  function showView() {
+    const target = location.hash.slice(1);
+    const answering = Object.hasOwn(trialGraphTargets, target);
+    const leavingPractice = !answering && home.hidden;
+    home.hidden = answering;
+    practice.hidden = !answering;
+    document.body.classList.toggle("is-practising", answering);
+    if (!answering) {
+      document.querySelectorAll("#topic-cards [aria-current]").forEach(card => card.removeAttribute("aria-current"));
+      if (leavingPractice) document.getElementById(target)?.scrollIntoView();
+    }
+  }
+  showView();
+  window.addEventListener("hashchange", showView);
+  // The question engine creates the cards after this initial view has been selected.
+  document.addEventListener("DOMContentLoaded", showView, {once:true});
+})();
+</script>
 <script>
 // Original A-Level Atlas practice. References identify the corresponding syllabus outcomes.
 const atlasQuestions = [
@@ -2049,6 +2123,67 @@ function diagnosisState(steps, actions = []) {
   });
 })();
 
+</script>
+<script>(() => {
+  for (const editor of document.querySelectorAll(".share-editor")) {
+    const note = editor.querySelector(".share-note");
+    const status = editor.querySelector(".copy-status");
+    const manual = editor.querySelector(".manual-copy");
+    const questionContext = editor.closest("#trial-feedback")?.querySelector("#feedback-context");
+    const drafts = new Map();
+    const context = () => questionContext?.value || "A-Level Atlas · 网站反馈";
+    let current = context();
+    function clearResult() {
+      status.textContent = "";
+      manual.hidden = true;
+      manual.querySelector("textarea").value = "";
+    }
+    if (questionContext) {
+      window.addEventListener("hashchange", () => {
+        if (current === context()) return;
+        drafts.set(current, note.value);
+        current = context();
+        note.value = drafts.get(current) || "";
+        note.setCustomValidity("");
+        clearResult();
+      });
+    }
+    note.addEventListener("input", () => {
+      note.setCustomValidity("");
+      clearResult();
+    });
+    const github = editor.parentElement.querySelector(".share-secondary a");
+    github.addEventListener("click", () => {
+      const url = new URL(github.href);
+      url.searchParams.set("body", context() + "\n" + (note.value.trim() || "遇到的问题："));
+      github.href = url.href;
+    });
+    editor.querySelector(".copy-note").addEventListener("click", async () => {
+      if (!note.value.trim()) {
+        note.setCustomValidity("请先写一句你想反馈的内容。");
+        note.reportValidity();
+        return;
+      }
+      const label = context();
+      const value = note.value;
+      const message = label + "\n" + value.trim();
+      try {
+        await navigator.clipboard.writeText(message);
+        if (label === context() && value === note.value) {
+          manual.hidden = true;
+          status.textContent = "已复制，可以粘贴到微信发送。";
+        }
+      } catch {
+        if (label !== context() || value !== note.value) return;
+        manual.hidden = false;
+        const field = manual.querySelector("textarea");
+        field.value = message;
+        field.select();
+        status.textContent = "请复制下方已选中的文字，再粘贴发送。";
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
