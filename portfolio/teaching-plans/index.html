@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f36">
+  <title>数学与物理推荐授课大纲 · A-Level Atlas</title>
+  <style>
+    :root{font:16px/1.65 Inter,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#203a32;background:#f8f8f2}
+    *{box-sizing:border-box}body{margin:0}a{color:#205747;text-underline-offset:4px}a:focus-visible,button:focus-visible{outline:3px solid #a34d17;outline-offset:4px}
+    header,main,footer{width:min(950px,calc(100% - 36px));margin:auto}header,footer{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0}header{border-bottom:1px solid #cbd5ca}header a{font-weight:700;text-decoration:none}button{padding:5px 12px;border:1px solid #9aaea2;border-radius:6px;background:transparent;color:inherit;font:inherit;font-size:.88rem;cursor:pointer}
+    .intro{padding:clamp(35px,7vw,76px) 0 28px;max-width:775px}.eyebrow,.label{margin:0;color:#47675a;font-size:.83rem;font-weight:700;letter-spacing:.025em}h1,h2,h3{line-height:1.25;text-wrap:balance}h1{margin:12px 0 15px;font-size:clamp(2.1rem,5.5vw,3.75rem);letter-spacing:-.045em}h2{margin:0 0 14px;font-size:clamp(1.45rem,3vw,2rem)}h3{margin:6px 0;font-size:1.1rem}p{margin:0 0 10px}.intro>p:last-child{font-size:1.12rem}
+    section{margin-bottom:30px}.case{padding:clamp(20px,4vw,36px);background:#eaf1e6;border:1px solid #ccdbcd;border-radius:14px}.case h2{margin-top:5px}.steps,.routes,.years{display:grid;gap:0;margin:16px 0 0}.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.steps p,.routes p,.years p{margin:6px 0}.steps article{border-top:2px solid #588571;padding-top:8px}.case a{display:inline-block;margin-top:12px}
+    .routes,.years{grid-template-columns:1fr 1fr;gap:13px 28px}.routes article,.years article{border-top:1px solid #bccabd;padding-top:9px}.note{border-left:3px solid #77977f;padding-left:14px;margin-top:16px;color:#42584e}footer{border-top:1px solid #cbd5ca;font-size:.88rem;color:#52645b}
+    @media(max-width:620px){.steps,.routes,.years{grid-template-columns:1fr}.steps{gap:12px}header,main,footer{width:calc(100% - 28px)}.case{padding:18px}.intro{padding-top:28px}}
+  </style>
+</head>
+<body>
+  <header>
+    <a id="back" href="https://phytnesskun.github.io/A-Level-Atlas/">← A-Level Atlas</a>
+    <button type="button" id="language" hidden>English</button>
+  </header>
+  <main>
+    <div class="intro">
+      <p class="eyebrow" data-en="A-Level Atlas Portfolio · Curriculum design">A-Level Atlas 样品 Portfolio · 课程设计</p>
+      <h1 data-en="Teaching mathematics and physics in sequence">数学与物理推荐授课大纲</h1>
+      <p data-en="A physics class needs to read a motion graph this week. The mathematics class covers gradients in the next teaching block. Which part of the mathematics lesson should move, and how will both teachers know it helped?">物理课这周就要读运动图，数学课却要到下个教学段才讲直线。哪一小段数学值得提前？两位老师又怎样知道学生真的会用？</p>
+    </div>
+    <section class="case" aria-labelledby="example">
+      <p class="label" data-en="Cambridge IGCSE · Mathematics 0580 × Physics 0625">Cambridge IGCSE · Mathematics 0580 × Physics 0625</p>
+      <h2 id="example" data-en="Move the two-point gradient ahead of the motion graph">把两点斜率提前到运动图之前</h2>
+      <div class="steps">
+        <article><h3 data-en="The physics task">物理课要做什么</h3><p data-en="Find speed on a straight section of a distance–time graph. Students must choose two points and tell what each axis measures.">从路程–时间图的一段直线求速率。学生要自己选两点，读出两轴各表示什么量。</p></article>
+        <article><h3 data-en="The change in sequence">数学课怎样调</h3><p data-en="In the standard plan, straight-line equations come in the second ten-week block. Bring just the ratio of coordinate changes into the first block. Keep the rest of the unit in its usual place.">标准线原把直线方程排在第二个十周教学段。第一段先从方格上的两点求纵、横坐标变化量之比，其余直线内容留在原处。</p></article>
+        <article><h3 data-en="An independent check">学生怎样独做</h3><p data-en="Change the vertical axis from distance to speed. Can the student explain why the slope now gives acceleration and the area gives distance? In 0625, calculating acceleration from that slope is an Extended task.">换成速率–时间图，让学生判断该取斜率还是面积，并解释所得物理量。0625 Core 可由面积求路程，Extended 再由斜率求加速度。</p></article>
+      </div>
+      <a href="https://phytnesskun.github.io/A-Level-Atlas/#motion-3" data-en="Try a related AS Physics displacement–time question ↗">试做相关的 AS Physics 位移–时间图题 ↗</a>
+    </section>
+    <section aria-labelledby="further">
+      <p class="label" data-en="Within mathematics · Pearson Edexcel Further Pure Mathematics 3">数学学科内 · Pearson Edexcel Further Pure Mathematics 3</p>
+      <h2 id="further" data-en="Before the first vector product">第一次用行列式算叉乘之前</h2>
+      <p data-en="For students taking FP3 who use the determinant method, review two-by-two minors and the signs in a first-row expansion immediately before the first vector product. Check the result against both original vectors using dot products, then check its direction using the basis vectors.">选修 FP3 的学生如果用行列式求叉乘，先练二阶余子式与按首行展开的正负号，再算第一个叉乘。算完用点积核对垂直关系，用基向量核对方向。</p>
+      <p class="note" data-en="This placement supports one chosen mathematical method. A physics student can still determine the magnetic force direction with the hand rule.">这项调整服务于一种具体的数学解法。物理课判断磁力方向，学生仍可使用手则。</p>
+    </section>
+    <section aria-labelledby="pairs">
+      <h2 id="pairs" data-en="Four combinations of exam boards">四种考试局组合，各有一个衔接重点</h2>
+      <div class="routes">
+        <article><h3 data-en="Cambridge Mathematics × Cambridge Physics">CIE 数学 × CIE 物理</h3><p data-en="Follow the IGCSE gradient work with concurrent AS lessons on force diagrams in 9709 Mechanics and 9702 Physics.">IG 先衔接两点斜率；AS 配合选修的 9709 Mechanics，在 9702 的受力分析课调用同一张受力图。</p></article>
+        <article><h3 data-en="Edexcel Mathematics × Edexcel Physics">爱德思数学 × 爱德思物理</h3><p data-en="Use the gradient work from 4MB1 Mathematics B for acceleration in 4PH1. For IAL mathematics classes paired with physics, the proposed mechanics route takes M1 before M2.">用 4MB1 Mathematics B 的斜率接 4PH1 的加速度图。升入 IAL 后，配物理的普数班可选先 M1、后 M2 的力学路线。</p></article>
+        <article><h3 data-en="Edexcel Mathematics × Cambridge Physics">爱德思数学 × CIE 物理</h3><p data-en="Check trigonometric ratios before resolving forces in 9702. Revisit P3 logarithms when students construct a straight-line plot from capacitor-discharge data.">在 9702 数值分解力之前检查三角比；到电容放电课，再用 P3 对数把测量数据变成直线图。</p></article>
+        <article><h3 data-en="Cambridge Mathematics × Edexcel Physics">CIE 数学 × 爱德思物理</h3><p data-en="Bring the two-point gradient from 0580 into the opening block before the 4PH1 trolley practical. Ask what the unit of the speed–time gradient tells us.">把 0580 的两点斜率调到 4PH1 小车实验之前。读速率–时间图时，请学生从两轴单位解释为什么斜率的单位是 m/s²。</p></article>
+      </div>
+    </section>
+    <section aria-labelledby="time">
+      <h2 id="time" data-en="Two routes from IGCSE to A2">两种学制，都从 IG 接到 A2</h2>
+      <div class="years">
+        <article><p class="label" data-en="Standard · Recommended starting point">标准线 · 默认建议</p><h3>IG × 2　+　AS　+　A2</h3><p data-en="Four years. The second IGCSE year gives students another chance to use graphs and measurements in unfamiliar situations.">共四年。IG 第二年可以换情境，重新检查第一年学过的图线与测量。</p></article>
+        <article><p class="label" data-en="Accelerated · Check readiness first">压缩线 · 先作入班检查</p><h3>IG　+　AS　+　A2</h3><p data-en="Three years. First check unit conversion, rearranging an equation, finding a gradient and taking a measurement. Allow about 5–6 hours a week for each of mathematics and physics during IGCSE.">共三年。先独做单位换算、公式移项、两点斜率与一次实际测量。IG 数学和物理各需预留每周约 5–6 小时。</p></article>
+      </div>
+      <p class="note" data-en="Both proposals use 30 teaching weeks per year. In each ten-week block, week nine uses an unfamiliar task and week ten includes feedback and a different problem. Each route includes mathematics, optional further mathematics, physics and practical work. Lesson hours and the effect of compression still need classroom trials.">两线均按每年 30 个有效教学周示排。每十周用第九周做陌生任务，第十周讲评并换题复测。八份方案均包含普数、选修进阶数学、物理和实作。课时是否合适、压缩后能否独立迁移，仍待按班试教。</p>
+    </section>
+    <section aria-labelledby="cohort">
+      <h2 id="cohort" data-en="Check the cohort before adopting a route">排课前先核对届别</h2>
+      <p data-en="For Edexcel IAL Physics, Pearson announced first teaching of the new qualification in September 2027 and planned the detailed specification and sample assessments for early 2027. The new-cohort routes propose teaching and practical sequences; unit codes and individual objectives await the published specification. WPH11–16 refer to students completing the 2018 course.">涉及爱德思 IAL Physics 的两种组合要按届选纲。Pearson 公告列明新版于 2027 年 9 月起教，详细规格与样卷计划于 2027 年初发布。新生方案给出推荐课序与实验，卷号及逐项目标待正式文件核对。WPH11–16 用于完成 2018 版的在读班。</p>
+      <p data-en="For Cambridge, match each stage to its examination year. In the example starting in autumn 2026, IGCSE falls in 2028 on the standard route and in 2027 on the accelerated route. Both sit within 0625 Physics 2026–2028, version 2.">Cambridge 各学段按实际考试年核版。以 2026 年秋入学为例，标准线在 2028 年考 IG，压缩线在 2027 年考 IG，两者的 0625 Physics 都对应 2026–2028 Version 2。</p>
+      <a href="https://qualifications.pearson.com/en/news-policy/subject-updates/Science/november-2026-international-science-qualification-news.html" data-en="Pearson · November 2026 qualification update ↗">Pearson · 2026 年 11 月换版公告 ↗</a>
+    </section>
+  </main>
+  <footer><span>A-Level Atlas</span><a href="https://phytnesskun.github.io/A-Level-Atlas/graph/dist/index.html" data-en="Explore the curriculum graph ↗">查看课程图谱 ↗</a></footer>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const button = document.getElementById('language');
+    const back = document.getElementById('back');
+    const copy = [...document.querySelectorAll('[data-en]')].map(el => ({el,zh:el.textContent,en:el.dataset.en}));
+    const portfolio = params.get('from') === 'portfolio';
+    let lang = params.get('lang');
+    if (lang !== 'en' && lang !== 'zh') {
+      try { lang = localStorage.getItem('portfolio-language'); } catch {}
+    }
+    function setLanguage(value) {
+      lang = value === 'en' ? 'en' : 'zh';
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+      document.title = lang === 'en' ? 'Mathematics and Physics Teaching Plans · A-Level Atlas' : '数学与物理推荐授课大纲 · A-Level Atlas';
+      for (const entry of copy) entry.el.textContent = entry[lang];
+      if (portfolio) {
+        back.href = '../../index.html#teaching-design';
+        back.textContent = lang === 'en' ? '← Portfolio' : '← 返回作品集';
+      }
+      button.textContent = lang === 'en' ? '中文' : 'English';
+      button.lang = lang === 'en' ? 'zh-CN' : 'en';
+    }
+    setLanguage(lang);
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      setLanguage(lang === 'en' ? 'zh' : 'en');
+      try { localStorage.setItem('portfolio-language',lang); } catch {}
+      const url = new URL(location.href);
+      url.searchParams.set('lang',lang);
+      try { history.replaceState(null,'',url); } catch {}
+    });
+  </script>
+</body>
+</html>
