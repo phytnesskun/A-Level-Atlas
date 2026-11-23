@@ -173,10 +173,13 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
 </style>
 <style>
 .atlas-overview {margin:clamp(1.6rem,3.8vw,3.2rem) 0 1rem}
-.atlas-heading {display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:clamp(1.1rem,2.3vw,1.75rem)}
+.atlas-heading {display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:clamp(1.1rem,2.3vw,1.75rem)}
 .atlas-stages {display:flex;align-items:center;gap:.7em;margin:0 0 .5rem;color:#496553;font:600 .79rem/1.4 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em}
 .atlas-stages span {color:#849383}
 .atlas-heading h1 {margin:0;color:var(--ink);font-size:clamp(2rem,4.2vw,3.65rem);line-height:1.12;letter-spacing:-.055em}
+.atlas-intro {margin:.65rem 0 0;max-width:32em;color:var(--muted);font-size:clamp(.9rem,1.5vw,1rem);line-height:1.5}
+.atlas-paths {display:flex;align-items:center;flex-wrap:wrap;gap:.45rem 1rem}
+.atlas-example {padding:.45rem 0;color:var(--green);font-size:.9rem;font-weight:650;text-decoration:underline;text-underline-offset:.28em}
 .atlas-explore {display:inline-flex;align-items:center;gap:.8em;padding:.55rem .9rem;color:var(--green);border:1px solid #8ba095;border-radius:5px;font-size:.9rem;font-weight:650;text-decoration:none;white-space:nowrap}
 .atlas-explore:hover {background:var(--green);color:white}
 .board-posters {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.9rem,1.8vw,1.55rem)}
@@ -240,8 +243,12 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
           <div>
             <p class="atlas-stages" lang="en">IGCSE <span aria-hidden="true">/</span> AS <span aria-hidden="true">/</span> A2</p>
             <h1 id="atlas-title">A-Level知识先修图谱</h1>
+            <p class="atlas-intro">老师可以查上课前要先教什么。学生做题卡住时，可以一步步找到该回看的基础。</p>
           </div>
-          <a class="atlas-explore" href="graph/dist/index.html">按学科进入图谱 <span aria-hidden="true">→</span></a>
+          <div class="atlas-paths">
+            <a class="atlas-explore" href="graph/dist/index.html#choose-course">按学科找知识点 <span aria-hidden="true">→</span></a>
+            <a class="atlas-example" href="graph/dist/index.html#qualification=CAIE%2F9702&amp;stage=AS&amp;node=9702-CH10-IV-09&amp;binding=AS%2FCAIE%2F9702%2F9%2F9.3&amp;language=support&amp;up=1&amp;down=1&amp;confirmed=1">看完整样例：求工作点电阻 <span aria-hidden="true">→</span></a>
+          </div>
         </div>
         <div class="board-posters">
           <a class="board-poster" href="graph/dist/cie-atlas.svg">
@@ -350,7 +357,7 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
   </main>
   <footer>
     <span>A-Level Atlas</span>
-    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r2.zip" download>下载离线包</a>
+    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r3.zip" download>下载离线包</a>
     <a href="USAGE.md">使用说明</a>
     <a href="#share-feedback">反馈</a>
   </footer>
@@ -527,7 +534,7 @@ const motionQuestions = [
       ["+0.40 m s⁻¹", "用末端坐标 2 m 除以 5 s 会得到这个数。求这段直线的斜率时，需要两个点之间的坐标差。"]
     ],
     correct: 0,
-    hint: "找到 4 s 所在的直线段。沿时间增加的方向取两个点，分别读出它们的位移。",
+    hint: "原题问机器人在 4 s 时的速度。下面继续用这张位移–时间图，一次看一小步。想自己算时，点「回到原题，自己再试」。",
     followUp: {
       choice: 1,
       prompt: "From 2 s to 5 s, what is the change in the robot’s displacement reading?",
@@ -1099,6 +1106,7 @@ const physicsProbes = {
 // v0.3.0 records still replay with the original motion-3 items above.
 const motion3SameGraphProbes = [
   {
+    reason: "要比较位移的变化方向，先读出这段线起点和终点的纵坐标。",
     key: "readings", figure: "endpoints",
     skill: "读出原图两个时刻的位移",
     prompt: "看原图上标出的两个端点。先读 2 s 时的位移，再读 5 s 时的位移。这两个读数依次是多少？",
@@ -1107,6 +1115,7 @@ const motion3SameGraphProbes = [
     explain: "先从横轴的 2 s 向上找到端点，再向左对齐纵轴，读到 5 m。用同样的方法，5 s 时读到 2 m。"
   },
   {
+    reason: "原题要找 4 s 时的速度。先确定这段线向上还是向下，就能判断速度应取哪个符号。",
     key: "direction", figure: "original",
     skill: "读出这段位移的变化方向",
     prompt: "看原题这张图。找到横轴上的 4 s，向上找到图线。沿它所在的直线段向右看，位移读数怎样变化？",
@@ -1115,6 +1124,7 @@ const motion3SameGraphProbes = [
     explain: "沿横轴向右，时间在增加。4 s 所在的直线段向右下方延伸，位移读数在变小。"
   },
   {
+    reason: "位移怎样变化已经看清了。下一步把这个方向写成速度的符号，再用原图算速度的大小。",
     key: "sign", figure: "original",
     skill: "由位移变化判断 velocity 的符号",
     prompt: "还是原图。在 4 s 所在的这段直线上，随着时间增加，位移读数变小。机器人在 4 s 时的 velocity 是什么符号？",
@@ -1406,6 +1416,10 @@ function diagnosisState(steps, actions = []) {
   const checks = [];
   const difficulties = new Map();
   for (const action of actions) {
+    if (action === "retry-now" && (phase === "ask" || phase === "explain")) {
+      phase = "retry";
+      break;
+    }
     if (phase === "ask") {
       if (action !== "unsure" && !(Number.isInteger(action) && action >= 0 && action < step.choices.length)) break;
       const correct = action === step.correct;
@@ -1666,12 +1680,14 @@ function diagnosisState(steps, actions = []) {
       action("用原图继续","restart-on-graph",() => record("restart-on-graph"));
       return;
     }
+    let offerReturn = state.phase === "ask";
     if (state.phase === "ask") {
       const previous = state.checks.at(-1);
       if (previous) line("small", previous.correct && !previous.still
         ? "✓ 上一步答对 · " + previous.step.skill
         : "上一步需要帮助 · " + previous.step.skill);
       line("h5", step.skill);
+      if (step.reason) line("p", step.reason);
       line("p", step.prompt);
       if (step.figure) appendChart(panel,q,"原题图 · displacement–time",step.figure === "endpoints");
       step.choices.forEach((choice,i) => action(choice,i,() => record(i),true));
@@ -1687,6 +1703,7 @@ function diagnosisState(steps, actions = []) {
         : next.phase === "retry" ? "回到原题，自己再试"
         : next.level < state.level ? "先查前面的一步"
         : state.level === 0 && !check.correct ? "看懂了，试着用一次" : "试下一小步";
+      offerReturn = next.phase !== "retry";
       action(label,"continue",() => record("continue"));
       action("看了还是不懂","still",() => record("still"));
     } else if (state.phase === "teacher") {
@@ -1702,6 +1719,9 @@ function diagnosisState(steps, actions = []) {
         panel.append(link);
       }
       action("回到原题，自己再试","retry",() => record("retry"));
+    }
+    if (q.id === "motion-3" && offerReturn) {
+      action("回到原题，自己再试","retry-now",() => record("retry-now"));
     }
   }
   function readAttempts(question) {
