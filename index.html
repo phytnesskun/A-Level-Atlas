@@ -53,7 +53,9 @@ button:disabled {cursor:default}
 .questions-nav a[data-answered]::after {content:"";display:inline-block;margin-left:auto;width:7px;height:7px;border-radius:50%;background:#336541;align-self:center}
 .questions-nav a[data-pending]::after {content:"";margin-left:auto;width:7px;height:7px;border-radius:50%;border:1px solid #99672e;align-self:center;flex:none}
 .task {background:#fffffa;border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3.2vw,36px);min-width:0}
-.task-label {font-size:.8rem;color:var(--muted);margin-bottom:10px}
+.task-meta {display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem 1rem;margin-bottom:10px}
+.task-label {font-size:.8rem;color:var(--muted)}
+#objective-link {font-size:.84rem;color:var(--green)}
 #question {color:var(--ink);max-width:67ch;font-size:1.125rem;font-weight:400;line-height:1.6;letter-spacing:normal;margin:0 0 9px;scroll-margin-top:16px}
 #question:focus:not(:focus-visible) {outline:none}
 figure {margin:0 0 16px;background:#f4f7ef;border-radius:8px;padding:14px}
@@ -141,8 +143,6 @@ var {font:italic 1.07em/1 Georgia,serif}
 #translation summary {cursor:pointer;width:fit-content}
 #translation p {font-size:.96rem;margin:6px 0 0;max-width:64ch}
 figure svg {font:13px system-ui,sans-serif;color:var(--ink)}
-.marked-endpoint {fill:#fff;stroke:#803f1e;stroke-width:3}
-.endpoint-label {fill:#683719;font-weight:700}
 figure figcaption {font-size:.78rem;color:var(--muted)}
 #diagnosis figure,#follow-up figure,#transfer figure {margin:.65rem 0;background:#fbfcf8;border:1px solid #c8d4c9}
 #trial-guide,#trial-feedback {margin:.65rem 0 1rem;font-size:.91rem}
@@ -157,9 +157,6 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
   #diagnosis figure,#follow-up figure,#transfer figure {margin-inline:-6px;padding:6px}
   figure svg {font-size:17px}
 }
-.plot-grid {stroke:#c9d8ce;stroke-dasharray:3 3;fill:none}
-.plot-axis {stroke:#374c42;stroke-width:1.6;fill:none}
-.plot-line {fill:none;stroke:#176050;stroke-width:3}
 #follow-up {margin:12px 0;padding:4px 12px 10px;border-inline-start:2px solid #548970}
 #follow-up button {padding:5px 10px;margin:3px 8px 4px 0;border:1px solid #849b8a;border-radius:5px;background:#fff;color:var(--ink)}
 @media(max-width:760px) {
@@ -171,6 +168,12 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
 
 .question-feedback {text-align:end;font-size:.84rem;color:var(--muted);margin:10px 0}
 </style>
+  <style>.marked-endpoint {fill:#fff;stroke:#803f1e;stroke-width:3}
+.endpoint-label {fill:#683719;font-weight:700}
+.plot-grid {stroke:#c9d8ce;stroke-dasharray:3 3;fill:none}
+.plot-axis {stroke:#374c42;stroke-width:1.6;fill:none}
+.plot-line {fill:none;stroke:#176050;stroke-width:3}
+</style>
 <style>
 .atlas-overview {margin:clamp(1.6rem,3.8vw,3.2rem) 0 1rem}
 .atlas-heading {display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:clamp(1.1rem,2.3vw,1.75rem)}
@@ -179,7 +182,8 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
 .atlas-heading h1 {margin:0;color:var(--ink);font-size:clamp(2rem,4.2vw,3.65rem);line-height:1.12;letter-spacing:-.055em}
 .atlas-intro {margin:.65rem 0 0;max-width:32em;color:var(--muted);font-size:clamp(.9rem,1.5vw,1rem);line-height:1.5}
 .atlas-paths {display:flex;align-items:center;flex-wrap:wrap;gap:.45rem 1rem}
-.atlas-example {padding:.45rem 0;color:var(--green);font-size:.9rem;font-weight:650;text-decoration:underline;text-underline-offset:.28em}
+.atlas-try {display:inline-flex;align-items:center;gap:.65rem;padding:.55rem .9rem;border:1px solid var(--green);border-radius:5px;background:var(--green);color:white;font-size:.9rem;font-weight:650;text-decoration:none}
+.atlas-try:hover {background:#21644e}
 .atlas-explore {display:inline-flex;align-items:center;gap:.8em;padding:.55rem .9rem;color:var(--green);border:1px solid #8ba095;border-radius:5px;font-size:.9rem;font-weight:650;text-decoration:none;white-space:nowrap}
 .atlas-explore:hover {background:var(--green);color:white}
 .board-posters {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.9rem,1.8vw,1.55rem)}
@@ -199,7 +203,7 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
   .board-posters {grid-template-columns:1fr}
   .atlas-heading {align-items:start;flex-wrap:wrap}
   .atlas-heading h1 {font-size:clamp(1.85rem,6.5vw,2.6rem)}
-  .atlas-explore {padding:.35rem .7rem;font-size:.82rem}
+  .atlas-explore,.atlas-try {padding:.4rem .7rem;font-size:.82rem}
   .teaching-demo>span:first-child {display:grid;gap:.1rem}
   .mast-inner {flex-wrap:wrap}
   .mast nav {flex-wrap:wrap}
@@ -246,8 +250,8 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
             <p class="atlas-intro">老师可以查上课前要先教什么。学生做题卡住时，可以一步步找到该回看的基础。</p>
           </div>
           <div class="atlas-paths">
-            <a class="atlas-explore" href="graph/dist/index.html#choose-course">按学科找知识点 <span aria-hidden="true">→</span></a>
-            <a class="atlas-example" href="graph/dist/index.html#qualification=CAIE%2F9702&amp;stage=AS&amp;node=9702-CH10-IV-09&amp;binding=AS%2FCAIE%2F9702%2F9%2F9.3&amp;language=support&amp;up=1&amp;down=1&amp;confirmed=1">看完整样例：求工作点电阻 <span aria-hidden="true">→</span></a>
+            <a class="atlas-explore" href="graph/dist/index.html#choose-course">查一个学习目标 <span aria-hidden="true">→</span></a>
+            <a class="atlas-try" href="#motion-3">做一道题，找出卡在哪一步 <span aria-hidden="true">→</span></a>
           </div>
         </div>
         <div class="board-posters">
@@ -292,7 +296,10 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
       <div class="practice-grid">
         <nav class="questions-nav" aria-label="本组知识点" id="question-nav"></nav>
         <div class="task" id="task">
-          <div class="task-label" id="task-label"></div>
+          <div class="task-meta">
+            <span class="task-label" id="task-label"></span>
+            <span id="objective-link" hidden></span>
+          </div>
           <h3 id="question" tabindex="-1" lang="en"></h3>
           <details id="translation"><summary>查看中文题意</summary><p id="support"></p></details>
           <figure id="question-figure" hidden></figure>
@@ -357,11 +364,12 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
   </main>
   <footer>
     <span>A-Level Atlas</span>
-    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r3.zip" download>下载离线包</a>
+    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r4.zip" download>下载离线包</a>
     <a href="USAGE.md">使用说明</a>
     <a href="#share-feedback">反馈</a>
   </footer>
-<script>const trialGraphTargets = {"19.1.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.3":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.1.4":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1"},"19.2.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2"},"19.2.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2"},"motion-1":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-2":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-3":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"motion-4":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1"},"circuits-1":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-2":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-3":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-4":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-5":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"circuits-6":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c"},"quadratics-1":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-2":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-3":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-4":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"},"quadratics-5":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","module":"P1"}};</script>
+<script>const trialGraphTargets = {"19.1.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1","objective":"4703e34330a800bcdb0bdd2d"},"19.1.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1","objective":"e9c7ca8ea05c47f85f8a2018"},"19.1.3":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1","objective":"2ac46438b632a10c89ebf35e"},"19.1.4":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.1","binding":"A2/CAIE/9702/19/19.1","objective":"03cf30737cd63217bd2f59a6"},"19.2.1":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2","objective":"34723574b8824ebf4433f397"},"19.2.2":{"qualification":"CAIE/9702","stage":"A2","node":"syllabus/CAIE/9702/19/19.2","binding":"A2/CAIE/9702/19/19.2","objective":"2c99cc25238159810839231c"},"motion-1":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1","objective":"d99a6a08edaf32101487221e"},"motion-2":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1","objective":"d8b4908309fbad4787cbb4d0"},"motion-3":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1","objective":"0e876d815f5496ab554c7d9d"},"motion-4":{"qualification":"CAIE/9702","stage":"AS","node":"syllabus/CAIE/9702/2/2.1","binding":"AS/CAIE/9702/2/2.1","objective":"dee8bdc8afeffea983b2e9cf"},"circuits-1":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c","objective":"d3e70cd3da07addf15b3dc69"},"circuits-2":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c","objective":"218f28a69c67506b76df1873"},"circuits-3":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c","objective":"d947757e6e5af30df481bc90"},"circuits-4":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c","objective":"001d6da289b01b3d6ee6dc76"},"circuits-5":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c","objective":"a720d51729f81c0a5f2ed1c6"},"circuits-6":{"qualification":"EDX/4PH1","stage":"IG","node":"syllabus/EDX/4PH1/2/2.c","binding":"IG/EDX/4PH1/2/2.c","objective":"5dec0a041ef4f2d0926f54e6"},"quadratics-1":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","objective":"209093d05cc74c7c835c25ce","module":"P1"},"quadratics-2":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","objective":"693b010af72ecc1fc2500beb","module":"P1"},"quadratics-3":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","objective":"844aef613918e5ac7b04401f","module":"P1"},"quadratics-4":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","objective":"9a3ea2205baffb5a96587ed9","module":"P1"},"quadratics-5":{"qualification":"EDX/YMA01","stage":"AS","node":"syllabus/EDX/YMA01/P1/1","binding":"AS/EDX/YMA01/P1/1","objective":"1a81056f3398b75d6f86ee7b","module":"P1"}};
+const trialObjectiveGuides = {"0e876d815f5496ab554c7d9d":{"zh":{"title":"从位移–时间图的斜率求速度","check":"先找到题目所给时刻所在的那一段。这道题中它是直线段：用同一段上的两个点算 Δs/Δt，并解释答案的正负。"},"en":{"title":"Find velocity from the gradient of a displacement–time graph","check":"Locate the part of the graph that contains the time in the question. Here it is straight. Use two points on that segment to find Δs/Δt and explain the sign."},"checks":{"readings":{"zh":"读端点。先在时间轴找到该线段的两个端点时刻，分别向上对齐图线，再横向读出两个位移。保留先后顺序和单位 m。","en":"Read the endpoints. Locate their times on the horizontal axis. For each time, go up to the line and across to the displacement axis. Keep both readings in time order, in metres."},"direction":{"zh":"看位移怎样变。在图上找到 4 s，从左往右沿它所在的直线段移动手指。纵坐标是在增大、减小，还是保持不变？","en":"Check how displacement changes. Find 4 s and trace that straight segment from left to right. Does the vertical reading increase, decrease or stay the same?"},"sign":{"zh":"判断速度的正负。先用末位移减去初位移，再用末时刻减去初时刻。时间差为正，位移差的符号会怎样影响 Δs/Δt？","en":"Check the sign of velocity. Subtract the earlier displacement from the later one, then do the same for time. The time interval is positive. What does the sign of the displacement change tell you about Δs/Δt?"}}}};</script>
 <script>
 (() => {
   const home = document.getElementById("home-content");
@@ -1455,6 +1463,50 @@ function diagnosisState(steps, actions = []) {
 
 </script>
 <script>
+function renderAtlasChart(figure, chart, markEndpoints = false) {
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns,"svg");
+  svg.setAttribute("viewBox","0 0 400 224");
+  svg.setAttribute("role","img");
+  svg.setAttribute("aria-label", chart.description + (markEndpoints ? " A and B mark the second and third points." : ""));
+  figure.append(svg);
+  function draw(tag, attrs, text) {
+    const el = document.createElementNS(ns,tag);
+    for (const [name,value] of Object.entries(attrs)) el.setAttribute(name,value);
+    if (text !== undefined) el.textContent = text;
+    svg.append(el);
+    return el;
+  }
+  const x = (value) => 60 + 294 * value / chart.xMax;
+  const y = (value) => 168 - 132 * value / chart.yMax;
+  for (const tick of chart.xTicks) {
+    draw("path", {d:"M" + x(tick) + " 36V168", class:"plot-grid"});
+    draw("text", {x:x(tick),y:185,"text-anchor":"middle"}, tick);
+  }
+  for (const tick of chart.yTicks) {
+    draw("path", {d:"M60 " + y(tick) + "H354",class:"plot-grid"});
+    draw("text", {x:51,y:y(tick)+4,"text-anchor":"end"},tick);
+  }
+  draw("path", {d:"M60 27V168H365",class:"plot-axis"});
+  draw("polyline", {points:chart.points.map(([a,b])=> x(a)+","+y(b)).join(" "),class:"plot-line"});
+  if (markEndpoints) {
+    for (const [i, [t, s]] of chart.points.slice(1,3).entries()) {
+      draw("circle", {cx:x(t),cy:y(s),r:6,class:"marked-endpoint"});
+      draw("text", {x:x(t)+10,y:y(s)-5,class:"endpoint-label"},i === 0 ? "A" : "B");
+    }
+  }
+  for (const [label,attrs] of [[chart.xLabel,{x:357,y:209,"text-anchor":"end"}],[chart.yLabel,{x:41,y:19}]]) {
+    const el = draw("text",attrs);
+    const [symbol,unit] = label.split(" / ");
+    const variable = document.createElementNS(ns,"tspan");
+    variable.setAttribute("font-style","italic");
+    variable.textContent = symbol;
+    el.append(variable," / " + unit);
+  }
+}
+
+</script>
+<script>
 (() => {
   "use strict";
   const find = (id) => document.getElementById(id);
@@ -1494,47 +1546,7 @@ function diagnosisState(steps, actions = []) {
       figure.innerHTML = question.circuitSvg;
       return;
     }
-    if (!question.chart) return;
-    const c = question.chart;
-    const ns = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(ns,"svg");
-    svg.setAttribute("viewBox","0 0 400 224");
-    svg.setAttribute("role","img");
-    svg.setAttribute("aria-label", c.description + (markEndpoints ? " A and B mark the second and third points." : ""));
-    figure.append(svg);
-    function draw(tag, attrs, text) {
-      const el = document.createElementNS(ns,tag);
-      for (const [name,value] of Object.entries(attrs)) el.setAttribute(name,value);
-      if (text !== undefined) el.textContent = text;
-      svg.append(el);
-      return el;
-    }
-    const x = (value) => 60 + 294 * value / c.xMax;
-    const y = (value) => 168 - 132 * value / c.yMax;
-    for (const tick of c.xTicks) {
-      draw("path", {d:"M" + x(tick) + " 36V168", class:"plot-grid"});
-      draw("text", {x:x(tick),y:185,"text-anchor":"middle"}, tick);
-    }
-    for (const tick of c.yTicks) {
-      draw("path", {d:"M60 " + y(tick) + "H354",class:"plot-grid"});
-      draw("text", {x:51,y:y(tick)+4,"text-anchor":"end"},tick);
-    }
-    draw("path", {d:"M60 27V168H365",class:"plot-axis"});
-    draw("polyline", {points:c.points.map(([a,b])=> x(a)+","+y(b)).join(" "),class:"plot-line"});
-    if (markEndpoints) {
-      for (const [i, [t, s]] of c.points.slice(1,3).entries()) {
-        draw("circle", {cx:x(t),cy:y(s),r:6,class:"marked-endpoint"});
-        draw("text", {x:x(t)+10,y:y(s)-5,class:"endpoint-label"},i === 0 ? "A" : "B");
-      }
-    }
-    for (const [label,attrs] of [[c.xLabel,{x:357,y:209,"text-anchor":"end"}],[c.yLabel,{x:41,y:19}]]) {
-      const el = draw("text",attrs);
-      const [symbol,unit] = label.split(" / ");
-      const variable = document.createElementNS(ns,"tspan");
-      variable.setAttribute("font-style","italic");
-      variable.textContent = symbol;
-      el.append(variable," / " + unit);
-    }
+    if (question.chart) renderAtlasChart(figure, question.chart, markEndpoints);
   }
 
   function renderProbe(q, attempt) {
@@ -1619,6 +1631,37 @@ function diagnosisState(steps, actions = []) {
     title.textContent = caption;
     figure.prepend(title);
     panel.append(figure);
+  }
+  function objectiveLink(q, check, showTitle = false) {
+    const id = idOf(q);
+    const target = typeof trialGraphTargets !== "undefined" && trialGraphTargets[id];
+    if (!target?.objective) return null;
+    const params = new URLSearchParams(target);
+    params.set("fromQuestion", id);
+    if (check) params.set("check", check);
+    const link = document.createElement("a");
+    link.href = "graph/dist/index.html#" + params;
+    const guide = typeof trialObjectiveGuides !== "undefined" && trialObjectiveGuides[target.objective];
+    const title = showTitle && guide?.zh?.title;
+    link.textContent = check ? "查这一步的基础 →" : "本题学习目标 · " + q.ref + (title ? " " + title : "") + " →";
+    if (!storageAvailable) {
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent += "（新页打开，关闭后继续作答）";
+    } else {
+      link.addEventListener("click", event => {
+        if (event.button || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        // A staged selection belongs to this tab, outside the scored attempt history.
+        const draft = find("feedback").hidden ? visited.get(id) : null;
+        try {
+          sessionStorage.setItem(keyPrefix + "return-question", JSON.stringify({id, draft, retry: retrying.has(id)}));
+        } catch {
+          link.target = "_blank";
+          link.rel = "noopener";
+        }
+      });
+    }
+    return link;
   }
   function renderDiagnosis(q, a) {
     const panel = find("diagnosis");
@@ -1711,14 +1754,12 @@ function diagnosisState(steps, actions = []) {
       line("p", "我在「" + step.skill + "」这一步需要帮助。");
       line("p", step.prompt);
       line("small", "这次的选择和讲解已列入「回顾我的作答」，可以和老师一起看。");
-      if (typeof trialGraphTargets !== "undefined") {
-        const params = new URLSearchParams(trialGraphTargets[idOf(q)]);
-        const link = document.createElement("a");
-        link.href = "graph/dist/index.html#" + params;
-        link.textContent = "查看本题的图谱知识点 · " + q.ref;
-        panel.append(link);
-      }
       action("回到原题，自己再试","retry",() => record("retry"));
+    }
+    // Only the reviewed same-graph steps have a corresponding foundation on the objective card.
+    if (q.id === "motion-3" && step.key) {
+      const link = objectiveLink(q, step.key);
+      if (link) panel.append(link);
     }
     if (q.id === "motion-3" && offerReturn) {
       action("回到原题，自己再试","retry-now",() => record("retry-now"));
@@ -1842,6 +1883,12 @@ function diagnosisState(steps, actions = []) {
   }
   function showFeedback(question, attempt) {
     const box = find("feedback");
+    const goal = find("objective-link");
+    const link = objectiveLink(question, null, Boolean(attempt));
+    find("task-label").textContent = link ? question.title : question.ref + "　/　" + question.title;
+    goal.replaceChildren();
+    goal.hidden = !link;
+    if (link) goal.append(link);
     if (!attempt) { box.hidden = true; return; }
     const f = feedback(question, attempt);
     find("feedback-title").textContent = f.title;
@@ -2005,7 +2052,6 @@ function diagnosisState(steps, actions = []) {
     const current = visited.get(idOf(q)) || (retrying.has(idOf(q)) ? null : last);
     const retryNote = find("retry-note");
     retryNote.hidden = !retrying.has(idOf(q));
-    find("task-label").textContent = q.ref + "　/　" + q.title;
     mathText(find("question"), q.prompt);
     mathText(find("support"), q.support);
     find("translation").open = false;
@@ -2084,6 +2130,30 @@ function diagnosisState(steps, actions = []) {
   renderQuestion();
   window.addEventListener("hashchange", () => readHash(true, true));
   readHash(true);
+  window.addEventListener("pageshow", () => {
+    let returning;
+    try {
+      const saved = sessionStorage.getItem(keyPrefix + "return-question");
+      if (!saved) return;
+      sessionStorage.removeItem(keyPrefix + "return-question");
+      returning = saved.startsWith("{") ? JSON.parse(saved) : {id:saved};
+    } catch { return; }
+    const q = questions[index];
+    if (returning?.id !== location.hash.slice(1) || returning.id !== idOf(q)) return;
+    const draft = returning.draft;
+    if (draft && (draft.choice === null || validChoice(draft.choice, q)) && typeof draft.doubt === "boolean") {
+      visited.set(returning.id, draft);
+      if (returning.retry) retrying.add(returning.id);
+      renderQuestion();
+    }
+    if (find("feedback").hidden) {
+      find("question").focus();
+      return;
+    }
+    const panel = find("diagnosis").hidden ? find("feedback") : find("diagnosis");
+    if (panel.id === "diagnosis") panel.focus({preventScroll:true});
+    panel.scrollIntoView({block:"start"});
+  });
   window.addEventListener("storage", (event) => {
     if (event.key === null || event.key.startsWith(keyPrefix)) {
       refreshAttempts();
