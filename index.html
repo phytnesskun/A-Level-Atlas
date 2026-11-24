@@ -211,6 +211,7 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
 .home-section {margin:clamp(1.85rem,4vw,3rem) 0;scroll-margin-top:12px}
 .home-section h2,#topics.home-section h2 {font-size:clamp(1.3rem,2.5vw,1.85rem);line-height:1.3;color:var(--ink);margin:0 0 .8rem;letter-spacing:-.03em}
 #topics.home-section {margin:clamp(1.85rem,4vw,3rem) 0}
+.practice-example {max-width:43em;margin:0 0 1rem;color:var(--muted)}
 #teachers #trial-guide {margin:.8rem 0 0}
 .practice-return {display:flex;align-items:center;gap:1rem;margin:1rem 0;color:var(--green);font-size:.88rem}
 .practice-return a {text-decoration:none}
@@ -247,11 +248,11 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
           <div>
             <p class="atlas-stages" lang="en">IGCSE <span aria-hidden="true">/</span> AS <span aria-hidden="true">/</span> A2</p>
             <h1 id="atlas-title">A-Level知识先修图谱</h1>
-            <p class="atlas-intro">老师可以查上课前要先教什么。学生做题卡住时，可以一步步找到该回看的基础。</p>
+            <p class="atlas-intro">学生可以用练习反复检验同一个知识点，卡住时沿图谱找到需要补的基础。老师可以按考纲查学习目标，看看上课前要先教什么。</p>
           </div>
           <div class="atlas-paths">
             <a class="atlas-explore" href="graph/dist/index.html#choose-course">查一个学习目标 <span aria-hidden="true">→</span></a>
-            <a class="atlas-try" href="#motion-3">做一道题，找出卡在哪一步 <span aria-hidden="true">→</span></a>
+            <a class="atlas-try" href="#motion-3">做题检验一个知识点 <span aria-hidden="true">→</span></a>
           </div>
         </div>
         <div class="board-posters">
@@ -279,9 +280,11 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
       </section>
       <section class="home-section" id="topics" aria-labelledby="topics-title">
         <h2 id="topics-title">学生练习</h2>
+        <p class="practice-example">试试 <a href="#motion-3">Motion Graphs 第 3 题</a>。卡住时，跟着追问读图，再回到原题试一次。做对后换一张图，看看同一个知识点能不能自己用出来。</p>
         <div id="topic-cards"></div>
         <noscript>请启用 JavaScript 以选择练习专题。</noscript>
       </section>
+      <p class="local-note">接下来，我们会优先为更多学习目标配上例题和换题复测，并继续审核 CIE 和爱德思课程中的硬先修与软支撑关系。</p>
     </div>
     <section class="practice" id="practice" aria-labelledby="practice-name" hidden>
       <nav class="practice-return" aria-label="离开练习"><a href="#topics">← 返回学生练习</a><a href="#home">首页</a></nav>
@@ -364,7 +367,7 @@ figure figcaption {font-size:.78rem;color:var(--muted)}
   </main>
   <footer>
     <span>A-Level Atlas</span>
-    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r4.zip" download>下载离线包</a>
+    <a id="download" href="downloads/A-Level-Atlas-trial-0.4.0-r5.zip" download>下载离线包</a>
     <a href="USAGE.md">使用说明</a>
     <a href="#share-feedback">反馈</a>
   </footer>

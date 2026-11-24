@@ -1,7 +1,7 @@
 # A-Level Atlas
 为中文学习者和国际课程教师制作的课程知识图谱与练习。可以免费在线试用，也可以下载到本地备课、授课或自学。
 
-[在线打开 A-Level Atlas](https://phytnesskun.github.io/A-Level-Atlas/) · [下载 0.4.0-r4 离线试用包](https://phytnesskun.github.io/A-Level-Atlas/downloads/A-Level-Atlas-trial-0.4.0-r4.zip) · [反馈问题或建议](https://phytnesskun.github.io/A-Level-Atlas/#share-feedback)
+[在线打开 A-Level Atlas](https://phytnesskun.github.io/A-Level-Atlas/) · [下载 0.4.0-r5 离线试用包](https://phytnesskun.github.io/A-Level-Atlas/downloads/A-Level-Atlas-trial-0.4.0-r5.zip) · [反馈问题或建议](https://phytnesskun.github.io/A-Level-Atlas/#share-feedback)
 
 **第一次带班试用**　[直接打开 Motion Graphs 第 3 题](https://phytnesskun.github.io/A-Level-Atlas/?v=0.4.0#motion-3)。预留约 10 分钟，先让学生自己做，再看「回顾我的作答」核对他的想法。该题支持看着原图分步求助，答对原题后可选一张新图无提示复测。可把题号、版本、设备和遇到的步骤交给老师统一反馈。
 
@@ -22,7 +22,7 @@
 
 **第一次离线试用**　完整解压 ZIP，先读最外层的 `README.txt`，再用浏览器打开同一层的 `index.html`。首页可查学习目标或直接做一道题，两局高清总图保留在首页。从「教师备课」可打开双语授课案例、带班指南，从「学生练习」可进入四组练习，再查看回顾或重置本组。六科图谱、案例、答题及复制反馈都可离线使用；把复制的内容发送给老师或提交 GitHub Issues 时需要联网。
 
-**部署试用站。** [下载 0.4.0-r4 静态网站托管 ZIP](https://phytnesskun.github.io/A-Level-Atlas/downloads/A-Level-Atlas-static-site-0.4.0-r4.zip)。根目录的 `index.html` 是网站首页。练习、交互图谱和两张可点击的考试局总图都从部署站点加载；网页的「下载离线包」链接到官方发行地址。热铁盒网页托管和花生壳 Drop 均支持上传站点压缩包。上传时保留完整目录，网站首页指向根目录的 `index.html`，无需运行构建命令。部署后可在首页地址末尾加上 `#motion-3` 试做原图追问，并点一次「下载离线包」。 [热铁盒托管说明](https://host-intro.retiehe.com/) · [花生壳 Drop](https://drop.ficp.fun/)
+**部署试用站。** [下载 0.4.0-r5 静态网站托管 ZIP](https://phytnesskun.github.io/A-Level-Atlas/downloads/A-Level-Atlas-static-site-0.4.0-r5.zip)。根目录的 `index.html` 是网站首页。练习、交互图谱和两张可点击的考试局总图都从部署站点加载；网页的「下载离线包」链接到官方发行地址。热铁盒网页托管和花生壳 Drop 均支持上传站点压缩包。上传时保留完整目录，网站首页指向根目录的 `index.html`，无需运行构建命令。部署后可在首页地址末尾加上 `#motion-3` 试做原图追问，并点一次「下载离线包」。 [热铁盒托管说明](https://host-intro.retiehe.com/) · [花生壳 Drop](https://drop.ficp.fun/)
 
 反馈时请写下科目、目标编号、遇到的步骤和预期结果。例如“9702 §19.2.1，我看懂了图线，但不明白反馈里的面积指哪一块”。GitHub Issues 为公开讨论，请省略学生姓名和个人档案。
 
