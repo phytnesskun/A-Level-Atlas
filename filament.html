@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#144b40">
+  <meta name="description" content="约 5 分钟的灯丝读图练习。按自己的想法作答，可以随时停下，把反馈发给老师。">
+  <meta property="og:title" content="灯丝 I–V 读图小练习 · A-Level Atlas">
+  <meta property="og:description" content="约 5 分钟，读一张图，再换一张试试。中途也可以留下反馈。">
+  <title>灯丝 I–V 读图小练习 · A-Level Atlas</title>
+  <style>.filament-exercise {color:var(--ink,#19342c);max-width:960px;margin:1.2rem auto}
+.fil-task {padding:clamp(1rem,3vw,2rem);background:#fffcf5;border:1px solid var(--line,#cbd4c7);border-radius:18px}
+.fil-kicker,.fil-caption {color:#52665c;font-size:.88rem;margin:0}
+.fil-task h2 {font-size:clamp(1.15rem,2.8vw,1.55rem);line-height:1.3;margin:.35rem 0 .65rem}
+.fil-task h3 {font-size:1.04rem;margin:.7rem 0 .25rem}
+.fil-translation summary,.fil-log summary {cursor:pointer;text-underline-offset:.18em}
+.fil-translation {font-size:.88rem;color:#436050}
+.fil-translation p {margin:.25rem 0}
+.fil-layout {display:grid;align-items:start;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1rem,2.5vw,2rem);margin:1.2rem 0}
+.fil-chart {min-width:0;background:#fff;border:1px solid #d3ded4;border-radius:12px;padding:.6rem}
+.fil-chart svg {display:block;width:100%;height:auto}
+.fil-chart text {font:14px system-ui,sans-serif;fill:#28463d}
+.fil-caption {padding:.15rem .45rem .35rem;line-height:1.45}
+.fil-grid {stroke:#d9e2dd;stroke-width:.8}
+.fil-axis {stroke:#465e52;stroke-width:1.6}
+.fil-curve {fill:none;stroke:#146d5c;stroke-width:3}
+.fil-tangent {stroke:#955724;stroke-width:2;stroke-dasharray:6 4}
+.fil-tangent-dot {fill:#955724}
+.fil-point {fill:#125545;stroke:white;stroke-width:1.2}
+.fil-wide {stroke:transparent;stroke-width:15}
+.fil-hit {cursor:pointer}
+.fil-guide {stroke:#708677;stroke-width:1;stroke-dasharray:2 4}
+.fil-step {min-width:0}
+.fil-step p {line-height:1.55;margin:.25rem 0 .75rem}
+.fil-choices {padding:0;border:0;margin:0 0 .85rem;min-width:0}
+.fil-choices legend {padding:0;margin:0 0 .45rem;font-weight:650}
+.fil-choices label {display:flex;align-items:center;gap:.6rem;border:1px solid #ccd6cc;background:#fff;color:#263e35;border-radius:8px;padding:.5rem .65rem;margin:.25rem 0;min-height:40px;cursor:pointer;line-height:1.4}
+.fil-choices label:has(input:checked) {border-color:#30775e;background:#e8f3e9}
+.fil-choices input {flex:none;width:1rem;height:1rem;margin:0;accent-color:#176050}
+.fil-btn {display:inline-block;margin:.15rem .35rem .3rem 0;padding:.53rem .8rem;border:1px solid #a9bbac;border-radius:7px;background:#fff;color:#244437;line-height:1.45}
+.fil-btn:hover {background:#e7f1e7}
+.fil-primary {background:#195641;color:white;border-color:#195641}
+.fil-primary:hover {background:#124634}
+.fil-observation,.fil-cue,.fil-success {padding:.65rem .85rem;background:#f0f2e7;border-left:3px solid #73906f;border-radius:4px}
+.fil-success {background:#e6f2e5;border-color:#337550}
+.fil-links {display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.89rem}
+.fil-log {margin:1rem 0;border-block:1px solid #d2dbce;padding:.7rem .2rem}
+.fil-log ol {padding-left:1.6rem}
+.fil-log li {margin:.35rem 0}
+.fil-reset {font-size:.86rem;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+@media(max-width:720px) {
+  .fil-layout {grid-template-columns:minmax(0,1fr);gap:.9rem}
+  .fil-choices label,.fil-btn {min-height:44px}
+  .fil-chart {max-width:480px;width:100%;margin:auto}
+}
+.fil-chart svg[data-selected="P"] [data-fil-mark="P"],
+.fil-chart svg[data-selected="Q"] [data-fil-mark="Q"] {stroke:#92500f;stroke-width:2;fill:rgba(232,176,69,.16)}
+.fil-chart svg[data-selected="tangent"] [data-fil-mark="tangent"] {stroke:#ab7a35;stroke-opacity:.22;stroke-width:10}
+.fil-remedy {margin:.75rem 0;padding:.8rem;border-radius:8px;background:#f4f3e9}
+.fil-remedy h3 {margin:0 0 .5rem}
+.fil-remedy table {border-collapse:collapse;margin:.6rem 0;font-variant-numeric:tabular-nums}
+.fil-remedy td,.fil-remedy th {border:1px solid #bfcdbf;padding:.18rem .7rem;text-align:center}
+</style>
+  <style>:root {
+  --ink:#173a32; --green:#155b49; --line:#cddbd4; --muted:#50685f;
+  font:16px/1.5 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink); background:#f5f8f4; color-scheme:light;
+}
+* {box-sizing:border-box}
+[hidden] {display:none !important}
+body {margin:0}
+button,input,textarea {font:inherit}
+button,summary {cursor:pointer}
+button {touch-action:manipulation}
+:focus-visible {outline:3px solid #a94f0e;outline-offset:3px}
+main,.mast-inner,footer {width:min(calc(100% - 2rem),910px);margin-inline:auto}
+.mast {border-bottom:1px solid var(--line);background:#fff}
+.mast-inner {min-height:3.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand {display:inline-flex;align-items:center;gap:.6rem;font-weight:750;letter-spacing:-.04em}
+.mark {width:1.8rem;height:1.8rem;border-radius:5px;display:grid;place-items:center;color:white;background:#155b49;letter-spacing:0}
+.mast button,.stop-row button {min-height:44px;color:var(--green);background:transparent;border:0;font-weight:620;text-decoration:underline;text-underline-offset:.25em}
+.intro {margin:clamp(1rem,4vw,2.8rem) 0 1rem}
+.edition {display:flex;gap:.7rem;align-items:baseline;color:#48665a;font-size:.87rem;margin:0}
+.edition span+span {border-left:1px solid #92a89d;padding-left:.7rem}
+h1 {margin:.35rem 0;color:#163b30;line-height:1.16;font-size:clamp(1.55rem,4.4vw,2.65rem);letter-spacing:-.045em}
+.divider {color:#779286;font-weight:400}
+.intro>p:not(.edition) {color:var(--muted);margin:.4rem 0}
+.privacy-note {font-size:.88rem}
+.filament-exercise {margin:.95rem 0 0}
+.fil-task {background:white;border-color:var(--line);border-top:3px solid var(--green);border-radius:10px}
+.fil-chart {background:#f7faf7}
+.fil-caption {font-size:.87rem}
+.fil-choices label {cursor:pointer}
+.fil-choices input {accent-color:var(--green)}
+.stop-row {margin:.75rem 0 1.6rem}
+.stop-row button {padding:0}
+.stop-row p,footer {font-size:.88rem}
+footer {border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;padding:1rem 0 1.25rem;color:var(--muted)}
+#student-feedback {max-width:43rem;margin:clamp(1.4rem,4vw,3rem) auto;background:white;border:1px solid var(--line);border-radius:10px;padding:clamp(1rem,4vw,2rem)}
+#student-feedback h2 {font-size:1.45rem;line-height:1.3;margin:.3rem 0 .8rem}
+#student-feedback label {cursor:pointer}
+#student-feedback input {accent-color:var(--green)}
+#student-feedback fieldset {min-width:0;border:0;padding:0;margin:.9rem 0}
+#student-feedback legend {font-weight:650}
+#student-feedback textarea {width:100%;padding:.65rem;border:1px solid #98b0a2;border-radius:6px;resize:vertical}
+#student-feedback button {min-height:44px;margin:.2rem .4rem .2rem 0;border-radius:6px;padding:.45rem .85rem;border:1px solid var(--green);background:white;color:var(--green)}
+#student-feedback .fit-options {display:flex;flex-wrap:wrap;gap:.5rem;margin:.45rem 0}
+.fit-options label {display:inline-flex;align-items:center;gap:.3rem;min-height:44px;padding:.35rem .65rem;background:#f6f9f6;border:1px solid var(--line);border-radius:6px}
+.fit-options label:has(input:checked) {background:#e7f2eb;border-color:var(--green)}
+.fit-options input {margin:0}
+.feedback-intro,#feedback-copy-status {color:var(--muted)}
+.feedback-note-label,#feedback-result label {display:block;font-weight:650;margin:.75rem 0 .4rem}
+#student-feedback span {font-size:.875rem;font-weight:400;color:var(--muted)}
+#student-feedback #feedback-preview,#student-feedback #feedback-copy {color:white;background:var(--green)}
+#feedback-result {margin-top:1.25rem;border-top:1px solid var(--line)}
+#feedback-receipt {background:#f6f9f6}
+@media (max-width:650px) {
+  main,.mast-inner,footer {width:calc(100% - 1.35rem)}
+  .intro {margin:1rem 0 .75rem}
+  .fil-task {padding:.85rem}
+  .fil-layout {margin:.8rem 0}
+  .fil-chart {padding:.3rem}
+  [data-fil-stage="original"] .fil-choices,[data-fil-stage="transfer"] .fil-choices {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.3rem .45rem}
+  .fil-task h2 {margin-top:.2rem}
+}
+</style>
+</head>
+<body>
+  <header class="mast"><div class="mast-inner">
+    <span class="brand"><span class="mark" aria-hidden="true">亓</span>A-Level Atlas</span>
+    <button type="button" data-open-feedback>留个反馈</button>
+  </div></header>
+  <main>
+    <div id="student-work">
+      <div class="intro">
+        <p class="edition"><span lang="en">CAIE AS Physics · 9702</span><span>约 5 分钟</span></p>
+        <h1><span lang="en">Filament Lamp</span><span class="divider" aria-hidden="true"> / </span>灯丝读图练习</h1>
+        <p>先按自己的想法读图，拿不准就选「我不确定」。原题之后还有一张新图。</p>
+        <p class="privacy-note">作答保存在本机。随时点「留个反馈」，预览后复制到微信发给老师。</p>
+      </div>
+      <noscript>请启用 JavaScript 后重新打开本页，以查看图线并记录作答。</noscript>
+      <div id="student-exercise"></div>
+      <div class="stop-row">
+        <button type="button" data-open-feedback id="stop-feedback">先做到这里，留个反馈</button>
+      </div>
+    </div>
+    <section id="student-feedback" aria-label="试用反馈" hidden></section>
+  </main>
+  <footer>CAIE 9702 · 2025–2027 · §9.3.2 <span>Atlas 原创练习</span></footer>
+  <script>// A single local attempt includes the original item, the student's stated method and one transfer item.
+const filamentExercise = (() => {
+  const original = {four:"4 Ω", six:"6 Ω", inverse:"0.25 Ω", unsure:"我不确定"};
+  const marks = {P:"P 点", Q:"Q 点", tangent:"P 处的切线", unsure:"我不确定"};
+  const calculations = {
+    p:"2.00 V ÷ 0.50 A", q:"6.00 V ÷ 1.00 A",
+    slope:"(3.50 − 0.50) V ÷ (0.75 − 0.25) A", reverse:"0.50 A ÷ 2.00 V",
+    other:"用了其他方法", unsure:"我不确定"
+  };
+  const transfer = {otherPoint:"5.5 Ω", inverse:"0.29 Ω", correct:"3.5 Ω", unsure:"我不确定"};
+  const methods = {
+    tangent:"用 S 点附近曲线的变化量之比。", reverse:"把 S 点的电流除以该点的电压。",
+    ratio:"把 S 点的电压除以该点的电流，两个读数取自同一个工作状态。",
+    unsure:"我不确定"
+  };
+  const hints = {
+    point:"回到题干，找到它指定的字母。在曲线上定位那个点，再从同一个点向两条坐标轴读数。你原来选的除法形式可以保留。",
+    tangent:"沿切线取两个位置，得到的是 ΔV/ΔI。题目问灯丝在一个工作状态下的电阻：从该点分别读出 V 和 I，求 V/I。",
+    units:"看电阻单位 Ω = V/A。检查刚才的除法里哪一个量放在分子，哪一个量放在分母。",
+    division:"你选的是 P 点，也用到了该点的电压和电流。请把刚选的除法再算一遍，并核对答案单位。",
+    unclear:"先用手指在图上找到题干指定的点，分别读出横轴与纵轴的数和单位。需要时可以请老师看你刚才选的点和算式。"
+  };
+  const hintTitles = {point:"核对工作点", tangent:"区分工作点比值与切线斜率", units:"核对单位与除法顺序", division:"核对代入与计算", unclear:"重新定位读数"};
+  const checks = {
+    point: {
+      prompt:"测量表中有两个工作点。只研究 A 点，应取哪一组读数？",
+      headings:["点","I / A","V / V"], rows:[["A","0.20","0.60"],["B","0.40","1.60"]],
+      choices:{b:"1.60 V 和 0.40 A",mix:"1.60 V 和 0.20 A",a:"0.60 V 和 0.20 A",unsure:"我不确定"},
+      correct:"a", focus:"用手指按住 A 所在的那一行，沿着同一行读出两列数值。"
+    },
+    tangent: {
+      prompt:"在另一灯丝图的 K 点，电压为 3.0 V，电流为 0.60 A。沿 K 处切线取两点，电压差为 0.80 V，电流差为 0.10 A。求 K 点的工作点电阻，你会用哪一个算式？",
+      choices:{diff:"0.80 V ÷ 0.10 A",ratio:"3.0 V ÷ 0.60 A",reverse:"0.60 A ÷ 3.0 V",unsure:"我不确定"},
+      correct:"ratio", focus:"题目问一个工作状态下的电阻。先找出只从 K 点读到的两个数，再检查它们的除法顺序。"
+    }
+  };
+  const referenceLabels = {objective:"学习目标 · 9.3.2", prerequisite:"先修 · 图轴、比值与斜率"};
+  let volatileRecord = [];
+  let useMemoryOnly = false;
+  function branch(mark, calc, answer) {
+    const consistent = answer === "unsure" || answer === ({q:"six", slope:"six", reverse:"inverse"})[calc];
+    if (mark === "Q" && calc === "q" && consistent) return "point";
+    if ((mark === "P" || mark === "tangent") && calc === "slope" && consistent) return "tangent";
+    if (mark === "P" && calc === "reverse" && consistent) return "units";
+    if (mark === "P" && calc === "p") return "division";
+    return "unclear";
+  }
+  function phase(events) {
+    let current = "original";
+    for (const e of events) {
+      switch (e.type) {
+        case "answer": current = e.value === "four" ? "ready" : "clarify"; break;
+        case "method": current = "advice"; break;
+        case "retry": current = "original"; break;
+        case "transferStart": current = "transfer"; break;
+        case "transferAnswer": current = "transferMethod"; break;
+        case "transferMethod": current = "finished"; break;
+        case "teacher": current = "teacher"; break;
+      }
+    }
+    return current;
+  }
+  function isHelp(e) { return e.type === "hint" || e.type === "reference"; }
+  function answerContext(events, index) {
+    const before = events.slice(0, index);
+    if (before.some(isHelp)) return "查阅提示或目标后";
+    return before.some(e => e.type === "answer") ? "自行重答" : "首次作答";
+  }
+  function transferResult(events) {
+    const start = events.findIndex(e => e.type === "transferStart");
+    const end = events.findIndex(e => e.type === "transferMethod");
+    if (start < 0 || end < 0) return "";
+    const trial = events.slice(start + 1, end + 1);
+    const numeric = trial.find(e => e.type === "transferAnswer").value;
+    const method = trial.find(e => e.type === "transferMethod").value;
+    if (numeric === "correct" && method === "ratio") {
+      return trial.some(isHelp)
+        ? "新图的数值和理由都正确。作答期间打开过参考材料，本次记为查阅后完成。"
+        : "新图首次无提示作答，工作点电阻和取同一点 V/I 的理由都正确。";
+    }
+    if (numeric === "correct") return "新图的数值正确，选择的理由还不能确认你使用了工作点的 V/I。建议和老师一起核对取数。";
+    if (method === "ratio") return "你选对了工作点比值的方法。新图的读数或计算仍需核对，建议把你使用的两个数指给老师看。";
+    return "新图的作答还需核对。请把你取的点和算式给老师看。";
+  }
+  function graph(swapped, interactive, choose) {
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    function shape(tag, attrs, label) {
+      const n = document.createElementNS(ns, tag);
+      Object.entries(attrs).forEach(([k,v]) => n.setAttribute(k, String(v)));
+      if (label !== undefined) n.textContent = label;
+      svg.append(n); return n;
+    }
+    svg.setAttribute("viewBox", "0 0 420 275");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", swapped ? "New filament graph. Horizontal axis V in volts; vertical axis I in amperes. S: 1.75 V, 0.50 A. T: 5.50 V, 1.00 A."
+      : "Filament graph. Horizontal axis I in amperes; vertical axis V in volts. P: 0.50 A, 2.00 V. Q: 1.00 A, 6.00 V. The dashed tangent at P crosses (0.25 A, 0.50 V) and (0.75 A, 3.50 V).");
+    const xmax = swapped ? 6 : 1.1, ymax = swapped ? 1.1 : 7;
+    const x = v => 48 + 331*v/xmax, y = v => 230 - 204*v/ymax;
+    function line(x1,y1,x2,y2,klass) { return shape("line",{x1:x(x1),y1:y(y1),x2:x(x2),y2:y(y2),class:klass}); }
+    function label(px,py,s,anchor="middle") {return shape("text",{x:px,y:py,"text-anchor":anchor},s);}
+    for (const t of (swapped ? [0,1,2,3,4,5,6] : [0,.25,.5,.75,1])) {
+      line(t,0,t,ymax,"fil-grid"); label(x(t),y(0)+19,String(t));
+    }
+    for (const t of (swapped ? [.25,.5,.75,1] : [1,2,3,4,5,6,7])) {
+      line(0,t,xmax,t,"fil-grid"); label(x(0)-8,y(t)+4,String(t),"end");
+    }
+    line(0,0,xmax,0,"fil-axis"); line(0,0,0,ymax,"fil-axis");
+    label(x(xmax),y(0)+39,swapped?"V / V":"I / A","end");
+    label(x(0)-12,15,swapped?"I / A":"V / V","start");
+    const pts = [];
+    for (let n=0; n<=104; n++) {
+      const i=n/100, v=(swapped?1.5:2)*i+4*i*i;
+      pts.push(x(swapped?v:i)+","+y(swapped?i:v));
+    }
+    shape("polyline",{points:pts.join(" "),class:"fil-curve"});
+    function hit(node, key) {
+      if (interactive) {
+        node.setAttribute("class",(node.getAttribute("class")||"")+" fil-hit");
+        node.dataset.filMark = key;
+        node.addEventListener("click",() => choose(key));
+      }
+    }
+    if (!swapped) {
+      const tangent = (i) => 2+6*(i-.5);
+      line(.18,tangent(.18),.91,tangent(.91),"fil-tangent");
+      [.25,.75].forEach(i=>shape("circle",{cx:x(i),cy:y(tangent(i)),r:2.5,class:"fil-tangent-dot"}));
+      hit(line(.18,tangent(.18),.91,tangent(.91),"fil-wide"),"tangent");
+    }
+    for (const [name,px,py] of (swapped?[["S",1.75,.50],["T",5.5,1]]:[["P",.5,2],["Q",1,6]])) {
+      if (swapped) {
+        line(px,0,px,py,"fil-guide"); line(0,py,px,py,"fil-guide");
+        label(x(px),y(0)+35,String(px));
+      }
+      shape("circle",{cx:x(px),cy:y(py),r:4.8,class:"fil-point"});
+      label(x(px)-8,y(py)-10,name); hit(shape("circle",{cx:x(px),cy:y(py),r:16,fill:"transparent"}),name);
+    }
+    return svg;
+  }
+  function render(container, api={}) {
+    const storageKey = api.storageKey || "atlas:filament-1:v1";
+    const h=(tag,txt,cls) => { const n=document.createElement(tag); if(txt!==undefined)n.textContent=txt; if(cls)n.className=cls; return n; };
+    let storageWorks=!useMemoryOnly;
+    function load() {
+      if (!storageWorks) return volatileRecord;
+      try {
+        const raw=localStorage.getItem(storageKey);
+        const data=raw?JSON.parse(raw):[];
+        return Array.isArray(data)?data:[];
+      } catch {storageWorks=false;useMemoryOnly=true;return volatileRecord;}
+    }
+    let events=load(), resetAsked=false;
+    function persist(next) {
+      events=next;volatileRecord=next;
+      if(storageWorks)try {localStorage.setItem(storageKey, JSON.stringify(next));}catch {storageWorks=false;useMemoryOnly=true;}
+    }
+    function record(event, redraw=true) {
+      if (storageWorks && JSON.stringify(load())!==JSON.stringify(events)) {events=load();draw(true);return false;}
+      persist([...events,{...event,at:new Date().toISOString()}]);
+      if(redraw)draw(true);
+      return true;
+    }
+    function btn(txt,handler,key,primary=false) {
+      const b=h("button",txt,primary?"fil-btn fil-primary":"fil-btn"); b.type="button";
+      if(key)b.dataset.filAction=key;
+      b.addEventListener("click",handler);return b;
+    }
+    function choices(parent,title,values,name) {
+      const fs=h("fieldset",undefined,"fil-choices");fs.append(h("legend",title));
+      const fields={};
+      for(const [v,txt] of Object.entries(values)) {
+        const input=h("input");input.type="radio";input.name="fil-"+name;input.value=v;input.required=true;
+        fields[v]=input;
+        const lab=h("label");lab.append(input,h("span",txt));fs.append(lab);
+      }
+      parent.append(fs);
+      return {select:v=>{fields[v].checked=true;fields[v].focus({preventScroll:true});},read:()=>Object.keys(fields).find(v=>fields[v].checked)};
+    }
+    function submit(form,caption,fn) {
+      const b=h("button",caption,"fil-btn fil-primary"); b.type="submit";b.dataset.filAction="submit";
+      form.append(b);form.addEventListener("submit",e=>{e.preventDefault();if(form.reportValidity())fn();});
+    }
+    function reviewText(e,i) {
+      switch(e.type) {
+        case "answer": {
+          const context=answerContext(events,i);
+          return context+" · 原图选了 "+original[e.value]+(e.value==="four"?"，数值正确。":e.value==="unsure"?"。":"，数值有误。");
+        }
+        case "method": return "回忆刚才的做法 · "+marks[e.mark]+"，"+calculations[e.calc]+"。";
+        case "hint":return "已展开提示 · "+hintTitles[e.value]+"。"+hints[e.value];
+        case "check": {
+          const check=checks[e.check];
+          return "提示后补练 · "+hintTitles[e.check]+" · "+check.choices[e.value]+
+            (e.value===check.correct?"，选择正确。":"。当时看到的反馈："+check.focus);
+        }
+        case "reference":return "已打开图谱 · "+referenceLabels[e.value]+"。";
+        case "transferStart":return "已打开新图。";
+        case "transferAnswer":return "新图首次作答 · "+transfer[e.value]+"。";
+        case "transferMethod":return "新图理由 · "+methods[e.value];
+        case "teacher":return "我想请老师看这一步。";
+        default:return "";
+      }
+    }
+    function draw(focus=false) {
+      const stage=phase(events);container.replaceChildren();container.classList.add("filament-exercise");
+      container.dataset.filStage=stage;
+      const isNew=["transfer","transferMethod","finished"].includes(stage);
+      const task=h("article",undefined,"fil-task");
+      const titles={original:"What is the resistance of the filament at P?", clarify:"刚才你是怎样得到这个答案的？", advice:"回到你刚才的读图步骤",ready:"原题的电阻数值正确",transfer:"What is the resistance of the new filament at S?",transferMethod:"你为什么使用这个算式？",finished:"新图作答回顾",teacher:"把这一步留给老师"};
+      if (stage==="clarify" && events.filter(e=>e.type==="answer").at(-1)?.value==="unsure") titles.clarify="读到这里，你能确定哪一步？";
+      task.append(h("p",isNew?"独立复测 · 新图":"原题 · Filament lamp","fil-kicker"));
+      const title=h("h2",titles[stage]);title.tabIndex=-1;task.append(title);container.append(task);
+      if(["original","transfer"].includes(stage)){
+        const tr=h("details",undefined,"fil-translation"); tr.append(h("summary","查看中文题意"),h("p",isNew?"在这幅新灯丝图中，S 点的工作点电阻是多少？":"在图中的 P 点，灯丝的工作点电阻是多少？"));task.append(tr);
+      }
+      const content=h("div",undefined,"fil-layout"), left=h("div",undefined,"fil-chart"), right=h("div",undefined,"fil-step");
+      content.append(left,right);task.append(content);
+      let pointChoice;
+      const plot=graph(isNew,stage==="clarify",v=>{pointChoice.select(v);plot.dataset.selected=v;});
+      left.append(plot);
+      left.append(h("p",isNew?"另一只灯丝的稳态读数。":"P 和 Q 是同一灯丝的两个稳态工作点。虚线为 P 点处的切线。","fil-caption"));
+      const form=h("form");right.append(form);
+      const lastMethod=events.filter(e=>e.type==="method").at(-1);
+      if(stage==="original" || stage==="transfer"){
+        const which=isNew?transfer:original;
+        const a=choices(form,"选择你的答案",which,"answer");submit(form,"提交答案",()=>record({type:isNew?"transferAnswer":"answer",value:a.read()}));
+      }else if(stage==="clarify"){
+        const a=events.filter(e=>e.type==="answer").at(-1);form.append(h("p","刚才的选择　"+original[a.value]+(a.value==="unsure"?"":" · 再核对一下"),"fil-observation"));
+        pointChoice=choices(form,"① 点图选出用过的位置，或在这里选择",marks,"mark");
+        form.addEventListener("change",e=>{if(e.target.name==="fil-mark")plot.dataset.selected=e.target.value;});
+        const c=choices(form,"② 你刚才用的是哪组读数或算式？",calculations,"calculation");
+        submit(form,"记录我的做法",()=>record({type:"method",mark:pointChoice.read(),calc:c.read()}));
+        right.append(btn("我说不清刚才的做法",()=>record({type:"method",mark:"unsure",calc:"unsure"}),"unsure-method"));
+        right.append(btn("我想先自己重算",()=>record({type:"retry"}),"retry"));
+      }else if(stage==="advice"){
+        const b=branch(lastMethod.mark,lastMethod.calc,events.filter(e=>e.type==="answer").at(-1).value);
+        right.append(h("p","你记录了 "+marks[lastMethod.mark]+"，算式为 "+calculations[lastMethod.calc]+"。","fil-observation"));
+        const lastHint=events.slice(events.lastIndexOf(lastMethod)+1).some(e=>e.type==="hint");
+        if(lastHint) {
+          right.append(h("h3",hintTitles[b]),h("p",hints[b],"fil-cue"));
+          const check=checks[b];
+          if (check) {
+            const block=h("div",undefined,"fil-remedy");block.dataset.filCheck=b;
+            block.append(h("h3","试一小步"),h("p",check.prompt));
+            if (check.rows) {
+              const table=h("table"), head=h("tr"), body=h("tbody");
+              table.setAttribute("aria-label","两个工作点的测量读数");
+              for (const text of check.headings) { const th=h("th",text);th.scope="col";head.append(th); }
+              table.createTHead().append(head);
+              for (const row of check.rows) {
+                const tr=h("tr");
+                for (const value of row) tr.append(h("td",value));
+                body.append(tr);
+              }
+              table.append(body);block.append(table);
+            }
+            const attempts=events.slice(events.lastIndexOf(lastMethod)+1).filter(e=>e.type==="check"&&e.check===b);
+            const last=attempts.at(-1);
+            if (last?.value===check.correct) {
+              block.append(h("p",attempts.length>1?"✓ 你订正了这道补练。现在可回到原题。":"✓ 提示后的这一步选对了。现在可回到原题。","fil-success"));
+            } else {
+              if (last) block.append(h("p","刚才选了 "+check.choices[last.value]+"。"+check.focus,"fil-cue"));
+              const checkForm=h("form"), choicesField=choices(checkForm,"选择你的做法",check.choices,"check");
+              submit(checkForm,"提交补练",()=>record({type:"check",check:b,value:choicesField.read()}));
+              block.append(checkForm);
+            }
+            right.append(block);
+          }
+        }else{
+          right.append(btn("查看这一步的提示",()=>record({type:"hint",value:b}),"hint",true));
+        }
+        right.append(btn("回到原题，自己再试",()=>record({type:"retry"}),"retry"),btn("这一点想请老师看",()=>record({type:"teacher"}),"teacher"));
+      }else if(stage==="ready"){
+        const last=events.map(e=>e.type).lastIndexOf("answer");
+        right.append(h("p","✓ "+answerContext(events,last)+"得到了 4 Ω。","fil-success"),
+          h("p","接下来换一幅图，坐标轴互换，单位仍是伏特和安培。请自己读数并选择理由。"),
+          btn("做一道无提示新题",()=>record({type:"transferStart"}),"transfer",true));
+      }else if(stage==="transferMethod"){
+        form.append(h("p","已记录你在新图上的首次选择。请说明刚才怎样使用图上的读数。"));
+        const m=choices(form,"请选择最符合你做法的一项",methods,"reason");submit(form,"提交理由",()=>record({type:"transferMethod",value:m.read()}));
+      }else if(stage==="finished"){
+        const num=events.find(e=>e.type==="transferAnswer"),meth=events.find(e=>e.type==="transferMethod");
+        right.append(h("p",transferResult(events),"fil-observation"),h("p","你的作答　"+transfer[num.value]+"　"+methods[meth.value]),h("p","S 点的电压是 1.75 V，电流是 0.50 A，工作点电阻为 1.75 ÷ 0.50 = 3.5 Ω。"));
+      }else if(stage==="teacher"){
+        right.append(h("p",api.feedbackAvailable ? "你可以把刚才的作答放进反馈，发给老师，也可以回到原题继续。" : "请和老师一起打开下方作答回顾，指出你使用的点、直线或读数。"),btn("回到原题再试",()=>record({type:"retry"}),"retry"));
+      }
+      const nav=h("nav",undefined,"fil-links");nav.setAttribute("aria-label","相关知识图谱");
+      for(const [k,href] of Object.entries({objective:api.objectiveUrl,prerequisite:api.prerequisiteUrl})){
+        if(!href)continue;
+        const a=h("a",referenceLabels[k]);a.href=href; a.dataset.filReference=k;
+        a.addEventListener("click",ev=>{if(!record({type:"reference",value:k},false))ev.preventDefault();});nav.append(a);
+      }
+      if(nav.childElementCount) task.append(nav);
+      const log=h("details",undefined,"fil-log");log.open=stage==="teacher";log.append(h("summary","回顾我的作答"));
+      const list=h("ol");
+      for(const [i,e] of events.entries()){const txt=reviewText(e,i);if(txt)list.append(h("li",txt));}
+      if(stage==="finished")list.append(h("li",transferResult(events)));
+      if(list.children.length)log.append(list);else log.append(h("p","提交后，你的选择会出现在这里。"));
+      // During an independent student retest the earlier log contains the method just taught.
+      if (!api.feedbackAvailable || (stage !== "transfer" && stage !== "transferMethod")) container.append(log);
+      if(!storageWorks)container.append(h("p","当前浏览器无法保存到本机。本页可继续使用，关闭后记录可能丢失。"));
+      if(events.length){
+        const ctl=h("div",undefined,"fil-reset");
+        if(resetAsked){ctl.append(h("span",api.onReset ? "清除本题的作答和反馈草稿？" : "清除本题的作答记录？"),btn("确认重置",()=>{resetAsked=false;persist([]);api.onReset?.();draw(true);},"confirm-reset"),btn("取消",()=>{resetAsked=false;draw();},"cancel-reset"));}
+        else ctl.append(btn("重置本题",()=>{resetAsked=true;draw();container.querySelector('[data-fil-action="confirm-reset"]').focus();},"reset"));
+        container.append(ctl);
+      }
+      api.onStateChange?.(events.slice(),stage);
+      if(focus)title.focus();
+    }
+    draw();
+  }
+  return {render,branch,checks,phase,answerContext,transferResult,
+    labels:{original,marks,calculations,transfer,methods,hintTitles}};
+})();
+function renderFilamentPractice(container, api) { filamentExercise.render(container, api); }
+</script>
+  <script>const studentHintFit = {
+  yes: "对上了",
+  part: "一部分",
+  no: "没对上",
+  unclear: "说不清"
+};
+
+function makeStudentReceipt(events, fit, note) {
+  const {labels, checks, answerContext, phase, transferResult} = filamentExercise;
+  const stage = phase(events);
+  const answers = events.filter(e => e.type === "answer");
+  const first = answers[0];
+  const last = answers.at(-1);
+  const stages = {
+    original: last ? "准备重做原图" : "尚未提交原题",
+    clarify: "回忆原图的做法", advice: "核对原图的做法",
+    ready: "原图已完成，尚未开始新图", transfer: "新图已打开，尚未提交答案",
+    transferMethod: "新图答案已提交，理由尚未提交",
+    finished: "新图答案和理由均已提交", teacher: "想和老师一起核对原图"
+  };
+  const lines = ["A-Level Atlas · Filament Lamp · 9702 §9.3.2 · 试用 1", "做到哪一步　" + stages[stage]];
+  const transferOngoing = stage === "transfer" || stage === "transferMethod";
+  if (first) {
+    const answerText = value => {
+      if (value === "unsure") return labels.original.unsure;
+      return labels.original[value] + (value === "four" ? "（数值正确）" : "（数值有误）");
+    };
+    let progress = answerText(first.value);
+    if (answers.length > 1) {
+      progress += " → " + answerContext(events, events.lastIndexOf(last)) + "选了 " + answerText(last.value);
+    }
+    lines.push("原图首答　" + progress);
+  }
+  const method = events.filter(e => e.type === "method").at(-1);
+  if (method) {
+    const detail = transferOngoing ? labels.marks[method.mark] : labels.marks[method.mark] + "；" + labels.calculations[method.calc];
+    lines.push("我回忆的做法（最近一次）　" + detail);
+  }
+  const hints = [...new Set(events.filter(e => e.type === "hint").map(e => e.value))];
+  if (hints.length) {
+    // The unfinished transfer test is resumable. Keep its independent attempt free of instructional cues.
+    lines.push("打开过提示　" + (transferOngoing ? hints.length + " 种" : hints.map(h => labels.hintTitles[h]).join("、")));
+  }
+  for (const key of Object.keys(checks)) {
+    const attempts = events.filter(e => e.type === "check" && e.check === key);
+    if (attempts.length) {
+      const outcomes = attempts.map(e => {
+        if (e.value === "unsure") return "不确定";
+        return e.value === checks[key].correct ? "答对" : "答错";
+      });
+      const title = transferOngoing ? "提示后的补练" : labels.hintTitles[key] + "补练";
+      lines.push(title + "　" + outcomes.join(" → "));
+    }
+  }
+  const newAnswer = events.find(e => e.type === "transferAnswer");
+  const reason = events.find(e => e.type === "transferMethod");
+  if (newAnswer) lines.push("新图首次作答　" + labels.transfer[newAnswer.value]);
+  if (reason) {
+    lines.push("新图理由　" + labels.methods[reason.value], "新图结果　" + transferResult(events));
+  }
+  if (hints.length && Object.hasOwn(studentHintFit, fit)) lines.push("提示与我的卡点　" + studentHintFit[fit]);
+  if (note.trim()) lines.push("我想说　" + note.trim());
+  return lines.join("\n");
+}
+
+function initStudentFeedback({panel, work, triggers}) {
+  const storageKey = "atlas:filament-student:feedback:v1";
+  let events = [];
+  let opener = null;
+  let canSave = true;
+  const openButtons = Array.from(triggers);
+  panel.innerHTML = `
+    <h2 id="feedback-title" tabindex="-1">给老师的试用反馈</h2>
+    <p class="feedback-intro">你可以先预览要发的内容，再复制到微信。发给老师后，老师才能看到。</p>
+    <fieldset id="feedback-fit" hidden>
+      <legend>提示对上了你卡住的地方吗？<span>（选填）</span></legend>
+      <div class="fit-options"></div>
+    </fieldset>
+    <label class="feedback-note-label" for="feedback-note">如果只能改一个地方，你希望改哪里？<span>（选填）</span></label>
+    <textarea id="feedback-note" rows="3" maxlength="400" placeholder="可以说说你停在哪一步。"></textarea>
+    <p id="feedback-draft-status" role="status" hidden></p>
+    <div class="feedback-actions">
+      <button type="button" id="feedback-preview">预览反馈</button>
+      <button type="button" id="feedback-resume">回到练习</button>
+    </div>
+    <div id="feedback-result" hidden>
+      <label for="feedback-receipt">将要发给老师的内容</label>
+      <textarea id="feedback-receipt" rows="7" readonly></textarea>
+      <button type="button" id="feedback-copy">复制反馈</button>
+      <p role="status" id="feedback-copy-status"></p>
+    </div>`;
+  panel.setAttribute("aria-labelledby", "feedback-title");
+  const find = id => panel.querySelector("#" + id);
+  const fitField = find("feedback-fit");
+  const note = find("feedback-note");
+  const result = find("feedback-result");
+  const receipt = find("feedback-receipt");
+  const status = find("feedback-copy-status");
+  const fitOptions = fitField.querySelector(".fit-options");
+  for (const [value, text] of Object.entries(studentHintFit)) {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "hint-fit";
+    input.value = value;
+    label.append(input, document.createTextNode(text));
+    fitOptions.append(label);
+  }
+  function showStorageLimit() {
+    canSave = false;
+    const warning = find("feedback-draft-status");
+    warning.hidden = false;
+    warning.textContent = "此浏览器只能在当前页面保留草稿，离开前请先复制。";
+  }
+  function restoreDraft() {
+    let raw;
+    try {
+      raw = localStorage.getItem(storageKey);
+    } catch {
+      showStorageLimit();
+      return;
+    }
+    if (!raw) return;
+    let saved;
+    try { saved = JSON.parse(raw); } catch { return; }
+    if (typeof saved?.note === "string") note.value = saved.note.slice(0, note.maxLength);
+    if (saved && Object.hasOwn(studentHintFit, saved.fit)) {
+      fitField.querySelector('input[value="' + saved.fit + '"]').checked = true;
+    }
+  }
+  function chosenFit() {
+    return fitField.hidden ? "" : fitField.querySelector("input:checked")?.value || "";
+  }
+  function invalidatePreview() {
+    result.hidden = true;
+    receipt.value = "";
+    status.textContent = "";
+  }
+  function saveDraft() {
+    invalidatePreview();
+    if (!canSave) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({fit:chosenFit(), note:note.value}));
+    } catch { showStorageLimit(); }
+  }
+  function update(next) {
+    events = next;
+    fitField.hidden = !events.some(e => e.type === "hint");
+    invalidatePreview();
+  }
+  function open(trigger) {
+    opener = trigger;
+    work.hidden = true;
+    for (const button of openButtons) button.hidden = true;
+    panel.hidden = false;
+    find("feedback-title").focus();
+    panel.scrollIntoView({block:"start"});
+  }
+  function resume() {
+    panel.hidden = true;
+    work.hidden = false;
+    for (const button of openButtons) button.hidden = false;
+    invalidatePreview();
+    const heading = work.querySelector("[data-fil-stage] h2");
+    (heading || opener)?.focus();
+  }
+  function reset() {
+    events = [];
+    note.value = "";
+    for (const input of fitField.querySelectorAll("input")) input.checked = false;
+    fitField.hidden = true;
+    invalidatePreview();
+    try { localStorage.removeItem(storageKey); } catch { showStorageLimit(); }
+  }
+  restoreDraft();
+  fitField.addEventListener("change", saveDraft);
+  note.addEventListener("input", saveDraft);
+  find("feedback-resume").addEventListener("click", resume);
+  for (const button of openButtons) button.addEventListener("click", () => open(button));
+  find("feedback-preview").addEventListener("click", () => {
+    receipt.value = makeStudentReceipt(events, chosenFit(), note.value);
+    status.textContent = "";
+    result.hidden = false;
+    receipt.focus();
+  });
+  find("feedback-copy").addEventListener("click", async () => {
+    const text = receipt.value;
+    if (result.hidden || !text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      if (!result.hidden && text === receipt.value) status.textContent = "已复制。打开与老师的微信对话，粘贴后发送。";
+    } catch {
+      if (result.hidden || text !== receipt.value) return;
+      receipt.focus();
+      receipt.select();
+      status.textContent = "请长按上面的文字，选择“复制”，然后粘贴到与老师的微信对话。";
+    }
+  });
+  return {update, reset};
+}
+</script>
+  <script>
+    const studentFeedback = initStudentFeedback({
+      panel:document.getElementById("student-feedback"),
+      work:document.getElementById("student-work"),
+      triggers:document.querySelectorAll("[data-open-feedback]")
+    });
+    renderFilamentPractice(document.getElementById("student-exercise"), {
+      storageKey:"atlas:filament-student:attempt:v1",
+      feedbackAvailable:true,
+      onStateChange(events, stage) {
+        document.getElementById("stop-feedback").textContent = stage === "finished" ? "完成练习，留个反馈" : "先做到这里，留个反馈";
+        studentFeedback.update(events,stage);
+      },
+      onReset() { studentFeedback.reset(); }
+    });
+  </script>
+</body>
+</html>
