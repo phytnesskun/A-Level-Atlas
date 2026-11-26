@@ -103,7 +103,8 @@ footer {border-top:1px solid var(--line);display:flex;justify-content:space-betw
 #student-feedback fieldset {min-width:0;border:0;padding:0;margin:.9rem 0}
 #student-feedback legend {font-weight:650}
 #student-feedback textarea {width:100%;padding:.65rem;border:1px solid #98b0a2;border-radius:6px;resize:vertical}
-#student-feedback button {min-height:44px;margin:.2rem .4rem .2rem 0;border-radius:6px;padding:.45rem .85rem;border:1px solid var(--green);background:white;color:var(--green)}
+#student-feedback button,#feedback-download {min-height:44px;margin:.2rem .4rem .2rem 0;border-radius:6px;padding:.45rem .85rem;border:1px solid var(--green);background:white;color:var(--green)}
+#feedback-download {display:inline-flex;align-items:center;text-decoration:none}
 #student-feedback .fit-options {display:flex;flex-wrap:wrap;gap:.5rem;margin:.45rem 0}
 .fit-options label {display:inline-flex;align-items:center;gap:.3rem;min-height:44px;padding:.35rem .65rem;background:#f6f9f6;border:1px solid var(--line);border-radius:6px}
 .fit-options label:has(input:checked) {background:#e7f2eb;border-color:var(--green)}
@@ -111,7 +112,7 @@ footer {border-top:1px solid var(--line);display:flex;justify-content:space-betw
 .feedback-intro,#feedback-copy-status {color:var(--muted)}
 .feedback-note-label,#feedback-result label {display:block;font-weight:650;margin:.75rem 0 .4rem}
 #student-feedback span {font-size:.875rem;font-weight:400;color:var(--muted)}
-#student-feedback #feedback-preview,#student-feedback #feedback-copy {color:white;background:var(--green)}
+#student-feedback #feedback-preview,#feedback-download {color:white;background:var(--green)}
 #feedback-result {margin-top:1.25rem;border-top:1px solid var(--line)}
 #feedback-receipt {background:#f6f9f6}
 @media (max-width:650px) {
@@ -136,7 +137,7 @@ footer {border-top:1px solid var(--line);display:flex;justify-content:space-betw
         <p class="edition"><span lang="en">CAIE AS Physics · 9702</span><span>约 5 分钟</span></p>
         <h1><span lang="en">Filament Lamp</span><span class="divider" aria-hidden="true"> / </span>灯丝读图练习</h1>
         <p>先按自己的想法读图，拿不准就选「我不确定」。原题之后还有一张新图。</p>
-        <p class="privacy-note">作答保存在本机。随时点「留个反馈」，预览后复制到微信发给老师。</p>
+        <p class="privacy-note">作答保存在本机。随时点「留个反馈」，可以把反馈存成文件，通过微信发给老师。</p>
       </div>
       <noscript>请启用 JavaScript 后重新打开本页，以查看图线并记录作答。</noscript>
       <div id="student-exercise"></div>
@@ -240,7 +241,7 @@ const filamentExercise = (() => {
       if (label !== undefined) n.textContent = label;
       svg.append(n); return n;
     }
-    svg.setAttribute("viewBox", "0 0 420 275");
+    svg.setAttribute("viewBox", swapped ? "0 0 420 300" : "0 0 420 275");
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label", swapped ? "New filament graph. Horizontal axis V in volts; vertical axis I in amperes. S: 1.75 V, 0.50 A. T: 5.50 V, 1.00 A."
       : "Filament graph. Horizontal axis I in amperes; vertical axis V in volts. P: 0.50 A, 2.00 V. Q: 1.00 A, 6.00 V. The dashed tangent at P crosses (0.25 A, 0.50 V) and (0.75 A, 3.50 V).");
@@ -255,7 +256,12 @@ const filamentExercise = (() => {
       line(0,t,xmax,t,"fil-grid"); label(x(0)-8,y(t)+4,String(t),"end");
     }
     line(0,0,xmax,0,"fil-axis"); line(0,0,0,ymax,"fil-axis");
-    label(x(xmax),y(0)+39,swapped?"V / V":"I / A","end");
+    if (swapped) {
+      // The projected voltages have their own row beneath the integer ticks.
+      label(x(xmax/2),y(0)+60,"V / V");
+    } else {
+      label(x(xmax),y(0)+39,"I / A","end");
+    }
     label(x(0)-12,15,swapped?"I / A":"V / V","start");
     const pts = [];
     for (let n=0; n<=104; n++) {
@@ -279,7 +285,8 @@ const filamentExercise = (() => {
     for (const [name,px,py] of (swapped?[["S",1.75,.50],["T",5.5,1]]:[["P",.5,2],["Q",1,6]])) {
       if (swapped) {
         line(px,0,px,py,"fil-guide"); line(0,py,px,py,"fil-guide");
-        label(x(px),y(0)+35,String(px));
+        shape("line",{x1:x(px),y1:y(0),x2:x(px),y2:y(0)+23,class:"fil-guide"});
+        label(x(px),y(0)+39,String(px));
       }
       shape("circle",{cx:x(px),cy:y(py),r:4.8,class:"fil-point"});
       label(x(px)-8,y(py)-10,name); hit(shape("circle",{cx:x(px),cy:y(py),r:16,fill:"transparent"}),name);
@@ -367,7 +374,8 @@ const filamentExercise = (() => {
       let pointChoice;
       const plot=graph(isNew,stage==="clarify",v=>{pointChoice.select(v);plot.dataset.selected=v;});
       left.append(plot);
-      left.append(h("p",isNew?"另一只灯丝的稳态读数。":"P 和 Q 是同一灯丝的两个稳态工作点。虚线为 P 点处的切线。","fil-caption"));
+      const caption=isNew?"另一只灯丝的稳态读数。":stage==="clarify"?"点击你刚才用过的点或切线，也可以直接选择对应选项。":"P 和 Q 是同一灯丝的两个稳态工作点。虚线为 P 点处的切线。";
+      left.append(h("p",caption,"fil-caption"));
       const form=h("form");right.append(form);
       const lastMethod=events.filter(e=>e.type==="method").at(-1);
       if(stage==="original" || stage==="transfer"){
@@ -375,7 +383,7 @@ const filamentExercise = (() => {
         const a=choices(form,"选择你的答案",which,"answer");submit(form,"提交答案",()=>record({type:isNew?"transferAnswer":"answer",value:a.read()}));
       }else if(stage==="clarify"){
         const a=events.filter(e=>e.type==="answer").at(-1);form.append(h("p","刚才的选择　"+original[a.value]+(a.value==="unsure"?"":" · 再核对一下"),"fil-observation"));
-        pointChoice=choices(form,"① 点图选出用过的位置，或在这里选择",marks,"mark");
+        pointChoice=choices(form,"① 你刚才用的是哪个点或哪条线？",marks,"mark");
         form.addEventListener("change",e=>{if(e.target.name==="fil-mark")plot.dataset.selected=e.target.value;});
         const c=choices(form,"② 你刚才用的是哪组读数或算式？",calculations,"calculation");
         submit(form,"记录我的做法",()=>record({type:"method",mark:pointChoice.read(),calc:c.read()}));
@@ -529,15 +537,25 @@ function makeStudentReceipt(events, fit, note) {
   return lines.join("\n");
 }
 
+function makeStudentReceiptFile(text, now = new Date()) {
+  const pad = value => String(value).padStart(2, "0");
+  const date = [now.getFullYear(), pad(now.getMonth() + 1), pad(now.getDate())].join("");
+  const time = [now.getHours(), now.getMinutes(), now.getSeconds()].map(pad).join("");
+  const filename = `Atlas-灯丝读图-反馈-${date}-${time}.txt`;
+  const blob = new Blob(["\uFEFF", text.replace(/\r\n|\r|\n/g, "\r\n")], {type:"text/plain;charset=utf-8"});
+  return {filename, blob};
+}
+
 function initStudentFeedback({panel, work, triggers}) {
   const storageKey = "atlas:filament-student:feedback:v1";
   let events = [];
   let opener = null;
   let canSave = true;
+  let fileUrl = null;
   const openButtons = Array.from(triggers);
   panel.innerHTML = `
     <h2 id="feedback-title" tabindex="-1">给老师的试用反馈</h2>
-    <p class="feedback-intro">你可以先预览要发的内容，再复制到微信。发给老师后，老师才能看到。</p>
+    <p class="feedback-intro">先预览你的作答和留言，再保存成文件，通过微信发给老师。</p>
     <fieldset id="feedback-fit" hidden>
       <legend>提示对上了你卡住的地方吗？<span>（选填）</span></legend>
       <div class="fit-options"></div>
@@ -552,7 +570,11 @@ function initStudentFeedback({panel, work, triggers}) {
     <div id="feedback-result" hidden>
       <label for="feedback-receipt">将要发给老师的内容</label>
       <textarea id="feedback-receipt" rows="7" readonly></textarea>
-      <button type="button" id="feedback-copy">复制反馈</button>
+      <div class="feedback-actions">
+        <a id="feedback-download" target="_blank" rel="noopener" hidden>保存反馈文件</a>
+        <button type="button" id="feedback-copy">复制反馈</button>
+      </div>
+      <p class="feedback-intro">请把保存的 TXT 文件发到老师的微信。如果手机无法保存，可以复制文字或截图发给老师。</p>
       <p role="status" id="feedback-copy-status"></p>
     </div>`;
   panel.setAttribute("aria-labelledby", "feedback-title");
@@ -562,6 +584,7 @@ function initStudentFeedback({panel, work, triggers}) {
   const result = find("feedback-result");
   const receipt = find("feedback-receipt");
   const status = find("feedback-copy-status");
+  const download = find("feedback-download");
   const fitOptions = fitField.querySelector(".fit-options");
   for (const [value, text] of Object.entries(studentHintFit)) {
     const label = document.createElement("label");
@@ -576,7 +599,7 @@ function initStudentFeedback({panel, work, triggers}) {
     canSave = false;
     const warning = find("feedback-draft-status");
     warning.hidden = false;
-    warning.textContent = "此浏览器只能在当前页面保留草稿，离开前请先复制。";
+    warning.textContent = "离开此页后草稿可能丢失，请先保存或复制反馈。";
   }
   function restoreDraft() {
     let raw;
@@ -598,6 +621,10 @@ function initStudentFeedback({panel, work, triggers}) {
     return fitField.hidden ? "" : fitField.querySelector("input:checked")?.value || "";
   }
   function invalidatePreview() {
+    if (fileUrl) URL.revokeObjectURL(fileUrl);
+    fileUrl = null;
+    download.hidden = true;
+    download.removeAttribute("href");
     result.hidden = true;
     receipt.value = "";
     status.textContent = "";
@@ -644,9 +671,20 @@ function initStudentFeedback({panel, work, triggers}) {
   find("feedback-resume").addEventListener("click", resume);
   for (const button of openButtons) button.addEventListener("click", () => open(button));
   find("feedback-preview").addEventListener("click", () => {
+    invalidatePreview();
     receipt.value = makeStudentReceipt(events, chosenFit(), note.value);
-    status.textContent = "";
+    try {
+      const {filename, blob} = makeStudentReceiptFile(receipt.value);
+      fileUrl = URL.createObjectURL(blob);
+      download.href = fileUrl;
+      download.download = filename;
+      download.hidden = false;
+    } catch {
+      status.textContent = "当前浏览器无法生成文件。请复制反馈或截图发给老师。";
+    }
     result.hidden = false;
+    receipt.style.height = "auto";
+    receipt.style.height = (receipt.scrollHeight + receipt.offsetHeight - receipt.clientHeight) + "px";
     receipt.focus();
   });
   find("feedback-copy").addEventListener("click", async () => {
